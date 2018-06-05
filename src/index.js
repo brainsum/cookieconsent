@@ -1,22 +1,46 @@
 //import Polyglot from 'node-polyglot';
 //var polyglot = new Polyglot();
-import { el, mount } from 'redom';
+import { el, setChildren, mount } from 'redom';
 
 
 document.CookieConsent = document.CookieConsent || {};
 
 document.CookieConsent.config = {
   language: 'en',
+  categories: {
+    necessary: {
+      name: 'Strictly Necessary Cookies',
+      active: true,
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+    },
+    functional: {
+      name: 'Performance Cookies',
+      active: false,
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+    },
+    social: {
+      name: 'Social media',
+      active: false,
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+    },
+    targeting: {
+      name: 'Targeting Cookies',
+      active: false,
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+    },
+  },
   services: {
     facebook: {
       cookieName: 'fr',
       name: 'Facebook',
+      category: 'social',
       type: 'script-tag',
       search: 'fbevents.js'
     },
     twitter: {
       cookieName: 'tw',
       name: 'Twitter',
+      category: 'social',
       type: 'script-tag',
       search: 'twitter.js'
     }
@@ -86,6 +110,7 @@ document.CookieConsent.buffer = {
 
     var cookieModal = document.getElementById('cookie-modal');
 
+    // If you click Accept all cookies
     document.getElementById('consent-give').addEventListener('click', function () {
 
       consent = true;
@@ -103,8 +128,29 @@ document.CookieConsent.buffer = {
 
     });
 
+    // If you click Cookie settings
     document.getElementById('consent-edit').addEventListener('click', function () {
       cookieModal.classList.add('visible');
+    });
+
+    cookieModal.querySelector('.left').addEventListener('click', function(event){
+      if (event.target.classList.contains('tab')) {
+        if (event.target.dataset.tab) {
+          let tabContents = cookieModal.querySelectorAll('[class^=tab-content]');
+          let tabs = cookieModal.querySelectorAll('.tab');
+
+          tabs.forEach((tab) => {
+            tab.classList.remove('active');
+          });
+
+          tabContents.forEach((tabContent) => {
+            tabContent.classList.remove('visible');
+          });
+
+          event.target.classList.add('active');
+          cookieModal.querySelector(`[class=tab-content-${event.target.dataset.tab}]`).classList.add('visible');
+        }
+      }
     });
 
   });
@@ -150,14 +196,17 @@ function buildInterface(callback) {
     '#cookie-modal {display:none; width: 100vw; height: 100vh; position:absolute; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.3); z-index:999; align-items:center; justify-content:center;}',
     '#cookie-modal.visible {display:flex}',
     '#cookie-modal .content {max-width:600px; background-color:#FFF;}',
-    '#cookie-modal .heading {text-align:center;}',
+    '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0}',
+    '#cookie-modal .heading h2 {margin:0}',
     '#cookie-modal h2, #cookie-modal h3 {margin-top:0}',
     '#cookie-modal .left, #cookie-modal .right {display:inline-block;vertical-align:top}',
     '#cookie-modal .left {width:30%}',
     '#cookie-modal .right {width:70%}',
-    '#cookie-modal .tab {padding:10px}',
-    '#cookie-modal .tab-content {display:none; padding:10px 20px}',
-    '#cookie-modal .tab-content.visible {display:block}',
+    '#cookie-modal .tab {padding:10px; cursor:pointer; background-color:#EEE; border-bottom:1px solid #D8D8D8}',
+    '#cookie-modal .tab:last-child {border-bottom:none}',
+    '#cookie-modal .tab.active {background-color:#FFF;}',
+    '#cookie-modal [class^=tab-content] {display:none; padding:10px 20px}',
+    '#cookie-modal [class^=tab-content].visible {display:block}',
     );
 
     var bar =
@@ -165,17 +214,40 @@ function buildInterface(callback) {
       [el('div.link', el('a#consent-edit', 'Cookie settings')),
       el('div.button', el('button#consent-give', 'Accept all cookies'))]);
 
+    
+    // Modal tab list middleware
+    var modalTabList = function(elem) {
+      let listItems = [];
+
+      listItems.push(el('div.tab.active', 'Your Privacy', {'data-tab':'first'}));
+      for (let key in document.CookieConsent.config.categories) {
+        listItems.push(el('div.tab', document.CookieConsent.config.categories[key].name, {'data-tab': key})); 
+      }
+      listItems.push(el('div.tab', 'More Information', {'data-tab':'last'}));
+
+      setChildren(elem, listItems);
+    }
+
+    // Modal tab content middleware
+    var modalTabContentList = function(elem) {
+      let contentItems = [];
+
+      contentItems.push(el('div.tab-content-first.visible', [el('h3', 'Your Privacy'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])); 
+      for (let key in document.CookieConsent.config.categories) {
+        contentItems.push(el('div.tab-content-' + key, [el('h3', document.CookieConsent.config.categories[key].name), el('p', document.CookieConsent.config.categories[key].text)])); 
+      }
+      contentItems.push(el('div.tab-content-last', [el('h3', 'More Information'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])); 
+      
+      setChildren(elem, contentItems);
+    }
+
     var modal =
     el('div#cookie-modal',
       el('div.content',
         [el('div.heading',
           el('h2', 'Cookie settings')),
-        el('div.left',
-          [el('div.tab.active', 'Tab content', {data:'tab-first'}),
-          el('div.tab', 'Tab content', {data:'tab-last'})]),
-        el('div.right',
-          [el('div.tab-content.tab-first.visible', [el('h3', 'title'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')]),
-          el('div.tab-content.tab-last', [el('h3', 'title'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])])]));
+        el('div.left', modalTabList),
+        el('div.right', modalTabContentList)]));
 
     mount(document.body, bar);
     mount(document.body, modal);
