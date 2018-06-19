@@ -6,6 +6,7 @@ import { el, setChildren, mount } from 'redom';
 document.CookieConsent = document.CookieConsent || {};
 
 document.CookieConsent.config = {
+  cookieExists: false,
   language: 'en',
   categories: {
     necessary: {
@@ -41,12 +42,61 @@ document.CookieConsent.config = {
       type: 'script-tag',
       search: 'fbevents.js'
     },
-    twitter: {
+    gtm: {
       cookieName: 'tw',
-      name: 'Twitter',
+      name: 'Google Tag Manager',
       category: 'social',
       type: 'script-tag',
-      search: 'twitter.js'
+      search: 'gtm.js'
+    },
+    a2a: {
+      cookieName: 'tw',
+      name: 'Addtoany',
+      category: 'social',
+      type: 'script-tag',
+      search: 'addtoany'
+    },
+    visualwebopt: {
+      cookieName: 'tw',
+      name: 'Visual website optimizer',
+      category: 'social',
+      type: 'script-tag',
+      search: 'visualwebsiteoptimizer'
+    },
+    twitter: {
+      cookieName: 'tw',
+      name: 'Visual website optimizer',
+      category: 'social',
+      type: 'script-tag',
+      search: 'twitter'
+    },
+    marketo: {
+      cookieName: 'tw',
+      name: 'Visual website optimizer',
+      category: 'social',
+      type: 'script-tag',
+      search: 'marketo'
+    },
+    azalead: {
+      cookieName: 'tw',
+      name: 'Azalead',
+      category: 'social',
+      type: 'script-tag',
+      search: 'azalead'
+    },
+    bizo: {
+      cookieName: 'tw',
+      name: 'Bizo',
+      category: 'social',
+      type: 'script-tag',
+      search: 'bizographics'
+    },
+    linkedin: {
+      cookieName: 'tw',
+      name: 'Linkedin',
+      category: 'social',
+      type: 'script-tag',
+      search: 'linkedin'
     }
   }
 }
@@ -63,15 +113,15 @@ document.CookieConsent.buffer = {
 
   Element.prototype.appendChild = function(elem) {
     
-    console.log('Appending:', arguments);
-
+    
     if(arguments[0].tagName === 'SCRIPT') {
+      console.log('Appending:', arguments);
       for (let key in Cookie.config.services) {
         // Did user opt-in?
         if(Cookie.config.services[key].type === 'script-tag') {
           if(arguments[0].outerHTML.includes(Cookie.config.services[key].search)) {
             if(document.CookieConsent.config.categories[document.CookieConsent.config.services[key].category].wanted === false) {
-              Cookie.buffer.appendChild.push({'this': this, arguments: arguments});
+              Cookie.buffer.appendChild.push({'this': this, 'category': document.CookieConsent.config.services[key].category, arguments: arguments});
               return undefined;
             }
           }
@@ -84,9 +134,9 @@ document.CookieConsent.buffer = {
   
   Element.prototype.insertBefore = function(elem) {
     
-    console.log('Inserting:', arguments);
-
+    
     if(arguments[0].tagName === 'SCRIPT') {
+      console.log('Inserting:', arguments);
       for (let key in Cookie.config.services) {
         // Did user opt-in?
         if(Cookie.config.services[key].type === 'script-tag') {
@@ -104,9 +154,16 @@ document.CookieConsent.buffer = {
   }
 
 
-  buildInterface(function(){
+  buildInterface(function(bar, modal){
 
-    var cookieModal = document.getElementById('cookie-modal');
+    // Show bar
+    if ( ! document.CookieConsent.config.cookieExists) {
+      setTimeout(() => {
+        bar.classList.remove('hidden');
+      }, 3000);
+    }
+    
+    refreshModal(modal);
 
     // If you click Accept all cookies
     document.getElementById('consent-give').addEventListener('click', function () {
@@ -122,19 +179,24 @@ document.CookieConsent.buffer = {
         setCookie(cookie);
       });
 
+      bar.classList.add('hidden');
+
     });
 
     // If you click Cookie settings
-    document.getElementById('consent-edit').addEventListener('click', function () {
-      cookieModal.classList.add('visible');
+    Array.prototype.forEach.call(document.getElementsByClassName('consent-edit'), (edit) => {
+      edit.addEventListener('click', function () {
+        refreshModal(modal);
+        modal.classList.add('visible');
+      });
     });
 
     // If you click trough the tabs on Cookie settings
-    cookieModal.querySelector('.left').addEventListener('click', function(event){
+    modal.querySelector('.left').addEventListener('click', function(event){
       if (event.target.classList.contains('tab')) {
         if (event.target.dataset.tab) {
-          let tabContents = cookieModal.querySelectorAll('[class^=tab-content]');
-          let tabs = cookieModal.querySelectorAll('.tab');
+          let tabContents = modal.querySelectorAll('[class^=tab-content]');
+          let tabs = modal.querySelectorAll('.tab');
 
           tabs.forEach((tab) => {
             tab.classList.remove('active');
@@ -145,20 +207,34 @@ document.CookieConsent.buffer = {
           });
 
           event.target.classList.add('active');
-          cookieModal.querySelector(`[class=tab-content-${event.target.dataset.tab}]`).classList.add('visible');
+          modal.querySelector(`[class=tab-content-${event.target.dataset.tab}]`).classList.add('visible');
+        }
+      }
+    });
+
+    // If you switch on and off categories
+    modal.querySelector('.right').addEventListener('click', function(event){
+      if (event.target.classList.contains('category-onoff')) {
+        let status = event.target.parentNode.previousSibling;
+        if (event.target.checked === false) {
+          status.textContent = 'OFF'
+        } else if (event.target.checked === true) {
+          status.textContent = 'ON'
         }
       }
     });
 
     // If you click submit on cookie settings
-    document.getElementById('cookie-modal-submit').addEventListener('click', function(event) {
-      cookieModal.querySelectorAll('.switch input').forEach(function(elem){
+    document.getElementById('cookie-modal-submit').addEventListener('click', function() {
+
+      modal.querySelectorAll('.switch input').forEach(function(elem){
         Cookie.config.categories[elem.dataset.category].wanted = elem.checked;
       });
 
       buildCookie((cookie) => {
         setCookie(cookie, () => {
-          cookieModal.classList.remove('visible');
+          modal.classList.remove('visible');
+          bar.classList.add('hidden');
         });
       });
 
@@ -216,6 +292,7 @@ function removeCookie(cookie) {
 function cookieToConfig() {
   (document.cookie.split(';').filter((item) => {
     if (item.includes('cconsent')) {
+      document.CookieConsent.config.cookieExists = true;
       var cookieData = JSON.parse(item.split('=')[1]);
       for (let key in cookieData) {
         document.CookieConsent.config.categories[key].wanted = cookieData[key];
@@ -227,17 +304,30 @@ function cookieToConfig() {
   return false;
 }
 
+function refreshModal(modal) {
+  Array.prototype.forEach.call(modal.querySelectorAll('div[class^=tab-content]'), (tabContent) => {
+    let category = tabContent.dataset.category;
+    if(category) {
+      if (tabContent.querySelector('.switch-group')) {
+        tabContent.querySelector('.switch-group .status').textContent = (document.CookieConsent.config.categories[category].wanted === true) ? 'ON' : 'OFF'; 
+        tabContent.querySelector('.switch-group .category-onoff').checked = (document.CookieConsent.config.categories[category].wanted === true) ? true : false; 
+      }
+    }
+  });
+}
+
 function buildInterface(callback) {
 
   ready(function() {
     var style = el('style',
     '#cookie-bar, #cookie-bar * {box-sizing:border-box}', 
-    '#cookie-bar {background-color:#63B3E3; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:998;}', 
+    '#cookie-bar {background-color:#63B3E3; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
+    '#cookie-bar.hidden {transform: translateY(100%)}', 
     '#cookie-bar>div {display:inline-block}',
     '#cookie-bar a {text-decoration:underline; margin-right:20px}',
     '#cookie-bar button {border:none;padding:10px 10px;color:#63B3E3;background-color:#FFF;}',
     '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
-    '#cookie-modal {display:none; width: 100vw; height: 100vh; position:absolute; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.3); z-index:999; align-items:center; justify-content:center;}',
+    '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.3); z-index:999; align-items:center; justify-content:center;}',
     '#cookie-modal.visible {display:flex}',
     '#cookie-modal .content {max-width:600px; background-color:#FFF;}',
     '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0}',
@@ -252,6 +342,7 @@ function buildInterface(callback) {
     '#cookie-modal [class^=tab-content] {display:none; padding:10px 20px}',
     '#cookie-modal [class^=tab-content].visible {display:block}',
     '#cookie-modal [class^=tab-content] .head {position: relative}',
+    '#cookie-modal [class^=tab-content] .status {position: absolute; top: 2px; right: 50px;}',
     '#cookie-modal [class^=tab-content] .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
     '#cookie-modal [class^=tab-content] .switch input {display:none;}',
     '#cookie-modal [class^=tab-content] .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}',
@@ -264,8 +355,8 @@ function buildInterface(callback) {
     );
 
     var bar =
-    el('div#cookie-bar',
-      [el('div.link', el('a#consent-edit', 'Cookie settings')),
+    el('div#cookie-bar.hidden',
+      [el('div.link', el('a#consent-edit.consent-edit', 'Cookie settings')),
       el('div.button', el('button#consent-give', 'Accept all cookies'))]);
 
     
@@ -288,13 +379,16 @@ function buildInterface(callback) {
 
       contentItems.push(el('div.tab-content-first.visible', [el('h3', 'Your Privacy'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])); 
       for (let key in document.CookieConsent.config.categories) {
-        contentItems.push(el('div.tab-content-' + key,
+        contentItems.push(el('div.tab-content-' + key, {'data-category':key},
                             el('div.head',
                               el('h3', document.CookieConsent.config.categories[key].name),
-                              ( ! document.CookieConsent.config.categories[key].needed) && el('label.switch',
-                                  el('input', {type:'checkbox', 'data-category': key, checked:(document.CookieConsent.config.categories[key].wanted) ? true : false}), el('span.slider'))),
-                            el('div.body',
-                              [el('p', document.CookieConsent.config.categories[key].text)]))); 
+                              ( ! document.CookieConsent.config.categories[key].needed) && el('div.switch-group',
+                                el('span.status'),
+                                el('label.switch',
+                                  el('input.category-onoff', {type:'checkbox', 'data-category': key}), el('span.slider'))),
+                              ),
+                              el('div.body',
+                                [el('p', document.CookieConsent.config.categories[key].text)]))); 
       }
       contentItems.push(el('div.tab-content-last', [el('h3', 'More Information'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])); 
       
@@ -315,7 +409,7 @@ function buildInterface(callback) {
     mount(document.body, modal);
     mount(document.body, style);
 
-    callback();
+    callback(bar, modal);
   });
 
 }
