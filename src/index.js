@@ -1,5 +1,3 @@
-//import Polyglot from 'node-polyglot';
-//var polyglot = new Polyglot();
 import { el, setChildren, mount } from 'redom';
 
 
@@ -39,42 +37,42 @@ document.CookieConsent.config = {
       cookieName: 'fr',
       name: 'Facebook',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'fbevents.js'
     },
     gtm: {
       cookieName: 'tw',
       name: 'Google Tag Manager',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'gtm.js'
     },
     a2a: {
       cookieName: 'tw',
       name: 'Addtoany',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'addtoany'
     },
     visualwebopt: {
       cookieName: 'tw',
       name: 'Visual website optimizer',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'visualwebsiteoptimizer'
     },
     twitter: {
       cookieName: 'tw',
       name: 'Visual website optimizer',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'twitter'
     },
     marketo: {
       cookieName: 'tw',
       name: 'Visual website optimizer',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'marketo'
     },
     azalead: {
@@ -88,14 +86,14 @@ document.CookieConsent.config = {
       cookieName: 'tw',
       name: 'Bizo',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'bizographics'
     },
     linkedin: {
       cookieName: 'tw',
       name: 'Linkedin',
       category: 'social',
-      type: 'script-tag',
+      type: 'dynamic-script',
       search: 'linkedin'
     }
   }
@@ -106,19 +104,26 @@ document.CookieConsent.buffer = {
   insertBefore: []
 }
 
+document.CookieConsent.functions = {
+
+}
+
+// If consent cookie exists
+// were parsing its content to config
+cookieToConfig();
+
+// Overriding the appendChild and insertBefore methods
+// To filter any scripts inserted at page load
+// Were also buffering the blocked scripts so we can re-add later 
 ;(function (Cookie) {
   
-  // If consent cookie exists
-  cookieToConfig();
-
   Element.prototype.appendChild = function(elem) {
-    
     
     if(arguments[0].tagName === 'SCRIPT') {
       console.log('Appending:', arguments);
       for (let key in Cookie.config.services) {
         // Did user opt-in?
-        if(Cookie.config.services[key].type === 'script-tag') {
+        if(Cookie.config.services[key].type === 'dynamic-script') {
           if(arguments[0].outerHTML.includes(Cookie.config.services[key].search)) {
             if(document.CookieConsent.config.categories[document.CookieConsent.config.services[key].category].wanted === false) {
               Cookie.buffer.appendChild.push({'this': this, 'category': document.CookieConsent.config.services[key].category, arguments: arguments});
@@ -139,7 +144,7 @@ document.CookieConsent.buffer = {
       console.log('Inserting:', arguments);
       for (let key in Cookie.config.services) {
         // Did user opt-in?
-        if(Cookie.config.services[key].type === 'script-tag') {
+        if(Cookie.config.services[key].type === 'dynamic-script') {
           if(arguments[0].outerHTML.includes(Cookie.config.services[key].search)) {
             if(document.CookieConsent.config.categories[document.CookieConsent.config.services[key].category].wanted === false) {
               Cookie.buffer.insertBefore.push({'this': this, 'category': document.CookieConsent.config.services[key].category, arguments: arguments});
@@ -152,9 +157,13 @@ document.CookieConsent.buffer = {
 
     return Node.prototype.insertBefore.apply(this, arguments);
   }
+})(document.CookieConsent);
 
 
-  buildInterface(function(bar, modal){
+// Were building the interface and binding the events
+;(function (Cookie) {
+
+  buildInterface(function(bar, modal) {
 
     // Show bar
     if ( ! document.CookieConsent.config.cookieExists) {
@@ -242,9 +251,43 @@ document.CookieConsent.buffer = {
 
     });
   });
+
 })(document.CookieConsent);
 
 
+;(function (Cookie) {
+
+  ready(function(){
+
+    // Creating a list of services based on
+    // script-tag block for quick access
+    var blockableTagList = [];
+    for(var service in Cookie.config.services) {
+      if (Cookie.config.services[service].type === 'script-tag') blockableTagList.push(Cookie.config.services[service].search);
+    }
+
+    var scriptTags = document.querySelectorAll('script[type="text/plain"]');
+
+    scriptTags.forEach(function(scriptTag) {
+      var newtag = scriptTag.cloneNode();
+      newtag.type = 'application/javascript';
+      if ( ! blockableTagList.includes(scriptTag.dataset.consent)) {
+        var parentNode = scriptTag.parentNode;
+        parentNode.insertBefore(newtag,scriptTag);
+        parentNode.removeChild(scriptTag);
+      }
+    });
+
+  });
+
+})(document.CookieConsent);
+
+// Wrapper function
+;(function (Cookie) {
+
+
+
+})(document.CookieConsent);
 
 function ready(fn) {
   if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
