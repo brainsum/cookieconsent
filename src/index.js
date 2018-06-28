@@ -1,3 +1,4 @@
+//import "babel-polyfill"
 import { el, setChildren, mount } from 'redom';
 
 
@@ -131,7 +132,7 @@ cookieToConfig();
       for (let key in Cookie.config.services) {
         // Did user opt-in?
         if(Cookie.config.services[key].type === 'dynamic-script') {
-          if(arguments[0].outerHTML.includes(Cookie.config.services[key].search)) {
+          if(arguments[0].outerHTML.indexOf(Cookie.config.services[key].search) >= 0) {
             if(window.CookieConsent.config.categories[window.CookieConsent.config.services[key].category].wanted === false) {
               Cookie.buffer.appendChild.push({'this': this, 'category': window.CookieConsent.config.services[key].category, arguments: arguments});
               return undefined;
@@ -152,7 +153,7 @@ cookieToConfig();
       for (let key in Cookie.config.services) {
         // Did user opt-in?
         if(Cookie.config.services[key].type === 'dynamic-script') {
-          if(arguments[0].outerHTML.includes(Cookie.config.services[key].search)) {
+          if(arguments[0].outerHTML.indexOf(Cookie.config.services[key].search) >= 0) {
             if(window.CookieConsent.config.categories[window.CookieConsent.config.services[key].category].wanted === false) {
               Cookie.buffer.insertBefore.push({'this': this, 'category': window.CookieConsent.config.services[key].category, arguments: arguments});
               return undefined;
@@ -287,16 +288,15 @@ cookieToConfig();
     
     var scriptTags = document.querySelectorAll('script[type="text/plain"]');
 
-    scriptTags.forEach(function(scriptTag) {
+    for (var scriptTag of scriptTags) {
       var newtag = scriptTag.cloneNode();
       newtag.type = 'application/javascript';
-      if ( ! scriptTagServiceNames.includes(scriptTag.dataset.consent)) {
+      if ( ! scriptTagServiceNames.indexOf(scriptTag.dataset.consent) >= 0) {
         var parentNode = scriptTag.parentNode;
         parentNode.insertBefore(newtag,scriptTag);
         parentNode.removeChild(scriptTag);
       }
-    });
-
+    }
   });
 
 })(window.CookieConsent);
@@ -324,7 +324,7 @@ cookieToConfig();
   }
 
   function wrapper(name='', callback) {
-    if ( ! wrapperServiceNames.includes(name)) {
+    if ( ! wrapperServiceNames.indexOf(name >= 0)) {
       callback();
     }
   }
@@ -379,7 +379,7 @@ function removeCookie(cookie) {
 
 function cookieToConfig() {
   (document.cookie.split(';').filter((item) => {
-    if (item.includes('cconsent')) {
+    if (item.indexOf('cconsent')  >= 0) {
       window.CookieConsent.config.cookieExists = true;
       var cookieData = JSON.parse(item.split('=')[1]);
       for (let key in cookieData) {
