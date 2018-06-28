@@ -333,6 +333,25 @@ cookieToConfig();
 
 })(window.CookieConsent);
 
+// Blocking local cookies
+;(function (Cookie) {
+
+  var cookieDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie');
+
+  Object.defineProperty(document, "cookie", {
+    get: function () {
+      console.log('getting')
+      return cookieDescriptor.get.call(this);
+    },
+    set: function (cookie) {
+      cookieDescriptor.set.call(this, cookie);
+    }
+  });
+
+  console.log(cookieDescriptor)
+
+})(window.CookieConsent);
+
 
 function ready(fn) {
   if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
