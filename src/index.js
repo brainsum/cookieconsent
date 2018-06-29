@@ -336,7 +336,8 @@ cookieToConfig();
 // Blocking local cookies
 ;(function (Cookie) {
 
-  var cookieDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie');
+  var cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') ||
+                         Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
 
   Object.defineProperty(document, "cookie", {
     get: function () {
