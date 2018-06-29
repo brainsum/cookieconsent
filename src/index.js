@@ -339,6 +339,12 @@ cookieToConfig();
   var cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') ||
                          Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
 
+  if (! cookieDescriptor) {
+    cookieDescriptor = {};
+    cookieDescriptor.get = document.__lookupGetter__("cookie");
+    cookieDescriptor.set = document.__lookupSetter__("cookie");
+  }
+
   Object.defineProperty(document, "cookie", {
     get: function () {
       console.log('Getting local cookie');
