@@ -285,13 +285,12 @@ cookieToConfig();
     for(var scriptTagService in scriptTagServices) {
       scriptTagServiceNames.push(scriptTagService);
     }
-    
     var scriptTags = document.querySelectorAll('script[type="text/plain"]');
-
+    
     for (var scriptTag of scriptTags) {
       var newtag = scriptTag.cloneNode();
       newtag.type = 'application/javascript';
-      if ( ! scriptTagServiceNames.indexOf(scriptTag.dataset.consent) >= 0) {
+      if (scriptTagServiceNames.indexOf(scriptTag.dataset.consent) < 0) {
         var parentNode = scriptTag.parentNode;
         parentNode.insertBefore(newtag,scriptTag);
         parentNode.removeChild(scriptTag);
@@ -324,7 +323,7 @@ cookieToConfig();
   }
 
   function wrapper(name='', callback) {
-    if ( ! wrapperServiceNames.indexOf(name >= 0)) {
+    if (wrapperServiceNames.indexOf(name) < 0) {
       callback();
     }
   }
@@ -333,6 +332,7 @@ cookieToConfig();
 
 })(window.CookieConsent);
 
+
 // Blocking local cookies
 ;(function (Cookie) {
 
@@ -340,15 +340,14 @@ cookieToConfig();
 
   Object.defineProperty(document, "cookie", {
     get: function () {
-      console.log('getting')
-      return cookieDescriptor.get.call(this);
+      console.log('Getting local cookie');
+      return cookieDescriptor.get.apply(document);
     },
-    set: function (cookie) {
-      cookieDescriptor.set.call(this, cookie);
+    set: function () {
+      console.log('Setting local cookie');
+      return cookieDescriptor.set.apply(document, arguments);
     }
   });
-
-  console.log(cookieDescriptor)
 
 })(window.CookieConsent);
 
