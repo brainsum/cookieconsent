@@ -103,6 +103,13 @@ window.CookieConsent.config = {
       category: 'social',
       type: 'wrapped',
       search: 'linkedin'
+    },
+    localCookie: {
+      cookieName: 'localsetcookie',
+      name: 'Local Test Cookie',
+      category: 'social',
+      type: 'localcookie',
+      search: ['localcookie']
     }
   }
 }
@@ -336,6 +343,8 @@ cookieToConfig();
 // Blocking local cookies
 ;(function (Cookie) {
 
+  // TODO - implement buffer
+
   var cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') ||
                          Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
 
@@ -345,14 +354,40 @@ cookieToConfig();
     cookieDescriptor.set = document.__lookupSetter__("cookie");
   }
 
+  // Populating a blacklist of services to block
+  var cookieServices = {};
+  for(var service in Cookie.config.services) {
+    if (Cookie.config.services[service].type === 'localcookie') {
+      if(Cookie.config.categories[Cookie.config.services[service].category].needed === false) {
+        if (Cookie.config.categories[Cookie.config.services[service].category].wanted === false) {
+          cookieServices[service] = Cookie.config.services[service];
+        }
+      }
+    }
+  }
+
+  // Creating a blacklist of blocked names for quick access
+  var cookieServiceNames = [];
+  for(var cookieService in cookieServices) {
+    var type = objectType(cookieServices[cookieService].search);
+    if (type === 'String') {
+      cookieServiceNames.push(cookieServices[cookieService].search);
+    } else if(type === 'Array') {
+      for (let i = 0; i < cookieServices[cookieService].search.length; i++) {
+        cookieServiceNames.push(cookieServices[cookieService].search[i]);
+      }
+    }
+  }
+
+  console.log(cookieServiceNames)
+
   Object.defineProperty(document, "cookie", {
     get: function () {
-      console.log('Getting local cookie');
       return cookieDescriptor.get.apply(document);
     },
     set: function () {
-      console.log('Setting local cookie');
-      return cookieDescriptor.set.apply(document, arguments);
+      var cookieName = arguments[0].split('=')[0];
+      if (cookieServiceNames.indexOf(cookieName) < 0) return cookieDescriptor.set.apply(document, arguments);
     }
   });
 
@@ -365,6 +400,10 @@ function ready(fn) {
   } else {
     document.addEventListener('DOMContentLoaded', fn);
   }
+}
+
+function objectType(obj){
+  return Object.prototype.toString.call(obj).slice(8, -1);
 }
 
 function writeBufferToDOM() {
