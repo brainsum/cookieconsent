@@ -2,7 +2,7 @@
 
 A lightweight Javascritp plugin that displays a cookie consent message as required by EU regulation. The plugin displays a message on the user's first visit and they have the ability to consent to different categories of cookies and services.
 
-## Features
+## Features and configuration
 
 Currently it can block 4 type of cookie monsters.
 
@@ -133,7 +133,7 @@ To build a production ready version of the script:
 Then include the plugin into your page as the **first script** in the head tag.
 
 
-### Config
+### Configuration object
 
 The plugin is being controlled mainly by a configuration object in src/index.js file. It acts as configuration and a state object.
 
