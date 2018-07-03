@@ -1,8 +1,6 @@
 //import "babel-polyfill"
 import { el, setChildren, mount } from 'redom';
 
-console.log()
-
 window.CookieConsent.buffer = {
   appendChild: [],
   insertBefore: []
@@ -362,12 +360,12 @@ function buildInterface(callback) {
     '#cookie-bar {background-color:#63B3E3; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
     '#cookie-bar.hidden {transform: translateY(100%)}', 
     '#cookie-bar>div {display:inline-block}',
-    '#cookie-bar a {text-decoration:underline; margin-right:20px}',
+    '#cookie-bar a {text-decoration:underline; margin-right:20px; color:#FFF}',
     '#cookie-bar button {border:none;padding:10px 10px;color:#63B3E3;background-color:#FFF;}',
     '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
     '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.3); z-index:999; align-items:center; justify-content:center;}',
     '#cookie-modal.visible {display:flex}',
-    '#cookie-modal .content {max-width:600px; background-color:#FFF;}',
+    '#cookie-modal .content {width:500px; background-color:#FFF;}',
     '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0}',
     '#cookie-modal .heading h2 {margin:0}',
     '#cookie-modal h2, #cookie-modal h3 {margin-top:0}',
@@ -380,14 +378,16 @@ function buildInterface(callback) {
     '#cookie-modal [class^=tab-content] {display:none; padding:10px 20px}',
     '#cookie-modal [class^=tab-content].visible {display:block}',
     '#cookie-modal [class^=tab-content] .head {position: relative}',
-    '#cookie-modal [class^=tab-content] .status {position: absolute; top: 2px; right: 50px;}',
+    '#cookie-modal [class^=tab-content] .head h3 {padding-right: 75px}',
+    '#cookie-modal [class^=tab-content] .status {position: absolute; top: 2px; right: 45px;}',
     '#cookie-modal [class^=tab-content] .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
     '#cookie-modal [class^=tab-content] .switch input {display:none;}',
-    '#cookie-modal [class^=tab-content] .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; -webkit-transition: .4s; transition: .4s;}',
-    '#cookie-modal [class^=tab-content] .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s;}',
+    '#cookie-modal [class^=tab-content] .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
+    '#cookie-modal [class^=tab-content] .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
     '#cookie-modal [class^=tab-content] .switch input:checked + .slider  {background-color: #2196F3;}',
     '#cookie-modal [class^=tab-content] .switch input:focus + .slider  {box-shadow: 0 0 1px #2196F3;}',
     '#cookie-modal [class^=tab-content] .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
+    '#cookie-modal [class^=tab-content] .list ul {padding: 0 0 0 16px}',
     '#cookie-modal .footer {border-top:1px solid #D8D8D8; padding:10px; text-align:right;}',
     '#cookie-modal .footer button {border:none; background-color:#63B3E3; color:#FFF; padding:10px; cursor:pointer}',
     );
@@ -397,6 +397,32 @@ function buildInterface(callback) {
       [el('div.link', el('a#consent-edit.consent-edit', 'Cookie settings')),
       el('div.button', el('button#consent-give', 'Accept all cookies'))]);
 
+    // Cookie names list middleware
+    var listCookies = function(category) {
+      var list = [];
+
+      for(let service in window.CookieConsent.config.services) {
+        (window.CookieConsent.config.services[service].category === category) && list.push(window.CookieConsent.config.services[service]);
+      }
+      
+      if(list.length) {
+        
+        var listItems = [];
+        
+        for(let item in list) {
+          var type = objectType(list[item].cookieName);
+
+          if(type === 'String') {
+            listItems.push(el('li', list[item].cookieName));
+          } else if (type === 'Array') {
+            for(let name in list[item].cookieName) {
+              listItems.push(el('li', list[item].cookieName[name]));
+            }
+          }
+        }
+        return [el('ul', listItems)];
+      }
+    }
     
     // Modal tab list middleware
     var modalTabList = function(elem) {
@@ -408,6 +434,7 @@ function buildInterface(callback) {
       }
       listItems.push(el('div.tab', 'More Information', {'data-tab':'last'}));
 
+      // TODO return array
       setChildren(elem, listItems);
     }
 
@@ -426,10 +453,13 @@ function buildInterface(callback) {
                                   el('input.category-onoff', {type:'checkbox', 'data-category': key}), el('span.slider'))),
                               ),
                               el('div.body',
-                                [el('p', window.CookieConsent.config.categories[key].text)]))); 
+                                [el('p', window.CookieConsent.config.categories[key].text)]),
+                              el('div.list',
+                                listCookies(key)))); 
       }
       contentItems.push(el('div.tab-content-last', [el('h3', 'More Information'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')])); 
       
+      // TODO return array
       setChildren(elem, contentItems);
     }
 
