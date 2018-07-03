@@ -1,127 +1,14 @@
 //import "babel-polyfill"
 import { el, setChildren, mount } from 'redom';
 
-
-window.CookieConsent = window.CookieConsent || {};
-
-window.CookieConsent.config = {
-  cookieExists: false,
-  language: 'en',
-  categories: {
-    necessary: {
-      name: 'Strictly Necessary Cookies',
-      needed: true,
-      wanted: true,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
-    },
-    performance: {
-      name: 'Performance Cookies',
-      needed: false,
-      wanted: false,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
-    },
-    social: {
-      name: 'Social media',
-      needed: false,
-      wanted: false,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
-    },
-    targeting: {
-      name: 'Targeting Cookies',
-      needed: false,
-      wanted: false,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
-    },
-  },
-  services: {
-    facebook: {
-      cookieName: 'fr',
-      name: 'Facebook',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'fbevents.js'
-    },
-    gtm: {
-      cookieName: 'tw',
-      name: 'Google Tag Manager',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'gtm.js'
-    },
-    a2a: {
-      cookieName: 'tw',
-      name: 'Addtoany',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'addtoany'
-    },
-    visualwebopt: {
-      cookieName: 'tw',
-      name: 'Visual website optimizer',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'visualwebsiteoptimizer'
-    },
-    twitter: {
-      cookieName: 'tw',
-      name: 'Visual website optimizer',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'twitter'
-    },
-    marketo: {
-      cookieName: 'tw',
-      name: 'Visual website optimizer',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'marketo'
-    },
-    azalead: {
-      cookieName: 'tw',
-      name: 'Azalead',
-      category: 'social',
-      type: 'script-tag',
-      search: 'azalead'
-    },
-    bizo: {
-      cookieName: 'tw',
-      name: 'Bizo',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'bizographics'
-    },
-    linkedin: {
-      cookieName: 'tw',
-      name: 'Linkedin',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'linkedin'
-    },
-    wrapped: {
-      cookieName: 'tw',
-      name: 'Linkedin',
-      category: 'social',
-      type: 'wrapped',
-      search: 'linkedin'
-    },
-    localCookie: {
-      cookieName: 'localsetcookie',
-      name: 'Local Test Cookie',
-      category: 'social',
-      type: 'localcookie',
-      search: ['localcookie']
-    }
-  }
-}
+console.log()
 
 window.CookieConsent.buffer = {
   appendChild: [],
   insertBefore: []
 }
 
-window.CookieConsent.functions = {
-
-}
+window.CookieConsent.functions = {}
 
 // If consent cookie exists
 // were parsing its content to config
@@ -382,6 +269,7 @@ cookieToConfig();
   console.log(cookieServiceNames)
 
   Object.defineProperty(document, "cookie", {
+    configurable: true,
     get: function () {
       return cookieDescriptor.get.apply(document);
     },
@@ -529,7 +417,7 @@ function buildInterface(callback) {
     var modalTabContentList = function(elem) {
       let contentItems = [];
 
-      contentItems.push(el('div.tab-content-first.visible', [el('h3', 'Your Privacy'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])); 
+      contentItems.push(el('div.tab-content-first.visible', [el('h3', 'Your Privacy'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')])); 
       for (let key in window.CookieConsent.config.categories) {
         contentItems.push(el('div.tab-content-' + key, {'data-category':key},
                             el('div.head',
@@ -542,7 +430,7 @@ function buildInterface(callback) {
                               el('div.body',
                                 [el('p', window.CookieConsent.config.categories[key].text)]))); 
       }
-      contentItems.push(el('div.tab-content-last', [el('h3', 'More Information'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper. Nam eros sem, varius et vehicula sagittis, vulputate sed augue. Quisque id sem bibendum, convallis odio ac, egestas tellus. Duis rhoncus rutrum metus et maximus.')])); 
+      contentItems.push(el('div.tab-content-last', [el('h3', 'More Information'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')])); 
       
       setChildren(elem, contentItems);
     }

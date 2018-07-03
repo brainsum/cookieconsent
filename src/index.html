@@ -6,6 +6,44 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cookie consent</title>
   
+  <script>
+  window.CookieConsent = window.CookieConsent || {};
+
+  window.CookieConsent.config = {
+    cookieExists: false,
+    language: 'en',
+    categories: {
+      necessary: {
+        name: 'Strictly Necessary Cookies',
+        needed: true,
+        wanted: true,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+      },
+      various: {
+        name: 'Various Cookies',
+        needed: false,
+        wanted: false,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+      }
+    },
+    services: {
+      facebook: {
+        cookieName: 'fb',
+        name: 'Facebook',
+        category: 'various',
+        type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
+        search: 'facebook'
+      },
+      azalead: {
+        cookieName: '__aza_perm',
+        name: 'Azalead',
+        category: 'various',
+        type: 'script-tag', // dynamic-script, script-tag, wrapped, localcookie
+        search: 'azalead'
+      }
+    }
+  }
+  </script>
   <script src="./index.js"></script>
 </head>
 <body>
