@@ -266,8 +266,6 @@ cookieToConfig();
     }
   }
 
-  console.log(cookieServiceNames)
-
   Object.defineProperty(document, "cookie", {
     configurable: true,
     get: function () {
