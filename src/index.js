@@ -416,13 +416,13 @@ function buildInterface(callback) {
         var listItems = [];
         
         for(let item in list) {
-          var type = objectType(list[item].cookieName);
+          var type = objectType(list[item].name);
 
           if(type === 'String') {
-            listItems.push(el('li', list[item].cookieName));
+            listItems.push(el('li', list[item].name));
           } else if (type === 'Array') {
-            for(let name in list[item].cookieName) {
-              listItems.push(el('li', list[item].cookieName[name]));
+            for(let name in list[item].name) {
+              listItems.push(el('li', list[item].name[name]));
             }
           }
         }
