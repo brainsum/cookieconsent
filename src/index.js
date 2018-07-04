@@ -1,4 +1,3 @@
-//import "babel-polyfill"
 import { el, setChildren, mount } from 'redom';
 
 window.CookieConsent.buffer = {
@@ -119,6 +118,11 @@ cookieToConfig();
           modal.querySelector(`[class=tab-content-${event.target.dataset.tab}]`).classList.add('visible');
         }
       }
+    });
+
+    // If you click trough the tabs on Cookie settings
+    modal.querySelector('.close').addEventListener('click', function(event){
+      modal.classList.remove('visible');
     });
 
     // If you switch on and off categories
@@ -363,33 +367,35 @@ function buildInterface(callback) {
     '#cookie-bar a {text-decoration:underline; margin-right:20px; color:#FFF}',
     '#cookie-bar button {border:none;padding:10px 10px;color:#63B3E3;background-color:#FFF;}',
     '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
-    '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;}',
+    '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
     '#cookie-modal.visible {display:flex}',
     '#cookie-modal .content {width:500px; background-color:#FFF;}',
-    '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0}',
+    '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0; position:relative;}',
     '#cookie-modal .heading h2 {margin:0}',
+    '#cookie-modal .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 50%; transform: translateY(-50%)}',
     '#cookie-modal h2, #cookie-modal h3 {margin-top:0}',
-    '#cookie-modal .left, #cookie-modal .right {display:inline-block;vertical-align:top}',
-    '#cookie-modal .left {width:30%}',
-    '#cookie-modal .right {width:70%}',
-    '#cookie-modal .tab {padding:10px; cursor:pointer; background-color:#EEE; border-bottom:1px solid #D8D8D8}',
-    '#cookie-modal .tab:last-child {border-bottom:none}',
-    '#cookie-modal .tab.active {background-color:#FFF;}',
-    '#cookie-modal [class^=tab-content] {display:none; padding:10px 20px}',
+    '#cookie-modal .content > .body {display:flex;}',
+    '#cookie-modal .content > .body > .left {width:30%; background-color: #EEE;}',
+    '#cookie-modal .content > .body > .right {width:70%; min-height: 200px;}',
+    '#cookie-modal .content > .body > .left .tab {padding:10px; cursor:pointer; background-color:#EEE; border-bottom:1px solid #D8D8D8}',
+    '#cookie-modal .content > .body > .left .tab.active {background-color:#FFF;}',
+    '#cookie-modal [class^=tab-content] {display:none; padding:15px 20px}',
     '#cookie-modal [class^=tab-content].visible {display:block}',
-    '#cookie-modal [class^=tab-content] .head {position: relative}',
-    '#cookie-modal [class^=tab-content] .head h3 {padding-right: 75px}',
-    '#cookie-modal [class^=tab-content] .status {position: absolute; top: 2px; right: 45px;}',
-    '#cookie-modal [class^=tab-content] .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
-    '#cookie-modal [class^=tab-content] .switch input {display:none;}',
-    '#cookie-modal [class^=tab-content] .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
-    '#cookie-modal [class^=tab-content] .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
-    '#cookie-modal [class^=tab-content] .switch input:checked + .slider  {background-color: #2196F3;}',
-    '#cookie-modal [class^=tab-content] .switch input:focus + .slider  {box-shadow: 0 0 1px #2196F3;}',
-    '#cookie-modal [class^=tab-content] .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
+    '#cookie-modal [class^=tab-content] > .head {position: relative}',
+    '#cookie-modal [class^=tab-content] > .head h3 {padding-right: 75px}',
+    '#cookie-modal [class^=tab-content] > .head .status {position: absolute; top: 2px; right: 45px;}',
+    '#cookie-modal [class^=tab-content] > .head .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
+    '#cookie-modal [class^=tab-content] > .head .switch input {display:none;}',
+    '#cookie-modal [class^=tab-content] > .head .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
+    '#cookie-modal [class^=tab-content] > .head .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
+    '#cookie-modal [class^=tab-content] > .head .switch input:checked + .slider  {background-color: #2196F3;}',
+    '#cookie-modal [class^=tab-content] > .head .switch input:focus + .slider  {box-shadow: 0 0 1px #2196F3;}',
+    '#cookie-modal [class^=tab-content] > .head .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
     '#cookie-modal [class^=tab-content] .list ul {padding: 0 0 0 16px}',
-    '#cookie-modal .footer {border-top:1px solid #D8D8D8; padding:10px; text-align:right;}',
-    '#cookie-modal .footer button {border:none; background-color:#63B3E3; color:#FFF; padding:10px; cursor:pointer}',
+    '#cookie-modal [class^=tab-content] > .body {color: #888}',
+    '#cookie-modal .footer {border-top:1px solid #D8D8D8; padding:10px; display:flex; justify-content:space-between;}',
+    '#cookie-modal .footer .left a {line-height:3.3em; font-size:0.7em; color:#000;}',
+    '#cookie-modal .footer .right button {border:none; background-color:#63B3E3; color:#FFF; padding:10px; cursor:pointer}',
     );
 
     var bar =
@@ -428,10 +434,17 @@ function buildInterface(callback) {
     var modalTabList = function(elem) {
       let listItems = [];
 
-      listItems.push(el('div.tab.active', 'Your Privacy', {'data-tab':'first'}));
-      for (let key in window.CookieConsent.config.categories) {
-        listItems.push(el('div.tab', window.CookieConsent.config.categories[key].name, {'data-tab': key})); 
+      function firstIsActive(i) {
+        return (i === 0) ? ' active' : '';
       }
+
+      let i = 0;
+      for (let key in window.CookieConsent.config.categories) {
+        listItems.push(el('div.tab' + firstIsActive(i), window.CookieConsent.config.categories[key].name, {'data-tab': key}));
+        i++;
+      }
+
+      // Adding last static informational tab
       listItems.push(el('div.tab', 'More Information', {'data-tab':'last'}));
 
       // TODO return array
@@ -442,9 +455,13 @@ function buildInterface(callback) {
     var modalTabContentList = function(elem) {
       let contentItems = [];
 
-      contentItems.push(el('div.tab-content-first.visible', [el('h3', 'Your Privacy'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')])); 
+      function firstIsVisible(i) {
+        return (i === 0) ? ' visible' : '';
+      }
+
+      let i = 0;
       for (let key in window.CookieConsent.config.categories) {
-        contentItems.push(el('div.tab-content-' + key, {'data-category':key},
+        contentItems.push(el('div.tab-content-' + key + firstIsVisible(i), {'data-category':key},
                             el('div.head',
                               el('h3', window.CookieConsent.config.categories[key].name),
                               ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-group',
@@ -456,8 +473,18 @@ function buildInterface(callback) {
                                 [el('p', window.CookieConsent.config.categories[key].text)]),
                               el('div.list',
                                 listCookies(key)))); 
+        i++;
       }
-      contentItems.push(el('div.tab-content-last', [el('h3', 'More Information'), el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')])); 
+
+      // Adding last static informational content
+      contentItems.push(el('div.tab-content-last',
+                          el('div.head',
+                            el('h3', 'More Information')
+                          ),
+                          el('div.body',
+                            el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')
+                          )
+                        )); 
       
       // TODO return array
       setChildren(elem, contentItems);
@@ -467,11 +494,18 @@ function buildInterface(callback) {
     el('div#cookie-modal',
       el('div.content',
         el('div.heading',
-          el('h2', 'Cookie settings')),
-        el('div.left', modalTabList),
-        el('div.right', modalTabContentList),
+          el('h2', 'Cookie settings'),
+          el('div.close', '×')
+        ),
+        el('div.body',
+          el('div.left', modalTabList),
+          el('div.right', modalTabContentList)
+        ),
         el('div.footer',
-          el('button#cookie-modal-submit', 'Submit', ))));
+          el('div.left', 
+            el('a', 'Cookieconsent', {href:'https://github.com/brainsum/cookieconsent', target: '_blank', rel:'noopener noreferrer'})),
+          el('div.right',
+            el('button#cookie-modal-submit', 'Save settings')))));
 
     mount(document.body, bar);
     mount(document.body, modal);
