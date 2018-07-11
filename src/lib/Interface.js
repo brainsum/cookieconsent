@@ -4,10 +4,6 @@ import Utilities from "./Utilities";
 export default class Interface {
 
   constructor() {
-    this.state = {
-
-    }
-
     this.elements = {}
   }
 
@@ -122,9 +118,9 @@ export default class Interface {
                             el('div.head',
                               el('h3', window.CookieConsent.config.categories[key].name),
                               ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-group',
-                                el('span.status'),
+                                el('span.status', (window.CookieConsent.config.categories[key].wanted === false) ? 'OFF' : 'ON' ),
                                 el('label.switch',
-                                  el('input.category-onoff', {type:'checkbox', 'data-category': key}), el('span.slider'))),
+                                  el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].wanted}), el('span.slider'))),
                               ),
                               el('div.body',
                                 [el('p', window.CookieConsent.config.categories[key].text)]),
@@ -227,10 +223,9 @@ export default class Interface {
 
     });
 
-    // If you click Cookie settings
+    // If you click Cookie settings and open modal
     Array.prototype.forEach.call(document.getElementsByClassName('consent-edit'), (edit) => {
       edit.addEventListener('click', () => {
-        //refreshModal(modal);
         this.elements['modal'].classList.add('visible');
       });
     });
@@ -264,13 +259,17 @@ export default class Interface {
     // If you switch on and off categories
     this.elements['modal'].querySelector('.right').addEventListener('click', (event) => {
       if (event.target.classList.contains('category-onoff')) {
+        console.log('sw')
         let status = event.target.parentNode.previousSibling;
         if (event.target.checked === false) {
+          window.CookieConsent.config.categories[event.target.dataset.category].wanted = false;
           status.textContent = 'OFF'
         } else if (event.target.checked === true) {
           status.textContent = 'ON'
+          window.CookieConsent.config.categories[event.target.dataset.category].wanted = true;
         }
       }
+      console.log(window.CookieConsent.config.categories)
     });
 
     // If you click submit on cookie settings
@@ -283,7 +282,7 @@ export default class Interface {
       this.buildCookie((cookie) => {
         this.setCookie(cookie, () => {
           this.elements['modal'].classList.remove('visible');
-          bar.classList.add('hidden');
+          this.elements['bar'].classList.add('hidden');
         });
       });
 
@@ -325,18 +324,6 @@ export default class Interface {
   
   removeCookie(cookie) {
     document.cookie = `cconsent=; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;`;
-  }
-  
-  refreshModal(modal) {
-    Array.prototype.forEach.call(modal.querySelectorAll('div[class^=tab-content]'), (tabContent) => {
-      let category = tabContent.dataset.category;
-      if(category) {
-        if (tabContent.querySelector('.switch-group')) {
-          tabContent.querySelector('.switch-group .status').textContent = (window.CookieConsent.config.categories[category].wanted === true) ? 'ON' : 'OFF'; 
-          tabContent.querySelector('.switch-group .category-onoff').checked = (window.CookieConsent.config.categories[category].wanted === true) ? true : false; 
-        }
-      }
-    });
   }
 
 }
