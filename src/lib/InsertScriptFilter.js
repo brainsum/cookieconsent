@@ -15,7 +15,7 @@ export default class InsertScriptFilter extends Filter {
 
     Element.prototype.appendChild = function(elem) {
       if(arguments[0].tagName === 'SCRIPT') {
-        console.log('Appending:', arguments);
+        //console.log('Appending:', arguments);
         for (let key in window.CookieConsent.config.services) {
           // Did user opt-in?
           if(window.CookieConsent.config.services[key].type === 'dynamic-script') {
@@ -39,7 +39,7 @@ export default class InsertScriptFilter extends Filter {
     Element.prototype.insertBefore = function(elem) {
     
       if(arguments[0].tagName === 'SCRIPT') {
-        console.log('Inserting:', arguments);
+        //console.log('Inserting:', arguments);
         for (let key in window.CookieConsent.config.services) {
           // Did user opt-in?
           if(window.CookieConsent.config.services[key].type === 'dynamic-script') {
