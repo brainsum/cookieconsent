@@ -13,8 +13,10 @@ export default class Interface {
       '#cookie-bar, #cookie-bar * {box-sizing:border-box}', 
       '#cookie-bar {background-color:#63B3E3; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
       '#cookie-bar.hidden {transform: translateY(100%)}', 
-      '#cookie-bar>div {display:inline-block}',
-      '#cookie-bar a {text-decoration:underline; margin-right:20px; color:#FFF}',
+      '#cookie-bar .wrapper {display:flex; justify-content:space-between; max-width:1800px; margin:0 auto;}',
+      '#cookie-bar .left {align-self:center;}',
+      '#cookie-bar .right > div {display:inline-block; margin-left: 20px; color:#FFF;}',
+      '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#63B3E3;background-color:#FFF;}',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
@@ -51,8 +53,20 @@ export default class Interface {
 
   buildBar() {
     return el('div#cookie-bar.hidden',
-        el('div.link', el('a#consent-edit.consent-edit', 'Cookie settings')),
-        el('div.button', el('button#consent-give', 'Accept all cookies')));
+        el('div.wrapper',
+          el('div.left',
+            el('div.text', 'This website uses cookies to ensure you get the best experience on our website.')
+          ),
+          el('div.right',
+            el('div.link',
+              el('a#consent-edit.consent-edit', 'Cookie settings')
+            ),
+            el('div.button',
+              el('button#consent-give', 'Accept all cookies')
+            )
+          )
+        ),
+      );
   }
 
   buildModal() {
