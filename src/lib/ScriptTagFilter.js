@@ -17,9 +17,9 @@ export default class ScriptTagFilter extends Filter {
       var scriptTags = document.querySelectorAll('script[type="text/plain"]');
       
       for (var scriptTag of scriptTags) {
-        var newtag = scriptTag.cloneNode();
-        newtag.type = 'application/javascript';
         if (blacklist.indexOf(scriptTag.dataset.consent) < 0) {
+          var newtag = scriptTag.cloneNode();
+          newtag.type = 'application/javascript';
           var parentNode = scriptTag.parentNode;
           parentNode.insertBefore(newtag,scriptTag);
           parentNode.removeChild(scriptTag);
