@@ -11,13 +11,13 @@ export default class Interface {
   buildStyle() {
     return el('style',
       '#cookie-bar, #cookie-bar * {box-sizing:border-box}', 
-      '#cookie-bar {background-color:#63B3E3; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
-      '#cookie-bar.hidden {transform: translateY(100%)}', 
+      '#cookie-bar {background-color:#2C7CBF; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
+      '#cookie-bar.hidden {transform: translateY(100%); display:block;}', 
       '#cookie-bar .wrapper {display:flex; justify-content:space-between; max-width:1800px; margin:0 auto;}',
       '#cookie-bar .left {align-self:center;}',
       '#cookie-bar .right > div {display:inline-block; margin-left: 20px; color:#FFF;}',
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
-      '#cookie-bar button {border:none;padding:10px 10px;color:#63B3E3;background-color:#FFF;}',
+      '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '#cookie-modal.visible {display:flex}',
@@ -47,7 +47,7 @@ export default class Interface {
       '#cookie-modal [class^=tab-content] > .body {color: #888}',
       '#cookie-modal .footer {border-top:1px solid #D8D8D8; padding:10px; display:flex; justify-content:space-between;}',
       '#cookie-modal .footer .left a {line-height:3.3em; font-size:0.7em; color:#000; text-decoration:underline;}',
-      '#cookie-modal .footer .right button {border:none; background-color:#63B3E3; color:#FFF; padding:10px; cursor:pointer}',
+      '#cookie-modal .footer .right button {border:none; background-color:#2C7CBF; color:#FFF; padding:10px; cursor:pointer}',
       );
   }
 
@@ -273,7 +273,6 @@ export default class Interface {
     // If you switch on and off categories
     this.elements['modal'].querySelector('.right').addEventListener('click', (event) => {
       if (event.target.classList.contains('category-onoff')) {
-        console.log('sw')
         let status = event.target.parentNode.previousSibling;
         if (event.target.checked === false) {
           window.CookieConsent.config.categories[event.target.dataset.category].wanted = false;
@@ -283,7 +282,6 @@ export default class Interface {
           window.CookieConsent.config.categories[event.target.dataset.category].wanted = true;
         }
       }
-      console.log(window.CookieConsent.config.categories)
     });
 
     // If you click submit on cookie settings
