@@ -94,6 +94,7 @@ export default class Interface {
             }
           }
         }
+
         return [el('ul', listItems)];
       }
     }
@@ -113,10 +114,12 @@ export default class Interface {
       }
 
       // Adding last static informational tab
-      listItems.push(el('div.tab', 'More Information', {'data-tab':'last'}));
+      for (let index in window.CookieConsent.config.settings.postTabs) {
+        let tab = window.CookieConsent.config.settings.postTabs[index];
+        listItems.push(el('div.tab', tab.tabTitle, {'data-tab':'last'}));
+      }
 
-      // TODO return array
-      setChildren(elem, listItems);
+      return listItems;
     }
 
     // Modal tab content middleware
@@ -154,8 +157,7 @@ export default class Interface {
                           )
                         )); 
       
-      // TODO return array
-      setChildren(elem, contentItems);
+      return contentItems;
     }
 
     return el('div#cookie-modal',
@@ -165,8 +167,8 @@ export default class Interface {
           el('div.close', '×')
         ),
         el('div.body',
-          el('div.left', modalTabList),
-          el('div.right', modalTabContentList)
+          el('div.left', modalTabList()),
+          el('div.right', modalTabContentList())
         ),
         el('div.footer',
           el('div.left', 
