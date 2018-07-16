@@ -116,19 +116,27 @@ export default class Interface {
       // Adding last static informational tab
       for (let index in window.CookieConsent.config.settings.postTabs) {
         let tab = window.CookieConsent.config.settings.postTabs[index];
-        listItems.push(el('div.tab', tab.tabTitle, {'data-tab':'last'}));
+        listItems.push(el('div.tab', tab.tabTitle, {'data-tab':'post' + index}));
       }
 
       return listItems;
     }
 
+    // Addition tabs after the services
+    var postTabs = function(field) {
+
+    }
+
     // Modal tab content middleware
     var modalTabContentList = function(elem) {
+      let content = window.CookieConsent.config.categories;
       let contentItems = [];
 
       function firstIsVisible(i) {
         return (i === 0) ? ' visible' : '';
       }
+
+      
 
       let i = 0;
       for (let key in window.CookieConsent.config.categories) {
@@ -148,14 +156,17 @@ export default class Interface {
       }
 
       // Adding last static informational content
-      contentItems.push(el('div.tab-content-last',
-                          el('div.head',
-                            el('h3', 'More Information')
-                          ),
-                          el('div.body',
-                            el('p', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.')
-                          )
-                        )); 
+      for (let index in window.CookieConsent.config.settings.postTabs) {
+        let tab = window.CookieConsent.config.settings.postTabs[index];
+        contentItems.push(el('div.tab-content-post' + index, {'data-category':'post' + index},
+                            el('div.head',
+                              el('h3', tab.contentTitle)
+                            ),
+                            el('div.body',
+                              el('p', tab.content)
+                            )
+                          )); 
+      }
       
       return contentItems;
     }
