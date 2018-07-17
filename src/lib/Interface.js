@@ -11,12 +11,13 @@ export default class Interface {
   buildStyle() {
     return el('style',
       '#cookie-bar, #cookie-bar * {box-sizing:border-box}', 
-      '#cookie-bar {background-color:#2C7CBF; color:#FFF; padding:20px 15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
+      '#cookie-bar {background-color:#2C7CBF; color:#FFF; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
       '#cookie-bar.hidden {transform: translateY(100%); display:block;}', 
-      '#cookie-bar .wrapper {display:flex; justify-content:space-between; max-width:1800px; margin:0 auto;}',
-      '#cookie-bar .left {align-self:center; text-align:left;}',
-      '#cookie-bar .right {white-space: nowrap;}',
-      '#cookie-bar .right > div {display:inline-block; margin-left: 20px; color:#FFF;}',
+      '#cookie-bar .wrapper {display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
+      '#cookie-bar .left {align-self:center; text-align:left; margin: 15px 0;}',
+      '#cookie-bar .right {align-self:center; white-space: nowrap;}',
+      '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
+      '#cookie-bar .right .button {margin-left: 20px}',
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
@@ -182,8 +183,7 @@ export default class Interface {
           el('div.right', modalTabContentList())
         ),
         el('div.footer',
-          el('div.left', 
-            el('a', 'Cookieconsent', {href:'https://github.com/brainsum/cookieconsent', target: '_blank', rel:'noopener noreferrer'})),
+          el('div.left'),
           el('div.right',
             el('button#cookie-modal-submit', 'Save settings')))));
   }
