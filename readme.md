@@ -137,55 +137,84 @@ Then include the plugin into your page as the **first script** in the head tag.
 
 The plugin is being controlled mainly by a configuration object in src/index.js file. It acts as configuration and a state object.
 
-The cookies are classified as categories and services.
+Insert this before the main script, and change values according your needs.
 
 ```
-window.CookieConsent.config = {
-  cookieExists: false,
-  language: 'en',
-  categories: {
-    necessary: {
-      name: 'Strictly Necessary Cookies',
-      needed: true,
-      wanted: true,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+<script>
+  window.CookieConsent = window.CookieConsent || {};
+
+  window.CookieConsent.config = {
+    // Has the cookie been already set? Leave at false. Will be set runtime.
+    cookieExists: false,
+    // Nothing yet
+    language: 'en',
+    // User settings
+    settings: {
+      // Extra tabs on modal vindow can be set here
+      postTabs: [
+        {
+          // The text on the tab
+          tabTitle: 'More Information',
+          // The title in the content part
+          contentTitle: 'What are cookies?',
+          // The text in the content part
+          content: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
+        }
+      ]
     },
-    social: {
-      name: 'Social media',
-      needed: false,
-      wanted: false,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
-    }
-  },
-  services: {
-    facebook: {
-      cookieName: 'fr',
-      name: 'Facebook',
-      category: 'social',
-      type: 'dynamic-script',
-      search: 'fbevents.js'
-    }
-    azalead: {
-      cookieName: 'tw',
-      name: 'Azalead',
-      category: 'social',
-      type: 'script-tag',
-      search: 'azalead'
-    }
-    wrapped: {
-      cookieName: 'tw',
-      name: 'Linkedin',
-      category: 'social',
-      type: 'wrapped',
-      search: 'wrapped'
+    categories: {
+      necessary: {
+        name: 'Strictly Necessary Cookies',
+        // If true cannot be switched off
+        needed: true,
+        // Default false. this controls the on/off switch
+        wanted: true,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+      },
+      various: {
+        name: 'Various Cookies',
+        needed: false,
+        wanted: false,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+      }
     },
-    localCookie: {
-      cookieName: 'localsetcookie',
-      name: 'Local Test Cookie',
-      category: 'social',
-      type: 'localcookie',
-      search: ['localcookie']
+    services: {
+      facebook: {
+        // Not used yet
+        cookieName: 'fb',
+        // This will be displayed in modal
+        name: 'Facebook',
+        // Connect the cookie with an existing category
+        category: 'various',
+        // How do we block it. This service creates a script tag after page load
+        type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
+        search: 'facebook'
+      },
+      azalead: {
+        cookieName: '__aza_perm',
+        name: 'Azalead',
+        category: 'various',
+        // This service has a script tag you need to modify
+        type: 'script-tag',
+        search: 'azalead'
+      },
+      wrapped: {
+        cookieName: ['array', 'name'],
+        name: 'Wrapped script',
+        category: 'various',
+        // This service was wrapped into the wrapper function
+        type: 'wrapped',
+        search: 'wrapped'
+      },
+      localcookie: {
+        cookieName: 'localcookie',
+        name: 'Local cookie',
+        category: 'various',
+        // these are local domain cookies we want to block
+        type: 'localcookie',
+        search: 'localcookie'
+      }
     }
   }
-}
+  </script>
 ```
