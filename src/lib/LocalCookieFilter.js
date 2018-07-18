@@ -12,14 +12,16 @@ export default class LocalCookieFilter extends Filter {
 
   getCookieDescriptor() {
     var cookieDescriptor;
-    
+
     cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') ||
                        Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
-
+    
     if (! cookieDescriptor) {
+
       cookieDescriptor = {};
-      cookieDescriptor.get = document.__lookupGetter__("cookie");
-      cookieDescriptor.set = document.__lookupSetter__("cookie");
+      cookieDescriptor.get = HTMLDocument.prototype.__lookupGetter__("cookie");
+      cookieDescriptor.set = HTMLDocument.prototype.__lookupSetter__("cookie");
+
     }
 
     return cookieDescriptor;

@@ -1,4 +1,4 @@
-import { el, setChildren, mount } from 'redom';
+import { el, mount } from 'redom';
 import Utilities from "./Utilities";
 
 export default class Interface {
@@ -265,11 +265,11 @@ export default class Interface {
           let tabContents = this.elements['modal'].querySelectorAll('[class^=tab-content]');
           let tabs = this.elements['modal'].querySelectorAll('.tab');
 
-          tabs.forEach((tab) => {
+          Array.prototype.forEach.call(tabs, (tab) => {
             tab.classList.remove('active');
           });
 
-          tabContents.forEach((tabContent) => {
+          Array.prototype.forEach.call(tabContents, (tabContent) => {
             tabContent.classList.remove('visible');
           });
 
@@ -301,8 +301,10 @@ export default class Interface {
     // If you click submit on cookie settings
     document.getElementById('cookie-modal-submit').addEventListener('click', () => {
 
-      this.elements['modal'].querySelectorAll('.switch input').forEach( (elem) => {
-        window.CookieConsent.config.categories[elem.dataset.category].wanted = elem.checked;
+      let switchElements = this.elements['modal'].querySelectorAll('.switch input');
+
+      Array.prototype.forEach.call(switchElements, (switchElement) => {
+        window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElements.checked;
       });
 
       this.buildCookie((cookie) => {
@@ -319,13 +321,13 @@ export default class Interface {
 
   writeBufferToDOM() {
 
-    window.CookieConsent.buffer.appendChild.forEach(function(action, index){
+    window.CookieConsent.buffer.appendChild.forEach(function(action, index) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
         Node.prototype.appendChild.apply(action.this, action.arguments);
       }
     });
   
-    window.CookieConsent.buffer.insertBefore.forEach(function(action){
+    window.CookieConsent.buffer.insertBefore.forEach(function(action) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
         Node.prototype.insertBefore.apply(action.this, action.arguments);
       }
