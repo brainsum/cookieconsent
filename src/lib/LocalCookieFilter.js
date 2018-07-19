@@ -39,8 +39,11 @@ export default class LocalCookieFilter extends Filter {
         return cookieDescriptor.get.apply(document);
       },
       set: function () {
+        var cookieArguments = arguments;
         var cookieName = arguments[0].split('=')[0];
-        if (blacklist.indexOf(cookieName) < 0) return cookieDescriptor.set.apply(document, arguments);
+        Array.prototype.forEach.call(blacklist, function(blacklistItem){
+          if (cookieName.indexOf(blacklistItem) < 0) return cookieDescriptor.set.apply(document, cookieArguments);
+        });
       }
     });
   }
