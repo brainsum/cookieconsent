@@ -290,9 +290,9 @@ export default class Interface {
         let status = event.target.parentNode.previousSibling;
         if (event.target.checked === false) {
           window.CookieConsent.config.categories[event.target.dataset.category].wanted = false;
-          status.textContent = 'OFF'
+          status.textContent = 'OFF';
         } else if (event.target.checked === true) {
-          status.textContent = 'ON'
+          status.textContent = 'ON';
           window.CookieConsent.config.categories[event.target.dataset.category].wanted = true;
         }
       }
@@ -304,7 +304,7 @@ export default class Interface {
       let switchElements = this.elements['modal'].querySelectorAll('.switch input');
 
       Array.prototype.forEach.call(switchElements, (switchElement) => {
-        window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElements.checked;
+        window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElement.checked;
       });
 
       this.buildCookie((cookie) => {
