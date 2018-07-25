@@ -15,7 +15,7 @@ export default class LocalCookieFilter extends Filter {
 
     cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') ||
                        Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
-    
+                       
     if (! cookieDescriptor) {
 
       cookieDescriptor = {};
@@ -23,7 +23,7 @@ export default class LocalCookieFilter extends Filter {
       cookieDescriptor.set = HTMLDocument.prototype.__lookupSetter__("cookie");
 
     }
-
+    
     return cookieDescriptor;
   }
 
@@ -40,10 +40,15 @@ export default class LocalCookieFilter extends Filter {
       },
       set: function () {
         var cookieArguments = arguments;
-        var cookieName = arguments[0].split('=')[0];
-        Array.prototype.forEach.call(blacklist, function(blacklistItem){
-          if (cookieName.indexOf(blacklistItem) < 0) return cookieDescriptor.set.apply(document, cookieArguments);
-        });
+
+        if(blacklist.length) {
+          var cookieName = arguments[0].split('=')[0];
+          Array.prototype.forEach.call(blacklist, function(blacklistItem){
+            if (cookieName.indexOf(blacklistItem) < 0) cookieDescriptor.set.apply(document, cookieArguments);
+          });
+        } else {
+          cookieDescriptor.set.apply(document, cookieArguments);
+        }
       }
     });
   }
