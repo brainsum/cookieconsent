@@ -23,7 +23,7 @@ export default class Interface {
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '#cookie-modal.visible {display:flex}',
-      '#cookie-modal .content {width:500px; background-color:#FFF;}',
+      '#cookie-modal .content {width:600px; height:550px; background-color:#FFF;}',
       '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0; position:relative;}',
       '#cookie-modal .heading h2 {margin:0}',
       '#cookie-modal .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 50%; transform: translateY(-50%)}',
@@ -33,7 +33,7 @@ export default class Interface {
       '#cookie-modal .content > .body > .right {width:70%; min-height: 200px;}',
       '#cookie-modal .content > .body > .left .tab {padding:10px; cursor:pointer; background-color:#EEE; border-bottom:1px solid #D8D8D8}',
       '#cookie-modal .content > .body > .left .tab.active {background-color:#FFF;}',
-      '#cookie-modal [class^=tab-content] {display:none; padding:15px 20px}',
+      '#cookie-modal [class^=tab-content] {padding:15px 20px}',
       '#cookie-modal [class^=tab-content].visible {display:block}',
       '#cookie-modal [class^=tab-content] > .head {position: relative}',
       '#cookie-modal [class^=tab-content] > .head h3 {padding-right: 75px}',
@@ -137,8 +137,6 @@ export default class Interface {
         return (i === 0) ? ' visible' : '';
       }
 
-      
-
       let i = 0;
       for (let key in window.CookieConsent.config.categories) {
         contentItems.push(el('div.tab-content-' + key + firstIsVisible(i), {'data-category':key},
@@ -147,7 +145,10 @@ export default class Interface {
                               ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-group',
                                 el('span.status', (window.CookieConsent.config.categories[key].wanted === false) ? 'OFF' : 'ON' ),
                                 el('label.switch',
-                                  el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].wanted}), el('span.slider'))),
+                                  el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].wanted}),
+                                  el('span.slider')
+                                )
+                              ),
                               ),
                               el('div.body',
                                 [el('p', window.CookieConsent.config.categories[key].text)]),
@@ -172,20 +173,55 @@ export default class Interface {
       return contentItems;
     }
 
+    function modalTabGroups() {
+
+      let contentItems = [];
+
+      let i = 0;
+      for (let key in window.CookieConsent.config.categories) {
+
+        contentItems.push(el('dt.tab-head', window.CookieConsent.config.categories[key].name),
+                          el('dd.tab-content',
+                            el('div.left',
+                              ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-group',
+                                el('span.status', (window.CookieConsent.config.categories[key].wanted === false) ? 'OFF' : 'ON' ),
+                                el('label.switch',
+                                  el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].wanted}),
+                                  el('span.slider')
+                                )
+                              ),
+                            ),
+                            el('div.right',
+                              el('h3', window.CookieConsent.config.categories[key].name),
+                              el('p', 'For the pupose of proper form handling and for the authentication of logged in users we use cookies.'),
+                              el('div.list',
+                                listCookies(key)
+                              )
+                            )
+                          ));
+
+        i++;
+      }
+
+      return contentItems;
+    }
+
     return el('div#cookie-modal',
       el('div.content',
         el('div.heading',
           el('h2', 'Cookie settings'),
+          el('p', 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.'),
           el('div.close', '×')
         ),
         el('div.body',
-          el('div.left', modalTabList()),
-          el('div.right', modalTabContentList())
+          el('div.tabs',
+            el('dl.tabgroup', 
+              modalTabGroups()
+            )
+          )
         ),
         el('div.footer',
-          el('div.left'),
-          el('div.right',
-            el('button#cookie-modal-submit', 'Save settings')))));
+          el('button#cookie-modal-submit', 'Save settings'))));
   }
 
   render(name, elem, callback) {
