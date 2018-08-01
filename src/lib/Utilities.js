@@ -18,7 +18,7 @@ export default class Utilities {
         window.CookieConsent.config.cookieExists = true;
         var cookieData = JSON.parse(item.split('=')[1]);
         for (let key in cookieData) {
-          window.CookieConsent.config.categories[key].wanted = cookieData[key];
+          window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].wanted = (cookieData[key] === true) ? true : false;
         }
         return true;
       }
