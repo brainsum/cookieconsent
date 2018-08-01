@@ -21,35 +21,50 @@ export default class Interface {
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
-      '#cookie-modal {display:none; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
+      '#cookie-modal {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
+      '#cookie-modal h2, #cookie-modal h3 {color:#333}',
       '#cookie-modal.visible {display:flex}',
-      '#cookie-modal .content {width:600px; height:550px; background-color:#FFF;}',
-      '#cookie-modal .heading {text-align:center; border-bottom:1px solid #D8D8D8; padding:20px 0; position:relative;}',
-      '#cookie-modal .heading h2 {margin:0}',
-      '#cookie-modal .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 50%; transform: translateY(-50%)}',
+      '#cookie-modal .content {max-width:600px; height:550px; overflow-Y:auto; background-color:#EFEFEF;}',
+      '@media (max-width: 600px) { #cookie-modal .content { max-width:100vw; height:100vh; }}',
+      '#cookie-modal .content > .heading {border-bottom:1px solid #D8D8D8; padding:35px; background-color:#EFEFEF; position:relative;}',
+      '#cookie-modal .content > .heading h2 {color:#333; margin:0}',
+      '#cookie-modal .content > .heading p {}',
+      '#cookie-modal .content > .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 15px;}',
       '#cookie-modal h2, #cookie-modal h3 {margin-top:0}',
-      '#cookie-modal .content > .body {display:flex;}',
-      '#cookie-modal .content > .body > .left {width:30%; background-color: #EEE;}',
-      '#cookie-modal .content > .body > .right {width:70%; min-height: 200px;}',
-      '#cookie-modal .content > .body > .left .tab {padding:10px; cursor:pointer; background-color:#EEE; border-bottom:1px solid #D8D8D8}',
-      '#cookie-modal .content > .body > .left .tab.active {background-color:#FFF;}',
-      '#cookie-modal [class^=tab-content] {padding:15px 20px}',
-      '#cookie-modal [class^=tab-content].visible {display:block}',
-      '#cookie-modal [class^=tab-content] > .head {position: relative}',
-      '#cookie-modal [class^=tab-content] > .head h3 {padding-right: 75px}',
-      '#cookie-modal [class^=tab-content] > .head .status {position: absolute; top: 2px; right: 45px;}',
-      '#cookie-modal [class^=tab-content] > .head .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
-      '#cookie-modal [class^=tab-content] > .head .switch input {display:none;}',
-      '#cookie-modal [class^=tab-content] > .head .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
-      '#cookie-modal [class^=tab-content] > .head .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
-      '#cookie-modal [class^=tab-content] > .head .switch input:checked + .slider  {background-color: #2196F3;}',
-      '#cookie-modal [class^=tab-content] > .head .switch input:focus + .slider  {box-shadow: 0 0 1px #2196F3;}',
-      '#cookie-modal [class^=tab-content] > .head .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
-      '#cookie-modal [class^=tab-content] .list ul {padding: 0 0 0 16px}',
-      '#cookie-modal [class^=tab-content] > .body {color: #888}',
-      '#cookie-modal .footer {border-top:1px solid #D8D8D8; padding:10px; display:flex; justify-content:space-between;}',
-      '#cookie-modal .footer .left a {line-height:3.3em; font-size:0.7em; color:#000; text-decoration:underline;}',
-      '#cookie-modal .footer .right button {border:none; background-color:#2C7CBF; color:#FFF; padding:10px; cursor:pointer}',
+      '#cookie-modal .content > .body { background-color:#FFF;}',
+      '#cookie-modal .content > .body .tabgroup {margin:0; border-bottom: 1px solid #D8D8D8;}',
+      '#cookie-modal .content > .body .tabgroup .tab-head::before { position:absolute; left:35px; font-size:1.4em; font-weight: 600; color:#E56385; content:"×"; display:inline-block; margin-right: 20px;}',
+      '#cookie-modal .content > .body .tabgroup .tab-head.checked::before {font-size:1em; content:"✔"; color:#28A834}',
+      '#cookie-modal .content > .body .tabgroup .tab-head::after { transition: transform .3s ease-out; font-size:1.6em; font-weight: 600; color:#333; content:"⌵";position:absolute;right:35px; transform:rotate(0deg)}',
+      '#cookie-modal .content > .body .tabgroup.open .tab-head::after {transform:rotate(-180deg)}',
+      '#cookie-modal .content > .body .tab-head {color:#333; padding:25px 35px 25px 56px; margin:0}',
+      '#cookie-modal .content > .body .tab-content {padding:25px 35px; margin:0}',
+      '#cookie-modal .content > .body .tab-head { transition: background-color .5s ease-out }',
+      '#cookie-modal .content > .body .tab-head:hover { background-color:#F9F9F9 }',
+      '#cookie-modal .content > .body .tab-head {font-weight:600; cursor:pointer; position:relative;}',
+      '#cookie-modal .content > .body .tabgroup .tab-content {display:none;}',
+      '#cookie-modal .content > .body .tabgroup.open .tab-head { background-color:#F9F9F9 }',
+      '#cookie-modal .content > .body .tabgroup.open .tab-content {display:flex;}',
+      '@media (max-width: 600px) { #cookie-modal .content > .body .tabgroup.open .tab-content {flex-direction:column} }',
+      '@media (max-width: 600px) { #cookie-modal .content > .body .tab-content .left { margin-bottom:20px; } }',
+      '#cookie-modal .content > .body .tab-content .left .switch-component {display:flex; margin-right:20px; align-items:center;}',
+      '#cookie-modal .content > .body .tab-content .left .switch-component > div {font-weight:600;}',
+      '#cookie-modal .content > .body .tab-content .left .switch-group {width:40px; height:20px; margin:0 10px; position:relative;}',
+      '#cookie-modal .content > .body .tab-content .left .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
+      '#cookie-modal .content > .body .tab-content .left .switch input {display:none;}',
+      '#cookie-modal .content > .body .tab-content .left .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
+      '#cookie-modal .content > .body .tab-content .left .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
+      '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider  {background-color: #28A834;}',
+      '#cookie-modal .content > .body .tab-content .left .switch input:focus + .slider  {box-shadow: 0 0 1px #28A834;}',
+      '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
+      '#cookie-modal .content > .body .tab-content h3 {font-size:18px; margin-bottom:10px}',
+      '#cookie-modal .content > .body .tab-content p {color:#444; margin-bottom:0}',
+      '#cookie-modal .content > .body .tab-content .list:not(:empty) {margin-top:30px;}',
+      '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
+      '#cookie-modal .content > .body .tab-content .list ul {padding-left:15px}',
+      '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center;}',
+      '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:#4285F4; color:#FFF; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer;}',
+      '#cookie-modal .footer button:hover { background-color: #346bC5 }'
       );
   }
 
@@ -72,6 +87,7 @@ export default class Interface {
   }
 
   buildModal() {
+
     // Cookie names list middleware
     var listCookies = function(category) {
       var list = [];
@@ -96,7 +112,7 @@ export default class Interface {
           }
         }
 
-        return [el('ul', listItems)];
+        return [el('div.list', el('span.title', 'Affected solutions'), el('ul', listItems))];
       }
     }
     
@@ -152,8 +168,7 @@ export default class Interface {
                               ),
                               el('div.body',
                                 [el('p', window.CookieConsent.config.categories[key].text)]),
-                              el('div.list',
-                                listCookies(key)))); 
+                                listCookies(key))); 
         i++;
       }
 
@@ -180,25 +195,29 @@ export default class Interface {
       let i = 0;
       for (let key in window.CookieConsent.config.categories) {
 
-        contentItems.push(el('dt.tab-head', window.CookieConsent.config.categories[key].name),
-                          el('dd.tab-content',
-                            el('div.left',
-                              ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-group',
-                                el('span.status', (window.CookieConsent.config.categories[key].wanted === false) ? 'OFF' : 'ON' ),
-                                el('label.switch',
-                                  el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].wanted}),
-                                  el('span.slider')
-                                )
+        contentItems.push(el('dl.tabgroup' + '.' + key,
+                            el((window.CookieConsent.config.categories[key].checked) ? 'dt.tab-head.checked' : 'dt.tab-head', window.CookieConsent.config.categories[key].name),
+                            el('dd.tab-content',
+                              el('div.left', 
+                                ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component', el('div.status-off', 'OFF'),
+                                el('div.switch-group',
+                                  el('label.switch',
+                                    el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].checked}),
+                                    el('span.slider')
+                                  )
+                                ),
+                                el('div.status-on', 'ON'))
                               ),
-                            ),
-                            el('div.right',
-                              el('h3', window.CookieConsent.config.categories[key].name),
-                              el('p', 'For the pupose of proper form handling and for the authentication of logged in users we use cookies.'),
-                              el('div.list',
-                                listCookies(key)
+                              el('div.right',
+                                el('h3', window.CookieConsent.config.categories[key].name),
+                                el('p', 'For the pupose of proper form handling and for the authentication of logged in users we use cookies.'),
+                                el('div.list',
+                                  listCookies(key)
+                                )
                               )
                             )
-                          ));
+                          )
+                        );
 
         i++;
       }
@@ -215,13 +234,11 @@ export default class Interface {
         ),
         el('div.body',
           el('div.tabs',
-            el('dl.tabgroup', 
-              modalTabGroups()
-            )
+            modalTabGroups()
           )
         ),
         el('div.footer',
-          el('button#cookie-modal-submit', 'Save settings'))));
+          el('button#cookie-modal-submit', 'Save'))));
   }
 
   render(name, elem, callback) {
@@ -295,43 +312,37 @@ export default class Interface {
     });
 
     // If you click trough the tabs on Cookie settings
-    this.elements['modal'].querySelector('.left').addEventListener('click', (event) => {
-      if (event.target.classList.contains('tab')) {
-        if (event.target.dataset.tab) {
-          let tabContents = this.elements['modal'].querySelectorAll('[class^=tab-content]');
-          let tabs = this.elements['modal'].querySelectorAll('.tab');
+    // If you click on/off switch
+    this.elements['modal'].querySelector('.tabs').addEventListener('click', (event) => {
+      
+      // If you click trough the tabs on Cookie settings
+      if (event.target.classList.contains('tab-head')) {
+        if(event.target.parentNode.classList.contains('open')) {
+          event.target.parentNode.classList.remove('open');
+        } else {
+          event.target.parentNode.classList.add('open');
+        }
+      }
 
-          Array.prototype.forEach.call(tabs, (tab) => {
-            tab.classList.remove('active');
-          });
+      // If you click on/off switch
+      if (event.target.classList.contains('category-onoff')) {
+        window.CookieConsent.config.categories[event.target.dataset.category].wanted =
+        window.CookieConsent.config.categories[event.target.dataset.category].checked = (event.target.checked === true) ? true : false;
 
-          Array.prototype.forEach.call(tabContents, (tabContent) => {
-            tabContent.classList.remove('visible');
-          });
-
-          event.target.classList.add('active');
-          this.elements['modal'].querySelector(`[class=tab-content-${event.target.dataset.tab}]`).classList.add('visible');
+        var dt = document.querySelector('.tabgroup.' + event.target.dataset.category + ' .tab-head');
+        if(event.target.checked === false && dt.classList.contains('checked')) {
+          dt.classList.remove('checked');
+        } else {
+          dt.classList.add('checked');
         }
       }
     });
 
-    // If you click trough the tabs on Cookie settings
+
+
+    // If you click close on open modal
     this.elements['modal'].querySelector('.close').addEventListener('click', (event) => {
       this.elements['modal'].classList.remove('visible');
-    });
-
-    // If you switch on and off categories
-    this.elements['modal'].querySelector('.right').addEventListener('click', (event) => {
-      if (event.target.classList.contains('category-onoff')) {
-        let status = event.target.parentNode.previousSibling;
-        if (event.target.checked === false) {
-          window.CookieConsent.config.categories[event.target.dataset.category].wanted = false;
-          status.textContent = 'OFF';
-        } else if (event.target.checked === true) {
-          status.textContent = 'ON';
-          window.CookieConsent.config.categories[event.target.dataset.category].wanted = true;
-        }
-      }
     });
 
     // If you click submit on cookie settings
