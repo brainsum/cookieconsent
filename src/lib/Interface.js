@@ -35,8 +35,8 @@ export default class Interface {
       '#cookie-modal .content > .body .tabgroup {margin:0; border-bottom: 1px solid #D8D8D8;}',
       '#cookie-modal .content > .body .tabgroup .tab-head::before { position:absolute; left:35px; font-size:1.4em; font-weight: 600; color:#E56385; content:"×"; display:inline-block; margin-right: 20px;}',
       '#cookie-modal .content > .body .tabgroup .tab-head.checked::before {font-size:1em; content:"✔"; color:#28A834}',
-      '#cookie-modal .content > .body .tabgroup .tab-head::after { transition: transform .3s ease-out; font-size:1.6em; font-weight: 600; color:#333; content:"⌵";position:absolute;right:35px; transform:rotate(0deg)}',
-      '#cookie-modal .content > .body .tabgroup.open .tab-head::after {transform:rotate(-180deg)}',
+      '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:20px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
+      '#cookie-modal .content > .body .tabgroup.open .tab-head .icon-wedge {transform:rotate(-180deg)}',
       '#cookie-modal .content > .body .tab-head {color:#333; padding:25px 35px 25px 56px; margin:0}',
       '#cookie-modal .content > .body .tab-content {padding:25px 35px; margin:0}',
       '#cookie-modal .content > .body .tab-head { transition: background-color .5s ease-out }',
@@ -196,7 +196,11 @@ export default class Interface {
       for (let key in window.CookieConsent.config.categories) {
 
         contentItems.push(el('dl.tabgroup' + '.' + key,
-                            el((window.CookieConsent.config.categories[key].checked) ? 'dt.tab-head.checked' : 'dt.tab-head', window.CookieConsent.config.categories[key].name),
+                            el((window.CookieConsent.config.categories[key].checked) ? 'dt.tab-head.checked' : 'dt.tab-head', window.CookieConsent.config.categories[key].name,
+                              el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
+                                el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
+                              )
+                            ),
                             el('dd.tab-content',
                               el('div.left', 
                                 ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component', el('div.status-off', 'OFF'),
