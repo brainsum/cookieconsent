@@ -186,9 +186,13 @@ export default class Interface {
 
     for(let tabGroup of tabGroups) {
       if(window.CookieConsent.config.categories[tabGroup.dataset.category].checked) {
-        if( ! tabGroup.classList.contains('checked')) tabGroup.classList.add('checked');
+        if( ! tabGroup.classList.contains('checked')) {
+          tabGroup.classList.add('checked');
+          tabGroup.querySelector('input.category-onoff').checked = true;
+        };
       } else {
         if(tabGroup.classList.contains('checked')) tabGroup.classList.remove('checked');
+        tabGroup.querySelector('input.category-onoff').checked = false;
       }
     }
   }
