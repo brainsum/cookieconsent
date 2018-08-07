@@ -17,7 +17,6 @@ export default class Interface {
       '#cookie-bar .left {align-self:center; text-align:left; margin: 15px 0;}',
       '#cookie-bar .right {align-self:center; white-space: nowrap;}',
       '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
-      '#cookie-bar .right .button {margin-left: 20px}',
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
@@ -37,6 +36,7 @@ export default class Interface {
       '#cookie-modal .content > .body .tabgroup .tab-head::before { position:absolute; left:35px; font-size:1.4em; font-weight: 600; color:#E56385; content:"×"; display:inline-block; margin-right: 20px;}',
       '#cookie-modal .content > .body .tabgroup .tab-head.checked::before {font-size:1em; content:"✔"; color:#28A834}',
       '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:20px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
+      '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge > svg { pointer-events: none; }',
       '#cookie-modal .content > .body .tabgroup.open .tab-head .icon-wedge {transform:rotate(-180deg)}',
       '#cookie-modal .content > .body .tab-head {color:#333; padding:25px 35px 25px 56px; margin:0}',
       '#cookie-modal .content > .body .tab-content {padding:25px 35px; margin:0}',
@@ -63,8 +63,9 @@ export default class Interface {
       '#cookie-modal .content > .body .tab-content .list:not(:empty) {margin-top:30px;}',
       '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
       '#cookie-modal .content > .body .tab-content .list ul {padding-left:15px}',
-      '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center;}',
-      '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:#4285F4; color:#FFF; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer;}',
+      '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:center; }',
+      '#cookie-modal .footer .or { margin: 0 15px; }',
+      '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:#4285F4; color:#FFF; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
       '#cookie-modal .footer button:hover { background-color: #346bC5 }'
       );
   }
@@ -76,11 +77,8 @@ export default class Interface {
             el('div.text', 'This website uses cookies to ensure you get the best experience on our website.')
           ),
           el('div.right',
-            el('div.link',
-              el('a#consent-edit.consent-edit', 'Cookie settings')
-            ),
             el('div.button',
-              el('button#consent-give', 'Accept all cookies')
+              el('button.consent-edit', 'Cookie settings')
             )
           )
         ),
@@ -117,78 +115,6 @@ export default class Interface {
       }
     }
     
-    // Modal tab list middleware
-    var modalTabList = function(elem) {
-      let listItems = [];
-
-      function firstIsActive(i) {
-        return (i === 0) ? ' active' : '';
-      }
-
-      let i = 0;
-      for (let key in window.CookieConsent.config.categories) {
-        listItems.push(el('div.tab' + firstIsActive(i), window.CookieConsent.config.categories[key].name, {'data-tab': key}));
-        i++;
-      }
-
-      // Adding last static informational tab
-      for (let index in window.CookieConsent.config.settings.postTabs) {
-        let tab = window.CookieConsent.config.settings.postTabs[index];
-        listItems.push(el('div.tab', tab.tabTitle, {'data-tab':'post' + index}));
-      }
-
-      return listItems;
-    }
-
-    // Addition tabs after the services
-    var postTabs = function(field) {
-
-    }
-
-    // Modal tab content middleware
-    var modalTabContentList = function(elem) {
-      let content = window.CookieConsent.config.categories;
-      let contentItems = [];
-
-      function firstIsVisible(i) {
-        return (i === 0) ? ' visible' : '';
-      }
-
-      let i = 0;
-      for (let key in window.CookieConsent.config.categories) {
-        contentItems.push(el('div.tab-content-' + key + firstIsVisible(i), {'data-category':key},
-                            el('div.head',
-                              el('h3', window.CookieConsent.config.categories[key].name),
-                              ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-group',
-                                el('span.status', (window.CookieConsent.config.categories[key].wanted === false) ? 'OFF' : 'ON' ),
-                                el('label.switch',
-                                  el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].wanted}),
-                                  el('span.slider')
-                                )
-                              ),
-                              ),
-                              el('div.body',
-                                [el('p', window.CookieConsent.config.categories[key].text)]),
-                                listCookies(key))); 
-        i++;
-      }
-
-      // Adding last static informational content
-      for (let index in window.CookieConsent.config.settings.postTabs) {
-        let tab = window.CookieConsent.config.settings.postTabs[index];
-        contentItems.push(el('div.tab-content-post' + index, {'data-category':'post' + index},
-                            el('div.head',
-                              el('h3', tab.contentTitle)
-                            ),
-                            el('div.body',
-                              el('p', tab.content)
-                            )
-                          )); 
-      }
-      
-      return contentItems;
-    }
-
     function modalTabGroups() {
 
       let contentItems = [];
@@ -198,9 +124,11 @@ export default class Interface {
 
         contentItems.push(el('dl.tabgroup' + '.' + key,
                             el((window.CookieConsent.config.categories[key].checked) ? 'dt.tab-head.checked' : 'dt.tab-head', window.CookieConsent.config.categories[key].name,
-                              el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
-                                el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
-                              )
+                              el('a.icon-wedge', 
+                                el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
+                                  el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
+                                )
+                              ),
                             ),
                             el('dd.tab-content',
                               el('div.left', 
@@ -243,7 +171,12 @@ export default class Interface {
           )
         ),
         el('div.footer',
-          el('button#cookie-modal-submit', 'Save'))));
+          el('button#cookie-modal-submit', 'Save current settings'),
+          el('div.or', 'or'),
+          el('button#consent-give', 'Accept all cookies')
+        )
+      )
+    );
   }
 
   render(name, elem, callback) {
@@ -297,6 +230,7 @@ export default class Interface {
       // We set config to full consent
       for(let key in window.CookieConsent.config.categories) {
         window.CookieConsent.config.categories[key].wanted = true;
+        window.CookieConsent.config.categories[key].checked = true;
       }
       
       this.writeBufferToDOM();
@@ -306,6 +240,7 @@ export default class Interface {
       });
 
       this.elements['bar'].classList.add('hidden');
+      this.elements['modal'].classList.remove('visible');
 
     });
 
@@ -319,13 +254,20 @@ export default class Interface {
     // If you click trough the tabs on Cookie settings
     // If you click on/off switch
     this.elements['modal'].querySelector('.tabs').addEventListener('click', (event) => {
-      
+      console.log(event.target)
       // If you click trough the tabs on Cookie settings
-      if (event.target.classList.contains('tab-head')) {
-        if(event.target.parentNode.classList.contains('open')) {
-          event.target.parentNode.classList.remove('open');
+      if (event.target.classList.contains('tab-head') || event.target.classList.contains('icon-wedge')) {
+
+        var parentDl;
+        
+        for(let i=0; i < event.path.length; i++) {
+          if(event.path[i].nodeName === 'DL') parentDl = event.path[i];
+        }
+
+        if(parentDl.classList.contains('open')) {
+          parentDl.classList.remove('open');
         } else {
-          event.target.parentNode.classList.add('open');
+          parentDl.classList.add('open');
         }
       }
 
