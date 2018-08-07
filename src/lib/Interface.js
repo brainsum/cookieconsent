@@ -19,6 +19,7 @@ export default class Interface {
       '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
+      '#cookie-bar button.consent-edit { margin-right:10px }',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '@media (max-width: 600px) { #cookie-modal { height: 100% } }',
@@ -32,10 +33,10 @@ export default class Interface {
       '#cookie-modal .content > .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 15px;}',
       '#cookie-modal h2, #cookie-modal h3 {margin-top:0}',
       '#cookie-modal .content > .body { background-color:#FFF;}',
-      '#cookie-modal .content > .body .tabgroup {margin:0; border-bottom: 1px solid #D8D8D8;}',
+      '#cookie-modal .content > .body .tabgroup {margin:0; border-bottom: 1px solid #D8D8D8; }',
       '#cookie-modal .content > .body .tabgroup .tab-head::before { position:absolute; left:35px; font-size:1.4em; font-weight: 600; color:#E56385; content:"×"; display:inline-block; margin-right: 20px;}',
-      '#cookie-modal .content > .body .tabgroup .tab-head.checked::before {font-size:1em; content:"✔"; color:#28A834}',
-      '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:20px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
+      '#cookie-modal .content > .body .tabgroup.checked .tab-head::before {font-size:1em; content:"✔"; color:#28A834}',
+      '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
       '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge > svg { pointer-events: none; }',
       '#cookie-modal .content > .body .tabgroup.open .tab-head .icon-wedge {transform:rotate(-180deg)}',
       '#cookie-modal .content > .body .tab-head {color:#333; padding:25px 35px 25px 56px; margin:0}',
@@ -63,10 +64,11 @@ export default class Interface {
       '#cookie-modal .content > .body .tab-content .list:not(:empty) {margin-top:30px;}',
       '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
       '#cookie-modal .content > .body .tab-content .list ul {padding-left:15px}',
-      '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:center; }',
-      '#cookie-modal .footer .or { margin: 0 15px; }',
+      '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
       '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:#4285F4; color:#FFF; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
-      '#cookie-modal .footer button:hover { background-color: #346bC5 }'
+      '#cookie-modal .footer button:hover { background-color: #346BC5; }',
+      '#cookie-modal .footer button#cookie-modal-submit {  margin-right:10px; }',
+      '#cookie-modal .footer button#cookie-modal-submit:hover { background-color: #346bC5 }'
       );
   }
 
@@ -78,7 +80,8 @@ export default class Interface {
           ),
           el('div.right',
             el('div.button',
-              el('button.consent-edit', 'Cookie settings')
+              el('button.consent-edit', 'Cookie settings'),
+              el('button.consent-give', 'Accept all cookies')
             )
           )
         ),
@@ -122,8 +125,8 @@ export default class Interface {
       let i = 0;
       for (let key in window.CookieConsent.config.categories) {
 
-        contentItems.push(el('dl.tabgroup' + '.' + key,
-                            el((window.CookieConsent.config.categories[key].checked) ? 'dt.tab-head.checked' : 'dt.tab-head', window.CookieConsent.config.categories[key].name,
+        contentItems.push(el('dl.tabgroup' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked' : ''), {'data-category':key},
+                            el('dt.tab-head', window.CookieConsent.config.categories[key].name,
                               el('a.icon-wedge', 
                                 el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
                                   el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
@@ -172,11 +175,22 @@ export default class Interface {
         ),
         el('div.footer',
           el('button#cookie-modal-submit', 'Save current settings'),
-          el('div.or', 'or'),
-          el('button#consent-give', 'Accept all cookies')
+          el('button.consent-give', 'Accept all cookies and close')
         )
       )
     );
+  }
+
+  modalRedrawIcons() {
+    var tabGroups = this.elements['modal'].querySelectorAll('.tabgroup');
+
+    for(let tabGroup of tabGroups) {
+      if(window.CookieConsent.config.categories[tabGroup.dataset.category].checked) {
+        if( ! tabGroup.classList.contains('checked')) tabGroup.classList.add('checked');
+      } else {
+        if(tabGroup.classList.contains('checked')) tabGroup.classList.remove('checked');
+      }
+    }
   }
 
   render(name, elem, callback) {
@@ -194,7 +208,6 @@ export default class Interface {
       callback(insertedElem);
       return insertedElem;
     }
-
   }
 
   buildInterface(callback) {
@@ -225,24 +238,31 @@ export default class Interface {
   addEventListeners(elements) {
 
     // If you click Accept all cookies
-    document.getElementById('consent-give').addEventListener('click', () => {
+    var buttonConsentGive = document.querySelectorAll('.consent-give');
 
-      // We set config to full consent
-      for(let key in window.CookieConsent.config.categories) {
-        window.CookieConsent.config.categories[key].wanted = true;
-        window.CookieConsent.config.categories[key].checked = true;
-      }
-      
-      this.writeBufferToDOM();
+    for(let button of buttonConsentGive) {
+      button.addEventListener('click', () => {
+  
+        // We set config to full consent
+        for(let key in window.CookieConsent.config.categories) {
+          window.CookieConsent.config.categories[key].wanted =
+          window.CookieConsent.config.categories[key].checked = true;
+        }
+        
+        this.writeBufferToDOM();
+  
+        this.buildCookie((cookie) => {
+          this.setCookie(cookie);
+        });
+  
+        this.elements['bar'].classList.add('hidden');
+        this.elements['modal'].classList.remove('visible');
 
-      this.buildCookie((cookie) => {
-        this.setCookie(cookie);
+        this.modalRedrawIcons();
+  
       });
+    }
 
-      this.elements['bar'].classList.add('hidden');
-      this.elements['modal'].classList.remove('visible');
-
-    });
 
     // If you click Cookie settings and open modal
     Array.prototype.forEach.call(document.getElementsByClassName('consent-edit'), (edit) => {
@@ -254,7 +274,7 @@ export default class Interface {
     // If you click trough the tabs on Cookie settings
     // If you click on/off switch
     this.elements['modal'].querySelector('.tabs').addEventListener('click', (event) => {
-      console.log(event.target)
+
       // If you click trough the tabs on Cookie settings
       if (event.target.classList.contains('tab-head') || event.target.classList.contains('icon-wedge')) {
 
@@ -276,7 +296,7 @@ export default class Interface {
         window.CookieConsent.config.categories[event.target.dataset.category].wanted =
         window.CookieConsent.config.categories[event.target.dataset.category].checked = (event.target.checked === true) ? true : false;
 
-        var dt = document.querySelector('.tabgroup.' + event.target.dataset.category + ' .tab-head');
+        var dt = document.querySelector('.tabgroup.' + event.target.dataset.category);
         if(event.target.checked === false && dt.classList.contains('checked')) {
           dt.classList.remove('checked');
         } else {
