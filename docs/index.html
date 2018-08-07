@@ -12,21 +12,13 @@
   window.CookieConsent.config = {
     cookieExists: false,
     language: 'en',
-    settings: {
-      postTabs: [
-        {
-          tabTitle: 'More Information',
-          contentTitle: 'What are cookies?',
-          content: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
-        }
-      ]
-    },
+    settings: {},
     categories: {
       necessary: {
         name: 'Strictly Necessary Cookies',
         needed: true,
         wanted: true,
-        checked: false,
+        checked: true,
         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
       },
       various: {
@@ -69,7 +61,7 @@
     }
   }
   </script>
-  <script src="/cookieconsent/src.b8df747c.js"></script>
+  <script src="/cookieconsent/src.450ed4d7.js"></script>
 </head>
 <body>
   <button class="consent-edit">Consent edit</button>
