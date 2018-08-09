@@ -282,12 +282,17 @@ export default class Interface {
       // If you click trough the tabs on Cookie settings
       if (event.target.classList.contains('tab-head') || event.target.classList.contains('icon-wedge')) {
 
-        var parentDl;
-        
-        for(let i=0; i < event.path.length; i++) {
-          if(event.path[i].nodeName === 'DL') parentDl = event.path[i];
+        function getDlParent(eventTarget) {
+          var parent = eventTarget.parentNode;
+          if(parent.nodeName !== 'DL') {
+            return getDlParent(parent);
+          } else {
+            return parent;
+          }
         }
-
+        
+        var parentDl = getDlParent(event.target);
+        
         if(parentDl.classList.contains('open')) {
           parentDl.classList.remove('open');
         } else {
