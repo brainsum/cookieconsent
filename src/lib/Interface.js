@@ -10,9 +10,9 @@ export default class Interface {
 
   buildStyle() {
     return el('style',
-      '#cookie-bar, #cookie-bar * {box-sizing:border-box}',
-      '#cookie-bar {background-color:#2C7CBF; color:#FFF; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}',
-      '#cookie-bar.hidden {transform: translateY(100%); display:block;}',
+      '#cookie-bar, #cookie-bar * {box-sizing:border-box}', 
+      '#cookie-bar {background-color:#2C7CBF; color:#FFF; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
+      '#cookie-bar.hidden {transform: translateY(100%); display:block;}', 
       '#cookie-bar .wrapper {display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
       '#cookie-bar .left {align-self:center; text-align:left; margin: 15px 0;}',
       '#cookie-bar .right {align-self:center; white-space: nowrap;}',
@@ -97,11 +97,11 @@ export default class Interface {
       for(let service in window.CookieConsent.config.services) {
         (window.CookieConsent.config.services[service].category === category) && list.push(window.CookieConsent.config.services[service]);
       }
-
+      
       if(list.length) {
-
+        
         var listItems = [];
-
+        
         for(let item in list) {
           var type = Utilities.objectType(list[item].name);
 
@@ -117,7 +117,7 @@ export default class Interface {
         return [el('div.list', el('span.title', 'Affected solutions'), el('ul', listItems))];
       }
     }
-
+    
     function modalTabGroups() {
 
       let contentItems = [];
@@ -127,14 +127,14 @@ export default class Interface {
 
         contentItems.push(el('dl.tabgroup' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked' : ''), {'data-category':key},
                             el('dt.tab-head', window.CookieConsent.config.categories[key].name,
-                              el('a.icon-wedge',
+                              el('a.icon-wedge', 
                                 el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
                                   el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
                                 )
                               ),
                             ),
                             el('dd.tab-content',
-                              el('div.left',
+                              el('div.left', 
                                 ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component', el('div.status-off', 'OFF'),
                                 el('div.switch-group',
                                   el('label.switch',
@@ -249,24 +249,24 @@ export default class Interface {
 
     for(let button of buttonConsentGive) {
       button.addEventListener('click', () => {
-
+  
         // We set config to full consent
         for(let key in window.CookieConsent.config.categories) {
           window.CookieConsent.config.categories[key].wanted =
           window.CookieConsent.config.categories[key].checked = true;
         }
-
+        
         this.writeBufferToDOM();
-
+  
         this.buildCookie((cookie) => {
           this.setCookie(cookie);
         });
-
+  
         this.elements['bar'].classList.add('hidden');
         this.elements['modal'].classList.remove('visible');
 
         this.modalRedrawIcons();
-
+  
       });
     }
 
@@ -285,12 +285,17 @@ export default class Interface {
       // If you click trough the tabs on Cookie settings
       if (event.target.classList.contains('tab-head') || event.target.classList.contains('icon-wedge')) {
 
-        var parentDl;
-
-        for(let i=0; i < event.path.length; i++) {
-          if(event.path[i].nodeName === 'DL') parentDl = event.path[i];
+        function getDlParent(eventTarget) {
+          var parent = eventTarget.parentNode;
+          if(parent.nodeName !== 'DL') {
+            return getDlParent(parent);
+          } else {
+            return parent;
+          }
         }
-
+        
+        var parentDl = getDlParent(event.target);
+        
         if(parentDl.classList.contains('open')) {
           parentDl.classList.remove('open');
         } else {
@@ -347,7 +352,7 @@ export default class Interface {
         Node.prototype.appendChild.apply(action.this, action.arguments);
       }
     });
-
+  
     window.CookieConsent.buffer.insertBefore.forEach(function(action) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
         Node.prototype.insertBefore.apply(action.this, action.arguments);
@@ -357,20 +362,20 @@ export default class Interface {
 
   buildCookie(callback) {
     let cookie = {};
-
+    
     for(let key in window.CookieConsent.config.categories) {
       cookie[key] = window.CookieConsent.config.categories[key].wanted;
     }
-
+  
     if (callback) callback(cookie);
     return cookie;
   }
-
+  
   setCookie(cookie, callback) {
     document.cookie = `cconsent=${JSON.stringify(cookie)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;`;
     if (callback) callback();
   }
-
+  
   removeCookie(cookie) {
     document.cookie = `cconsent=; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;`;
   }
