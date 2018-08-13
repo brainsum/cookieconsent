@@ -25,7 +25,7 @@ export default class Interface {
       '@media (max-width: 600px) { #cookie-modal { height: 100% } }',
       '#cookie-modal h2, #cookie-modal h3 {color:#333}',
       '#cookie-modal.visible {display:flex}',
-      '#cookie-modal .content { max-width:600px; height:550px; overflow-Y:auto; background-color:#EFEFEF; }',
+      '#cookie-modal .content { max-width:600px; min-height:500px; overflow-Y:auto; background-color:#EFEFEF; }',
       '@media (max-width: 600px) { #cookie-modal .content { max-width:100vw; height:100%; }}',
       '#cookie-modal .content > .heading {border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative;}',
       '#cookie-modal .content > .heading h2 {color:#333; margin:0}',
