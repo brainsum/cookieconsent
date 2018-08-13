@@ -19,7 +19,7 @@ export default class Interface {
       '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
-      '#cookie-bar button.consent-edit { margin-right:10px }',
+      '#cookie-bar a.consent-edit { margin-right:15px }',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '@media (max-width: 600px) { #cookie-modal { height: 100% } }',
@@ -49,7 +49,7 @@ export default class Interface {
       '#cookie-modal .content > .body .tabgroup.open .tab-content {display:flex;}',
       '@media (max-width: 600px) { #cookie-modal .content > .body .tabgroup.open .tab-content {flex-direction:column} }',
       '@media (max-width: 600px) { #cookie-modal .content > .body .tab-content .left { margin-bottom:20px; } }',
-      '#cookie-modal .content > .body .tab-content .left .switch-component {display:flex; margin-right:20px; align-items:center;}',
+      '#cookie-modal .content > .body .tab-content .left .switch-component {display:flex; margin-right:35px; align-items:center;}',
       '#cookie-modal .content > .body .tab-content .left .switch-component > div {font-weight:600;}',
       '#cookie-modal .content > .body .tab-content .left .switch-group {width:40px; height:20px; margin:0 10px; position:relative;}',
       '#cookie-modal .content > .body .tab-content .left .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
@@ -80,7 +80,7 @@ export default class Interface {
           ),
           el('div.right',
             el('div.button',
-              el('button.consent-edit', 'Cookie settings'),
+              el('a.consent-edit', 'Cookie settings'),
               el('button.consent-give', 'Accept all cookies')
             )
           )
@@ -146,7 +146,7 @@ export default class Interface {
                               ),
                               el('div.right',
                                 el('h3', window.CookieConsent.config.categories[key].name),
-                                el('p', 'For the purpose of proper form handling and for the authentication of logged in users we use cookies.'),
+                                el('p', window.CookieConsent.config.categories[key].text),
                                 el('div.list',
                                   listCookies(key)
                                 )
