@@ -59,7 +59,7 @@ export default class Interface {
       '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider  {background-color: #28A834;}',
       '#cookie-modal .content > .body .tab-content .left .switch input:focus + .slider  {box-shadow: 0 0 1px #28A834;}',
       '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
-      '#cookie-modal .content > .body .tab-content h3 {font-size:18px; margin-bottom:10px}',
+      '#cookie-modal .content > .body .tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}',
       '#cookie-modal .content > .body .tab-content p {color:#444; margin-bottom:0}',
       '#cookie-modal .content > .body .tab-content .list:not(:empty) {margin-top:30px;}',
       '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
