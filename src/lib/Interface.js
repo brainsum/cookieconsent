@@ -347,17 +347,18 @@ export default class Interface {
 
   writeBufferToDOM() {
 
-    window.CookieConsent.buffer.appendChild.forEach(function(action, index) {
+    for(let action of window.CookieConsent.buffer.appendChild) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
         Node.prototype.appendChild.apply(action.this, action.arguments);
       }
-    });
-  
-    window.CookieConsent.buffer.insertBefore.forEach(function(action) {
+    }
+
+    for(let action of window.CookieConsent.buffer.insertBefore) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
+        action.arguments[1] = (action.arguments[0].parentNode === null) ? action.this.lastChild : action.arguments[1];
         Node.prototype.insertBefore.apply(action.this, action.arguments);
       }
-    });
+    }
   }
 
   buildCookie(callback) {
