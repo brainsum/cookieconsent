@@ -18,9 +18,16 @@ export default class ScriptTagFilter extends Filter {
       
       for (var scriptTag of scriptTags) {
         if (blacklist.indexOf(scriptTag.dataset.consent) < 0) {
-          var newtag = scriptTag.cloneNode();
-          newtag.type = 'application/javascript';
+          var newtag = document.createElement('script');
           var parentNode = scriptTag.parentNode;
+          
+          scriptTag.type = 'application/javascript';
+
+          for(var attribute of scriptTag.attributes) {
+            newtag.setAttribute(attribute.nodeName, attribute.nodeValue);
+          }
+
+          newtag.innerHTML = scriptTag.innerHTML;
           parentNode.insertBefore(newtag,scriptTag);
           parentNode.removeChild(scriptTag);
         }
