@@ -19,15 +19,15 @@ export default class Interface {
       '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
       '#cookie-bar a {text-decoration:underline; color:#FFF}',
       '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
-      '#cookie-bar button.consent-edit { margin-right:10px }',
+      '#cookie-bar a.consent-edit { margin-right:15px }',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '@media (max-width: 600px) { #cookie-modal { height: 100% } }',
       '#cookie-modal h2, #cookie-modal h3 {color:#333}',
       '#cookie-modal.visible {display:flex}',
-      '#cookie-modal .content { max-width:600px; height:550px; overflow-Y:auto; background-color:#EFEFEF; }',
-      '@media (max-width: 600px) { #cookie-modal .content { max-width:100vw; height:100%; }}',
-      '#cookie-modal .content > .heading {border-bottom:1px solid #D8D8D8; padding:35px; background-color:#EFEFEF; position:relative;}',
+      '#cookie-modal .content { max-width:600px; min-height:500px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; }',
+      '@media (max-width: 600px) { #cookie-modal .content { max-width:100vw; height:100%; max-height:initial; }}',
+      '#cookie-modal .content > .heading {border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative;}',
       '#cookie-modal .content > .heading h2 {color:#333; margin:0}',
       '#cookie-modal .content > .heading p {}',
       '#cookie-modal .content > .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 15px;}',
@@ -39,7 +39,7 @@ export default class Interface {
       '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
       '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge > svg { pointer-events: none; }',
       '#cookie-modal .content > .body .tabgroup.open .tab-head .icon-wedge {transform:rotate(-180deg)}',
-      '#cookie-modal .content > .body .tab-head {color:#333; padding:25px 35px 25px 56px; margin:0}',
+      '#cookie-modal .content > .body .tab-head {color:#333; padding:17px 35px 17px 56px; margin:0}',
       '#cookie-modal .content > .body .tab-content {padding:25px 35px; margin:0}',
       '#cookie-modal .content > .body .tab-head { transition: background-color .5s ease-out }',
       '#cookie-modal .content > .body .tab-head:hover { background-color:#F9F9F9 }',
@@ -49,7 +49,7 @@ export default class Interface {
       '#cookie-modal .content > .body .tabgroup.open .tab-content {display:flex;}',
       '@media (max-width: 600px) { #cookie-modal .content > .body .tabgroup.open .tab-content {flex-direction:column} }',
       '@media (max-width: 600px) { #cookie-modal .content > .body .tab-content .left { margin-bottom:20px; } }',
-      '#cookie-modal .content > .body .tab-content .left .switch-component {display:flex; margin-right:20px; align-items:center;}',
+      '#cookie-modal .content > .body .tab-content .left .switch-component {display:flex; margin-right:35px; align-items:center;}',
       '#cookie-modal .content > .body .tab-content .left .switch-component > div {font-weight:600;}',
       '#cookie-modal .content > .body .tab-content .left .switch-group {width:40px; height:20px; margin:0 10px; position:relative;}',
       '#cookie-modal .content > .body .tab-content .left .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
@@ -59,7 +59,7 @@ export default class Interface {
       '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider  {background-color: #28A834;}',
       '#cookie-modal .content > .body .tab-content .left .switch input:focus + .slider  {box-shadow: 0 0 1px #28A834;}',
       '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
-      '#cookie-modal .content > .body .tab-content h3 {font-size:18px; margin-bottom:10px}',
+      '#cookie-modal .content > .body .tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}',
       '#cookie-modal .content > .body .tab-content p {color:#444; margin-bottom:0}',
       '#cookie-modal .content > .body .tab-content .list:not(:empty) {margin-top:30px;}',
       '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
@@ -80,7 +80,7 @@ export default class Interface {
           ),
           el('div.right',
             el('div.button',
-              el('button.consent-edit', 'Cookie settings'),
+              el('a.consent-edit', 'Cookie settings'),
               el('button.consent-give', 'Accept all cookies')
             )
           )
@@ -146,7 +146,7 @@ export default class Interface {
                               ),
                               el('div.right',
                                 el('h3', window.CookieConsent.config.categories[key].name),
-                                el('p', 'For the pupose of proper form handling and for the authentication of logged in users we use cookies.'),
+                                el('p', window.CookieConsent.config.categories[key].text),
                                 el('div.list',
                                   listCookies(key)
                                 )
@@ -165,7 +165,10 @@ export default class Interface {
       el('div.content',
         el('div.heading',
           el('h2', 'Cookie settings'),
-          el('p', 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.'),
+          el('p',
+            'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity. ',
+            window.CookieConsent.config.learnMore ? el('a', { href: window.CookieConsent.config.learnMore }, 'Learn more') : null
+          ),
           el('div.close', '×')
         ),
         el('div.body',
@@ -282,12 +285,17 @@ export default class Interface {
       // If you click trough the tabs on Cookie settings
       if (event.target.classList.contains('tab-head') || event.target.classList.contains('icon-wedge')) {
 
-        var parentDl;
-        
-        for(let i=0; i < event.path.length; i++) {
-          if(event.path[i].nodeName === 'DL') parentDl = event.path[i];
+        function getDlParent(eventTarget) {
+          var parent = eventTarget.parentNode;
+          if(parent.nodeName !== 'DL') {
+            return getDlParent(parent);
+          } else {
+            return parent;
+          }
         }
-
+        
+        var parentDl = getDlParent(event.target);
+        
         if(parentDl.classList.contains('open')) {
           parentDl.classList.remove('open');
         } else {
@@ -339,17 +347,18 @@ export default class Interface {
 
   writeBufferToDOM() {
 
-    window.CookieConsent.buffer.appendChild.forEach(function(action, index) {
+    for(let action of window.CookieConsent.buffer.appendChild) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
         Node.prototype.appendChild.apply(action.this, action.arguments);
       }
-    });
-  
-    window.CookieConsent.buffer.insertBefore.forEach(function(action) {
+    }
+
+    for(let action of window.CookieConsent.buffer.insertBefore) {
       if (window.CookieConsent.config.categories[action.category].wanted === true) {
+        action.arguments[1] = (action.arguments[0].parentNode === null) ? action.this.lastChild : action.arguments[1];
         Node.prototype.insertBefore.apply(action.this, action.arguments);
       }
-    });
+    }
   }
 
   buildCookie(callback) {
