@@ -353,4 +353,4 @@ var e=require("./_baseMerge"),r=require("./_createAssigner"),i=r(function(r,i,s)
 },{"./InsertScriptFilter":8,"./ScriptTagFilter":9,"./WrapperFilter":10,"./LocalCookieFilter":11,"./Interface":12,"./Configuration":13}],4:[function(require,module,exports) {
 "use strict";require("core-js/es6/symbol"),require("core-js/fn/symbol/iterator");var e=require("./lib/CookieConsent"),r=i(e);function i(e){return e&&e.__esModule?e:{default:e}}(new r.default).init();
 },{"core-js/es6/symbol":6,"core-js/fn/symbol/iterator":7,"./lib/CookieConsent":5}]},{},[4], null)
-//# sourceMappingURL=src.762ac925.map
+//# sourceMappingURL=./src.762ac925.map
