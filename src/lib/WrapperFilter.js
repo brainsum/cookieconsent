@@ -6,7 +6,7 @@ export default class WrapperFilter extends Filter {
     super();
   }
 
-  runFilter() {
+  init() {
     this.filterWrappers();
   }
 
@@ -19,6 +19,6 @@ export default class WrapperFilter extends Filter {
       }
     }
 
-    window.CookieConsent.functions.wrapper = wrapper;
+    window.CookieConsent.wrapper = wrapper;
   }
 }

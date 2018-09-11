@@ -6,7 +6,7 @@ export default class InsertScriptFilter extends Filter {
     super();
   }
 
-  runFilter() {
+  init() {
     this.overrideAppendChild();
     this.overrideInsertBefore();
   }

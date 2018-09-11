@@ -3,34 +3,34 @@ import ScriptTagFilter from './ScriptTagFilter';
 import WrapperFilter from './WrapperFilter';
 import LocalCookieFilter from './LocalCookieFilter';
 import Interface from './Interface';
-import Utilities from './Utilities';
+import Configuration from './Configuration';
 
 export default class CookieConsent {
 
   constructor() {
-    // If consent cookie exists, were parsing its content to config
-    Utilities.cookieToConfig();
+    new Configuration();
   }
   
   init() {
-    var insertScriptFilter = new InsertScriptFilter();
-    var scriptTagFilter = new ScriptTagFilter();
-    var wrapperFilter = new WrapperFilter();
-    var localCookieFilter = new LocalCookieFilter();
+    const insertScriptFilter = new InsertScriptFilter();
+    const scriptTagFilter = new ScriptTagFilter();
+    const wrapperFilter = new WrapperFilter();
+    const localCookieFilter = new LocalCookieFilter();
 
-    insertScriptFilter.runFilter();
-    scriptTagFilter.runFilter();
-    wrapperFilter.runFilter();
-    localCookieFilter.runFilter();
+    
+    window.CookieConsent.queue.subscribe('configSet', function(){
+      insertScriptFilter.init();
+      scriptTagFilter.init();
+      wrapperFilter.init();
+      localCookieFilter.init();
+    });
 
 
-    var UI = new Interface();
+    const UI = new Interface();
 
     UI.buildInterface(() => {
       UI.addEventListeners();
     });
-
-
   }
 
 }

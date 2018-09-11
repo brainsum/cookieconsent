@@ -1,10 +1,11 @@
 import { el, mount } from 'redom';
+import Language from './Language';
 import Utilities from "./Utilities";
 
 export default class Interface {
 
   constructor() {
-    this.elements = {}
+    this.elements = {};
   }
 
 
@@ -76,12 +77,12 @@ export default class Interface {
     return el('div#cookie-bar.hidden',
         el('div.wrapper',
           el('div.left',
-            el('div.text', 'This website uses cookies to ensure you get the best experience on our website.')
+            el('div.text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))
           ),
           el('div.right',
             el('div.button',
-              el('a.consent-edit', 'Cookie settings'),
-              el('button.consent-give', 'Accept all cookies')
+              el('a.consent-edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
+              el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
             )
           )
         ),
@@ -103,18 +104,10 @@ export default class Interface {
         var listItems = [];
         
         for(let item in list) {
-          var type = Utilities.objectType(list[item].name);
-
-          if(type === 'String') {
-            listItems.push(el('li', list[item].name));
-          } else if (type === 'Array') {
-            for(let name in list[item].name) {
-              listItems.push(el('li', list[item].name[name]));
-            }
-          }
+          listItems.push(el('li', Language.getTranslation(list[item], window.CookieConsent.config.language.current, 'name')));
         }
 
-        return [el('div.list', el('span.title', 'Affected solutions'), el('ul', listItems))];
+        return [el('div.list', el('span.title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalAffectedSolutions')), el('ul', listItems))];
       }
     }
     
@@ -126,7 +119,7 @@ export default class Interface {
       for (let key in window.CookieConsent.config.categories) {
 
         contentItems.push(el('dl.tabgroup' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked' : ''), {'data-category':key},
-                            el('dt.tab-head', window.CookieConsent.config.categories[key].name,
+                            el('dt.tab-head', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'),
                               el('a.icon-wedge', 
                                 el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
                                   el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
@@ -135,18 +128,18 @@ export default class Interface {
                             ),
                             el('dd.tab-content',
                               el('div.left', 
-                                ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component', el('div.status-off', 'OFF'),
+                                ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component', el('div.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')),
                                 el('div.switch-group',
                                   el('label.switch',
                                     el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].checked}),
                                     el('span.slider')
                                   )
                                 ),
-                                el('div.status-on', 'ON'))
+                                el('div.status-on', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'on')))
                               ),
                               el('div.right',
-                                el('h3', window.CookieConsent.config.categories[key].name),
-                                el('p', window.CookieConsent.config.categories[key].text),
+                                el('h3', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')),
+                                el('p', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'description')),
                                 el('div.list',
                                   listCookies(key)
                                 )
@@ -164,10 +157,10 @@ export default class Interface {
     return el('div#cookie-modal',
       el('div.content',
         el('div.heading',
-          el('h2', 'Cookie settings'),
+          el('h2', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')),
           el('p',
-            'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity. ',
-            window.CookieConsent.config.learnMore ? el('a', { href: window.CookieConsent.config.learnMore }, 'Learn more') : null
+            Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'),
+            (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')) : null
           ),
           el('div.close', '×')
         ),
@@ -177,8 +170,8 @@ export default class Interface {
           )
         ),
         el('div.footer',
-          el('button#cookie-modal-submit', 'Save current settings'),
-          el('button.consent-give', 'Accept all cookies and close')
+          el('button#cookie-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
+          el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       )
     );

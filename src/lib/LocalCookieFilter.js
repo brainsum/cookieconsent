@@ -6,7 +6,7 @@ export default class LocalCookieFilter extends Filter {
     super();
   }
 
-  runFilter() {
+  init() {
     this.filterlocalCookies();
   }
 

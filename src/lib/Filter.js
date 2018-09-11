@@ -15,6 +15,7 @@ export default class Filter  {
     }
 
     var blacklist = [];
+
     for(var service in services) {
       var type = Utilities.objectType(services[service].search);
       if (type === 'String') {

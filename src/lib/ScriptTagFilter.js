@@ -7,7 +7,7 @@ export default class ScriptTagFilter extends Filter {
     super();
   }
 
-  runFilter() {
+  init() {
     this.filterTags();
   }
 

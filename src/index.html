@@ -6,62 +6,112 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cookie consent</title>
   
+  <script src="./index.js"></script>
   <script>
-  window.CookieConsent = window.CookieConsent || {};
-
-  window.CookieConsent.config = {
-    cookieExists: false,
-    language: 'en',
-    settings: {},
+  window.CookieConsent.setConfiguration({
+    language: {
+      current: 'en'
+    },
     categories: {
       necessary: {
-        name: 'Strictly Necessary Cookies',
         needed: true,
         wanted: true,
         checked: true,
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.'
+        language: {
+          locale: {
+            en: {
+              name: 'Strictly Necessary Cookies',
+              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+            },
+            hu: {
+              name: 'Szükséges sütik',
+              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+            }
+          }
+        }
       },
       various: {
-        name: 'Various Cookies',
         needed: false,
         wanted: false,
         checked: false,
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+        language: {
+          locale: {
+            en: {
+              name: 'Various Cookies',
+              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            },
+            hu: {
+              name: 'Egyéb sütik',
+              description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+            }
+          }
+        }
       }
     },
     services: {
       facebook: {
-        cookieName: 'fb',
-        name: 'Facebook',
         category: 'various',
         type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
-        search: 'facebook'
+        search: 'facebook',
+        language: {
+          locale: {
+            en: {
+              name: 'Facebook'
+            },
+            hu: {
+              name: 'Facebook'
+            }
+          }
+        }
       },
       azalead: {
-        cookieName: '__aza_perm',
-        name: 'Azalead',
         category: 'various',
         type: 'script-tag',
-        search: 'azalead'
+        search: 'azalead',
+        language: {
+          locale: {
+            en: {
+              name: 'Azalead'
+            },
+            hu: {
+              name: 'Azalead'
+            }
+          }
+        }
       },
       wrapped: {
-        cookieName: ['array', 'name'],
-        name: 'Wrapped script',
         category: 'various',
         type: 'wrapped',
-        search: 'wrapped'
+        search: 'wrapped',
+        language: {
+          locale: {
+            en: {
+              name: 'Wrapped'
+            },
+            hu: {
+              name: 'Csomagolt süti'
+            }
+          }
+        }
       },
       localcookie: {
-        cookieName: 'localcookie',
-        name: 'Local cookie',
         category: 'various',
         type: 'localcookie',
-        search: 'localcookie'
+        search: 'localcookie',
+        language: {
+          locale: {
+            en: {
+              name: 'Local cookie'
+            },
+            hu: {
+              name: 'Helyi süti'
+            }
+          }
+        }
       }
     }
-  }
+  });
   </script>
-  <script src="./index.js"></script>
 </head>
 <body>
   <button class="consent-edit">Consent edit</button>
@@ -87,7 +137,7 @@
   <!-- End Azalead tracking code -->
   <!-- Wrapper blocking -->
   <script>
-    CookieConsent.functions.wrapper('wrapped', function() {
+    CookieConsent.wrapper('wrapped', function() {
       console.warn('I\'m a script which was wrapped.');
     });
   </script>
