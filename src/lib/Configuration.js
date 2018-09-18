@@ -1,5 +1,4 @@
 import loMerge from 'lodash/merge';
-import PubSub from './PubSub';
 
 export default class Configuration {
   
@@ -14,9 +13,6 @@ export default class Configuration {
 
     // Wrapper filter function
     window.CookieConsent.wrapper = function() {};
-
-    // Wrapper filter function
-    window.CookieConsent.queue = new PubSub();
 
     // Settings injector for users
     window.CookieConsent.setConfiguration = this.setConfiguration.bind(this);
@@ -56,35 +52,8 @@ export default class Configuration {
           }
         }
       },
-      categories: {
-        // necessary: {
-        //   needed: true,
-        //   wanted: true,
-        //   checked: true,
-        //   language: {
-        //     locale: {
-        //       en: {
-        //         name: 'Strictly Necessary Cookies',
-        //         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
-        //       }
-        //     }
-        //   }
-        // },
-      },
-      services: {
-        // facebook: {
-        //   category: 'various',
-        //   type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
-        //   search: 'facebook',
-        //   language: {
-        //     locale: {
-        //       en: {
-        //         name: 'Facebook'
-        //       }
-        //     }
-        //   }
-        // }
-      }
+      categories: {},
+      services: {}
     }
 
   }
@@ -97,7 +66,7 @@ export default class Configuration {
     this.cookieToConfig();
 
     // We tell the world we did this
-    window.CookieConsent.queue.publish('configSet');
+    document.dispatchEvent(new Event('CConsentConfigSet'));
   }
 
   cookieToConfig() {

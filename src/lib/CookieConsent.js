@@ -17,14 +17,12 @@ export default class CookieConsent {
     const wrapperFilter = new WrapperFilter();
     const localCookieFilter = new LocalCookieFilter();
 
-    
-    window.CookieConsent.queue.subscribe('configSet', function(){
+    document.addEventListener('CConsentConfigSet', () => {
       insertScriptFilter.init();
       scriptTagFilter.init();
       wrapperFilter.init();
       localCookieFilter.init();
     });
-
 
     const UI = new Interface();
 
