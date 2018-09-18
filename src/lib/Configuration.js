@@ -42,7 +42,7 @@ export default class Configuration {
             barLinkSetting: 'Süti beállítások',
             barBtnAcceptAll: 'Minden süti elfogadása',
             modalMainTitle: 'Süti beállítások',
-            modalMainText: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
+            modalMainText: 'A HTTP-süti (általában egyszerűen süti, illetve angolul cookie) egy információcsomag, amelyet a szerver küld a webböngészőnek, majd a böngésző visszaküld a szervernek minden, a szerver felé irányított kérés alkalmával. Amikor egy weboldalt kérünk le a szervertől, akkor a böngésző elküldi a számára elérhető sütiket. A süti-ket úgy tervezték, hogy megbízható mechanizmust biztosítsanak a webhelyek számára az információk megőrzésére vagy a felhasználók böngészési tevékenységének rögzítésére.',
             modalBtnSave: 'Beállítások mentése',
             modalBtnAcceptAll: 'Minden Süti elfogadása',
             modalAffectedSolutions: 'Mire lesz ez hatással:',
