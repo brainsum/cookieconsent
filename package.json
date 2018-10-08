@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel src/index.html --no-hmr",
-    "build": "parcel build src/index.html --out-dir build --public-url ."
+    "build": "parcel build src/index.js --out-dir build --public-url .",
+    "buildcc": "parcel build src/index.js --out-dir build --public-url . --out-file cookieconsent.js"
   },
   "repository": {
     "type": "git",
