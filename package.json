@@ -23,8 +23,11 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "core-js": "^2.5.7",
-    "lodash": "^4.17.10",
-    "parcel-bundler": "^1.8.1",
-    "redom": "^3.12.4"
+    "lodash": "^4.17.11",
+    "parcel-bundler": "^1.10.2",
+    "redom": "^3.14.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3"
   }
 }
