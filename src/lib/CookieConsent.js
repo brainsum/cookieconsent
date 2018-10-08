@@ -15,8 +15,6 @@ export default class CookieConsent {
     const wrapperFilter = new WrapperFilter();
     const localCookieFilter = new LocalCookieFilter();
 
-    console.log('init filters')
-
     insertScriptFilter.init();
     scriptTagFilter.init();
     wrapperFilter.init();

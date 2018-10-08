@@ -11,15 +11,15 @@ export default class Interface {
 
   buildStyle() {
     return el('style',
-      '#cookie-bar, #cookie-bar * {box-sizing:border-box}', 
-      '#cookie-bar {background-color:#2C7CBF; color:#FFF; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
+      '#cookie-bar, #cookie-bar * { box-sizing:border-box }', 
+      '#cookie-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
       '#cookie-bar.hidden {transform: translateY(100%); display:block;}', 
-      '#cookie-bar .wrapper {display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
-      '#cookie-bar .left {align-self:center; text-align:left; margin: 15px 0;}',
-      '#cookie-bar .right {align-self:center; white-space: nowrap;}',
+      '#cookie-bar .wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
+      '#cookie-bar .left { align-self:center; text-align:left; margin: 15px 0;}',
+      '#cookie-bar .right { align-self:center; white-space: nowrap;}',
       '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
-      '#cookie-bar a {text-decoration:underline; color:#FFF}',
-      '#cookie-bar button {border:none;padding:10px 10px;color:#2C7CBF;background-color:#FFF;}',
+      '#cookie-bar a { text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; }',
+      '#cookie-bar button { border:none;padding:10px 10px;color:' + window.CookieConsent.config.theme.barMainButtonTextColor + ';background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
       '#cookie-bar a.consent-edit { margin-right:15px }',
       '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
       '#cookie-modal {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
@@ -66,10 +66,9 @@ export default class Interface {
       '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
       '#cookie-modal .content > .body .tab-content .list ul {padding-left:15px}',
       '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
-      '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:#4285F4; color:#FFF; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
-      '#cookie-modal .footer button:hover { background-color: #346BC5; }',
-      '#cookie-modal .footer button#cookie-modal-submit {  margin-right:10px; }',
-      '#cookie-modal .footer button#cookie-modal-submit:hover { background-color: #346bC5 }'
+      '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
+      '#cookie-modal .footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
+      '#cookie-modal .footer button#cookie-modal-submit {  margin-right:10px; }'
       );
   }
 

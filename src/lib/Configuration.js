@@ -19,6 +19,14 @@ export default class Configuration {
       active: true,
       cookieExists: false,
       modalMainTextMoreLink: null,
+      theme: {
+        barColor: '#2C7CBF',
+        barTextColor: '#FFF',
+        barMainButtonColor: '#FFF',
+        barMainButtonTextColor: '#2C7CBF',
+        modalMainButtonColor: '#4285F4',
+        modalMainButtonTextColor: '#FFF',
+      },
       language: {
         current: 'en',
         locale: {
@@ -64,8 +72,6 @@ export default class Configuration {
 
     // The cookie overrides the default and user config
     this.cookieToConfig();
-
-    console.log('config set')
 
     // We tell the world we did this
     document.dispatchEvent(new Event('CCConfigSet'));
