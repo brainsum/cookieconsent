@@ -24,7 +24,9 @@ Finally the local cookies set on your domain can be also filtered by overriding 
 
 ## Usage
 
-Include the script **before everything else.**
+Download the file cookieconsent.zip from the [latest release](https://github.com/brainsum/cookieconsent/releases/latest), and unpack its content.
+
+Include the script file into your HTML page **before everything else.**
 
 ```
 <script src="cookieconsent.js"></script>
@@ -37,10 +39,34 @@ The plugin is being controlled mainly by a configuration object which is passed 
 ```javascript
 <script>
   window.CookieConsent.init({
-    language: {
-      // The current language
-      current: 'en'
+    // Look and feel
+    theme: {
+      barColor: '#2C7CBF',
+      barTextColor: '#FFF',
+      barMainButtonColor: '#FFF',
+      barMainButtonTextColor: '#2C7CBF',
+      modalMainButtonColor: '#4285F4',
+      modalMainButtonTextColor: '#FFF',
     },
+    language: {
+      // Current language
+      current: 'en',
+      locale: {
+        en: {
+          barMainText: 'This website uses cookies to ensure you get the best experience on our website.',
+          barLinkSetting: 'Cookie Settings',
+          barBtnAcceptAll: 'Accept all cookies',
+          modalMainTitle: 'Cookie settings',
+          modalMainText: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
+          modalBtnSave: 'Save current settings',
+          modalBtnAcceptAll: 'Accept all cookies and close',
+          modalAffectedSolutions: 'Affected solutions:',
+          learnMore: 'Learn More',
+          on: 'On',
+          off: 'Off',
+        }
+      }
+    }
     // List all the categories you want to display
     categories: {
       // Unique name
