@@ -2,9 +2,7 @@ import loMerge from 'lodash/merge';
 
 export default class Configuration {
   
-  constructor() {
-
-    window.CookieConsent = window.CookieConsent || {};
+  constructor(configObject) {
 
     window.CookieConsent.buffer = {
       appendChild: [],
@@ -56,17 +54,21 @@ export default class Configuration {
       services: {}
     }
 
+    this.setConfiguration(configObject);
+
   }
 
-  setConfiguration(config) {
+  setConfiguration(configObject) {
     // The user overrides the default config
-    loMerge(window.CookieConsent.config, config);
+    loMerge(window.CookieConsent.config, configObject);
 
     // The cookie overrides the default and user config
     this.cookieToConfig();
 
+    console.log('config set')
+
     // We tell the world we did this
-    document.dispatchEvent(new Event('CConsentConfigSet'));
+    document.dispatchEvent(new Event('CCConfigSet'));
   }
 
   cookieToConfig() {
