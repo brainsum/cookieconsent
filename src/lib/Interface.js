@@ -11,76 +11,76 @@ export default class Interface {
 
   buildStyle() {
     return el('style',
-      '#cookie-bar, #cookie-bar * { box-sizing:border-box }', 
-      '#cookie-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
-      '#cookie-bar.hidden {transform: translateY(100%); display:block;}', 
-      '#cookie-bar .wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
-      '#cookie-bar .left { align-self:center; text-align:left; margin: 15px 0;}',
-      '#cookie-bar .right { align-self:center; white-space: nowrap;}',
-      '#cookie-bar .right > div {display:inline-block; color:#FFF;}',
-      '#cookie-bar a { text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; }',
-      '#cookie-bar button { border:none;padding:10px 10px;color:' + window.CookieConsent.config.theme.barMainButtonTextColor + ';background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
-      '#cookie-bar a.consent-edit { margin-right:15px }',
-      '#cookie-bar a:hover, #cookie-bar button:hover {cursor:pointer;}',
-      '#cookie-modal {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
-      '@media (max-width: 600px) { #cookie-modal { height: 100% } }',
-      '#cookie-modal h2, #cookie-modal h3 {color:#333}',
-      '#cookie-modal.visible {display:flex}',
-      '#cookie-modal .content { max-width:600px; min-height:500px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; }',
-      '@media (max-width: 600px) { #cookie-modal .content { max-width:100vw; height:100%; max-height:initial; }}',
-      '#cookie-modal .content > .heading {border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative;}',
-      '#cookie-modal .content > .heading h2 {color:#333; margin:0}',
-      '#cookie-modal .content > .heading p {}',
-      '#cookie-modal .content > .heading .close {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 15px;}',
-      '#cookie-modal h2, #cookie-modal h3 {margin-top:0}',
-      '#cookie-modal .content > .body { background-color:#FFF;}',
-      '#cookie-modal .content > .body .tabgroup {margin:0; border-bottom: 1px solid #D8D8D8; }',
-      '#cookie-modal .content > .body .tabgroup .tab-head::before { position:absolute; left:35px; font-size:1.4em; font-weight: 600; color:#E56385; content:"×"; display:inline-block; margin-right: 20px;}',
-      '#cookie-modal .content > .body .tabgroup.checked .tab-head::before {font-size:1em; content:"✔"; color:#28A834}',
-      '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
-      '#cookie-modal .content > .body .tabgroup .tab-head .icon-wedge > svg { pointer-events: none; }',
-      '#cookie-modal .content > .body .tabgroup.open .tab-head .icon-wedge {transform:rotate(-180deg)}',
-      '#cookie-modal .content > .body .tab-head {color:#333; padding:17px 35px 17px 56px; margin:0}',
-      '#cookie-modal .content > .body .tab-content {padding:25px 35px; margin:0}',
-      '#cookie-modal .content > .body .tab-head { transition: background-color .5s ease-out }',
-      '#cookie-modal .content > .body .tab-head:hover { background-color:#F9F9F9 }',
-      '#cookie-modal .content > .body .tab-head {font-weight:600; cursor:pointer; position:relative;}',
-      '#cookie-modal .content > .body .tabgroup .tab-content {display:none;}',
-      '#cookie-modal .content > .body .tabgroup.open .tab-head { background-color:#F9F9F9 }',
-      '#cookie-modal .content > .body .tabgroup.open .tab-content {display:flex;}',
-      '@media (max-width: 600px) { #cookie-modal .content > .body .tabgroup.open .tab-content {flex-direction:column} }',
-      '@media (max-width: 600px) { #cookie-modal .content > .body .tab-content .left { margin-bottom:20px; } }',
-      '#cookie-modal .content > .body .tab-content .left .switch-component {display:flex; margin-right:35px; align-items:center;}',
-      '#cookie-modal .content > .body .tab-content .left .switch-component > div {font-weight:600;}',
-      '#cookie-modal .content > .body .tab-content .left .switch-group {width:40px; height:20px; margin:0 10px; position:relative;}',
-      '#cookie-modal .content > .body .tab-content .left .switch {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
-      '#cookie-modal .content > .body .tab-content .left .switch input {display:none;}',
-      '#cookie-modal .content > .body .tab-content .left .switch .slider  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
-      '#cookie-modal .content > .body .tab-content .left .switch .slider:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
-      '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider  {background-color: #28A834;}',
-      '#cookie-modal .content > .body .tab-content .left .switch input:focus + .slider  {box-shadow: 0 0 1px #28A834;}',
-      '#cookie-modal .content > .body .tab-content .left .switch input:checked + .slider:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
-      '#cookie-modal .content > .body .tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}',
-      '#cookie-modal .content > .body .tab-content p {color:#444; margin-bottom:0}',
-      '#cookie-modal .content > .body .tab-content .list:not(:empty) {margin-top:30px;}',
-      '#cookie-modal .content > .body .tab-content .list .title {color:#333; font-weight:600;}',
-      '#cookie-modal .content > .body .tab-content .list ul {padding-left:15px}',
-      '#cookie-modal .footer {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
-      '#cookie-modal .footer button { transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
-      '#cookie-modal .footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
-      '#cookie-modal .footer button#cookie-modal-submit {  margin-right:10px; }'
+      '#ccookie-bar-9e2f, #ccookie-bar-9e2f * { box-sizing:border-box }', 
+      '#ccookie-bar-9e2f { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
+      '#ccookie-bar-9e2f.hidden-e9bd {transform: translateY(100%); display:block;}', 
+      '#ccookie-bar-9e2f .wrapper-84d2 { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
+      '#ccookie-bar-9e2f .left-e768 { align-self:center; text-align:left; margin: 15px 0;}',
+      '#ccookie-bar-9e2f .right-7514 { align-self:center; white-space: nowrap;}',
+      '#ccookie-bar-9e2f .right-7514 > div {display:inline-block; color:#FFF;}',
+      '#ccookie-bar-9e2f a { text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; }',
+      '#ccookie-bar-9e2f button { border:none;padding:10px 10px;color:' + window.CookieConsent.config.theme.barMainButtonTextColor + ';background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
+      '#ccookie-bar-9e2f a.cconsent-edit { margin-right:15px }',
+      '#ccookie-bar-9e2f a:hover, #ccookie-bar-9e2f button:hover {cursor:pointer;}',
+      '#ccookie-modal-h345 {display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
+      '@media (max-width: 600px) { #ccookie-modal-h345 { height: 100% } }',
+      '#ccookie-modal-h345 h2, #ccookie-modal-h345 h3 {color:#333}',
+      '#ccookie-modal-h345.visible-t67z {display:flex}',
+      '#ccookie-modal-h345 .content-98v5 { max-width:600px; min-height:500px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; }',
+      '@media (max-width: 600px) { #ccookie-modal-h345 .content-98v5 { max-width:100vw; height:100%; max-height:initial; }}',
+      '#ccookie-modal-h345 .content-98v5 > .heading-o8i1 {border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative;}',
+      '#ccookie-modal-h345 .content-98v5 > .heading-o8i1 h2 {color:#333; margin:0}',
+      '#ccookie-modal-h345 .content-98v5 > .heading-o8i1 p {}',
+      '#ccookie-modal-h345 .content-98v5 > .heading-o8i1 .close-u36t {font-weight:600; color:#888; cursor:pointer; font-size:26px; position: absolute; right:15px; top: 15px;}',
+      '#ccookie-modal-h345 h2, #ccookie-modal-h345 h3 {margin-top:0}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n { background-color:#FFF;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op {margin:0; border-bottom: 1px solid #D8D8D8; }',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op .tab-head-ggt5::before { position:absolute; left:35px; font-size:1.4em; font-weight: 600; color:#E56385; content:"×"; display:inline-block; margin-right: 20px;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op.checked-5jhk .tab-head-ggt5::before {font-size:1em; content:"✔"; color:#28A834}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op .tab-head-ggt5 .icon-wedge-77xr { transition: transform .3s ease-out; transform-origin: 16px 6px 0; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%)}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op .tab-head-ggt5 .icon-wedge-77xr > svg { pointer-events: none; }',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op.open-7z69 .tab-head-ggt5 .icon-wedge-77xr {transform:rotate(-180deg)}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-head-ggt5 {color:#333; padding:17px 35px 17px 56px; margin:0}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f {padding:25px 35px; margin:0}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-head-ggt5 { transition: background-color .5s ease-out }',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-head-ggt5:hover { background-color:#F9F9F9 }',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-head-ggt5 {font-weight:600; cursor:pointer; position:relative;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op .tab-content-s56f {display:none;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op.open-7z69 .tab-head-ggt5 { background-color:#F9F9F9 }',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op.open-7z69 .tab-content-s56f {display:flex;}',
+      '@media (max-width: 600px) { #ccookie-modal-h345 .content-98v5 > .body-p88n .tabgroup-87op.open-7z69 .tab-content-s56f {flex-direction:column} }',
+      '@media (max-width: 600px) { #ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 { margin-bottom:20px; } }',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-component-43dr {display:flex; margin-right:35px; align-items:center;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-component-43dr > div {font-weight:600;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-group-8h1q {width:40px; height:20px; margin:0 10px; position:relative;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j {position: absolute; top:0; right:0; display: inline-block; width: 40px; height: 20px;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j input {display:none;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j .slider-v14a  {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j .slider-v14a:before  {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j input:checked + .slider-v14a  {background-color: #28A834;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j input:focus + .slider-v14a  {box-shadow: 0 0 1px #28A834;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .left-e768 .switch-9t6j input:checked + .slider-v14a:before  {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f h3 {font-size:18px; margin-bottom:10px; line-height:1;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f p {color:#444; margin-bottom:0}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .list-5fr4:not(:empty) {margin-top:30px;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .list-5fr4 .title-0ftr {color:#333; font-weight:600;}',
+      '#ccookie-modal-h345 .content-98v5 > .body-p88n .tab-content-s56f .list-5fr4 ul {padding-left:15px}',
+      '#ccookie-modal-h345 .footer-rrt8 {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
+      '#ccookie-modal-h345 .footer-rrt8 button { transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
+      '#ccookie-modal-h345 .footer-rrt8 button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
+      '#ccookie-modal-h345 .footer-rrt8 button#ccookie-modal-h345-submit {  margin-right:10px; }'
       );
   }
 
   buildBar() {
-    return el('div#cookie-bar.hidden',
-        el('div.wrapper',
-          el('div.left',
+    return el('div#ccookie-bar-9e2f.hidden-e9bd',
+        el(`div.wrapper-84d2`,
+          el('div.left-e768',
             el('div.text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))
           ),
-          el('div.right',
+          el('div.right-7514',
             el('div.button',
-              el('a.consent-edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
+              el('a.cconsent-edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
               el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
             )
           )
@@ -106,7 +106,7 @@ export default class Interface {
           listItems.push(el('li', Language.getTranslation(list[item], window.CookieConsent.config.language.current, 'name')));
         }
 
-        return [el('div.list', el('span.title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalAffectedSolutions')), el('ul', listItems))];
+        return [el('div.list-5fr4', el('span.title-0ftr', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalAffectedSolutions')), el('ul', listItems))];
       }
     }
     
@@ -117,29 +117,29 @@ export default class Interface {
       let i = 0;
       for (let key in window.CookieConsent.config.categories) {
 
-        contentItems.push(el('dl.tabgroup' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked' : ''), {'data-category':key},
-                            el('dt.tab-head', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'),
-                              el('a.icon-wedge', 
+        contentItems.push(el('dl.tabgroup-87op' + '.' + key + ((window.CookieConsent.config.categories[key].checked) ? '.checked-5jhk' : ''), {'data-category':key},
+                            el('dt.tab-head-ggt5', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'),
+                              el('a.icon-wedge-77xr', 
                                 el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), { version: "1.2", preserveAspectRatio: "none", viewBox: "0 0 24 24", class: "icon-wedge-svg", "data-id": "e9b3c566e8c14cfea38af128759b91a3", style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"},
                                   el(document.createElementNS("http://www.w3.org/2000/svg", "path"), { 'xmlns:default': "http://www.w3.org/2000/svg", id: "angle-down", d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z", style: "fill: rgb(51, 51, 51);" })
                                 )
                               ),
                             ),
-                            el('dd.tab-content',
-                              el('div.left', 
-                                ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component', el('div.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')),
-                                el('div.switch-group',
-                                  el('label.switch',
+                            el('dd.tab-content-s56f',
+                              el('div.left-e768', 
+                                ( ! window.CookieConsent.config.categories[key].needed) && el('div.switch-component-43dr', el('div.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')),
+                                el('div.switch-group-8h1q',
+                                  el('label.switch-9t6j',
                                     el('input.category-onoff', {type:'checkbox', 'data-category': key, 'checked': window.CookieConsent.config.categories[key].checked}),
-                                    el('span.slider')
+                                    el('span.slider-v14a')
                                   )
                                 ),
                                 el('div.status-on', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'on')))
                               ),
-                              el('div.right',
+                              el('div.right-7514',
                                 el('h3', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')),
                                 el('p', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'description')),
-                                el('div.list',
+                                el('div.list-5fr4',
                                   listCookies(key)
                                 )
                               )
@@ -153,23 +153,23 @@ export default class Interface {
       return contentItems;
     }
 
-    return el('div#cookie-modal',
-      el('div.content',
-        el('div.heading',
+    return el('div#ccookie-modal-h345',
+      el('div.content-98v5',
+        el('div.heading-o8i1',
           el('h2', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')),
           el('p',
             Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'),
             (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')) : null
           ),
-          el('div.close', '×')
+          el('div.close-u36t', '×')
         ),
-        el('div.body',
+        el('div.body-p88n',
           el('div.tabs',
             modalTabGroups()
           )
         ),
-        el('div.footer',
-          el('button#cookie-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
+        el('div.footer-rrt8',
+          el('button#ccookie-modal-h345-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
           el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       )
@@ -177,16 +177,16 @@ export default class Interface {
   }
 
   modalRedrawIcons() {
-    var tabGroups = this.elements['modal'].querySelectorAll('.tabgroup');
+    var tabGroups = this.elements['modal'].querySelectorAll('.tabgroup-87op');
 
     for(let tabGroup of tabGroups) {
       if(window.CookieConsent.config.categories[tabGroup.dataset.category].checked) {
-        if( ! tabGroup.classList.contains('checked')) {
-          tabGroup.classList.add('checked');
+        if( ! tabGroup.classList.contains('checked-5jhk')) {
+          tabGroup.classList.add('checked-5jhk');
           tabGroup.querySelector('input.category-onoff').checked = true;
         };
       } else {
-        if(tabGroup.classList.contains('checked')) tabGroup.classList.remove('checked');
+        if(tabGroup.classList.contains('checked-5jhk')) tabGroup.classList.remove('checked-5jhk');
         tabGroup.querySelector('input.category-onoff').checked = false;
       }
     }
@@ -223,7 +223,7 @@ export default class Interface {
         // Show the bar after a while
         if ( ! window.CookieConsent.config.cookieExists) {
           setTimeout(() => {
-            bar.classList.remove('hidden');
+            bar.classList.remove('hidden-e9bd');
           }, 3000);
         }
       });
@@ -254,8 +254,8 @@ export default class Interface {
           this.setCookie(cookie);
         });
   
-        this.elements['bar'].classList.add('hidden');
-        this.elements['modal'].classList.remove('visible');
+        this.elements['bar'].classList.add('hidden-e9bd');
+        this.elements['modal'].classList.remove('visible-t67z');
 
         this.modalRedrawIcons();
   
@@ -264,9 +264,9 @@ export default class Interface {
 
 
     // If you click Cookie settings and open modal
-    Array.prototype.forEach.call(document.getElementsByClassName('consent-edit'), (edit) => {
+    Array.prototype.forEach.call(document.getElementsByClassName('cconsent-edit'), (edit) => {
       edit.addEventListener('click', () => {
-        this.elements['modal'].classList.add('visible');
+        this.elements['modal'].classList.add('visible-t67z');
       });
     });
 
@@ -275,7 +275,7 @@ export default class Interface {
     this.elements['modal'].querySelector('.tabs').addEventListener('click', (event) => {
 
       // If you click trough the tabs on Cookie settings
-      if (event.target.classList.contains('tab-head') || event.target.classList.contains('icon-wedge')) {
+      if (event.target.classList.contains('tab-head-ggt5') || event.target.classList.contains('icon-wedge')) {
 
         function getDlParent(eventTarget) {
           var parent = eventTarget.parentNode;
@@ -288,10 +288,10 @@ export default class Interface {
         
         var parentDl = getDlParent(event.target);
         
-        if(parentDl.classList.contains('open')) {
-          parentDl.classList.remove('open');
+        if(parentDl.classList.contains('open-7z69')) {
+          parentDl.classList.remove('open-7z69');
         } else {
-          parentDl.classList.add('open');
+          parentDl.classList.add('open-7z69');
         }
       }
 
@@ -300,11 +300,11 @@ export default class Interface {
         window.CookieConsent.config.categories[event.target.dataset.category].wanted =
         window.CookieConsent.config.categories[event.target.dataset.category].checked = (event.target.checked === true) ? true : false;
 
-        var dt = document.querySelector('.tabgroup.' + event.target.dataset.category);
-        if(event.target.checked === false && dt.classList.contains('checked')) {
-          dt.classList.remove('checked');
+        var dt = document.querySelector('.tabgroup-87op.' + event.target.dataset.category);
+        if(event.target.checked === false && dt.classList.contains('checked-5jhk')) {
+          dt.classList.remove('checked-5jhk');
         } else {
-          dt.classList.add('checked');
+          dt.classList.add('checked-5jhk');
         }
       }
     });
@@ -312,14 +312,14 @@ export default class Interface {
 
 
     // If you click close on open modal
-    this.elements['modal'].querySelector('.close').addEventListener('click', (event) => {
-      this.elements['modal'].classList.remove('visible');
+    this.elements['modal'].querySelector('.close-u36t').addEventListener('click', (event) => {
+      this.elements['modal'].classList.remove('visible-t67z');
     });
 
     // If you click submit on cookie settings
-    document.getElementById('cookie-modal-submit').addEventListener('click', () => {
+    document.getElementById('ccookie-modal-submit').addEventListener('click', () => {
 
-      let switchElements = this.elements['modal'].querySelectorAll('.switch input');
+      let switchElements = this.elements['modal'].querySelectorAll('.switch-9t6j input');
 
       Array.prototype.forEach.call(switchElements, (switchElement) => {
         window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElement.checked;
@@ -327,8 +327,8 @@ export default class Interface {
 
       this.buildCookie((cookie) => {
         this.setCookie(cookie, () => {
-          this.elements['modal'].classList.remove('visible');
-          this.elements['bar'].classList.add('hidden');
+          this.elements['modal'].classList.remove('visible-t67z');
+          this.elements['bar'].classList.add('hidden-e9bd');
         });
       });
 
