@@ -68,7 +68,7 @@ export default class Interface {
       '#ccookie-modal-h345 .footer-rrt8 {padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
       '#ccookie-modal-h345 .footer-rrt8 button { transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
       '#ccookie-modal-h345 .footer-rrt8 button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
-      '#ccookie-modal-h345 .footer-rrt8 button#ccookie-modal-h345-submit {  margin-right:10px; }'
+      '#ccookie-modal-h345 .footer-rrt8 button#ccookie-modal-submit-6zhn {  margin-right:10px; }'
       );
   }
 
@@ -169,7 +169,7 @@ export default class Interface {
           )
         ),
         el('div.footer-rrt8',
-          el('button#ccookie-modal-h345-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
+          el('button#ccookie-modal-submit-6zhn', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
           el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       )
@@ -317,7 +317,7 @@ export default class Interface {
     });
 
     // If you click submit on cookie settings
-    document.getElementById('ccookie-modal-submit').addEventListener('click', () => {
+    document.getElementById('ccookie-modal-submit-6zhn').addEventListener('click', () => {
 
       let switchElements = this.elements['modal'].querySelectorAll('.switch-9t6j input');
 
