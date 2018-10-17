@@ -21,7 +21,7 @@ export default class ScriptTagFilter extends Filter {
           var newtag = document.createElement('script');
           var parentNode = scriptTag.parentNode;
           
-          scriptTag.type = 'application/javascript';
+          scriptTag.type = 'text/javascript';
 
           for(var attribute of scriptTag.attributes) {
             newtag.setAttribute(attribute.nodeName, attribute.nodeValue);
