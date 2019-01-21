@@ -1,8 +1,18 @@
 # Cookieconsent Script
 
-A lightweight Javascript plugin that displays a cookie consent message as required by EU regulation (GDPR). The plugin displays a message on the user's first visit and they have the ability to consent to different categories of cookies and services.
+A script that displays a cookie consent message as required by EU regulation (GDPR). The plugin displays a message on the user's first visit and they have the ability to consent to different categories of cookies and services.
+
+See the demo: [Cookieconsent](https://brainsum.github.io/cookieconsent/)
+
+## Default look
+
+![Cookieconsent modal](https://raw.githubusercontent.com/brainsum/cookieconsent/master/docs/cc_modal_75.png "Cookieconsent modal")
 
 ## Features
+
+- IE11 compatible
+- Four different blocking methods
+- Multilingual
 
 Currently it can block all the bad cookie monsters in 4 ways.
 
@@ -16,7 +26,7 @@ Some third party services require you to insert a script tag into your HTML page
 
 ### Script wrapping
 
-Some services are not inserted in a SCRIPT tag and are obscured by layers of other code. Thats why this plugin creates a global wrapper function what you can use to wrap and blovk any JS code.
+Some services are not inserted in a SCRIPT tag and are obscured by layers of other code. Thats why this script creates a global wrapper function what you can use to wrap and blovk any JS code.
 
 ### Local cookies
 
@@ -24,17 +34,21 @@ Finally the local cookies set on your domain can be also filtered by overriding 
 
 ## Usage
 
-Download the file cookieconsent.zip from the [latest release](https://github.com/brainsum/cookieconsent/releases/latest), and unpack its content.
+1. Download the file cookieconsent.zip from the [latest release](https://github.com/brainsum/cookieconsent/releases/latest), and unpack its content.
 
-Include the script file into your HTML page **before everything else.**
+2. Include the script file into your HTML page **before everything else.**
 
 ```
 <script src="cookieconsent.js"></script>
 ```
 
+3. Call the init() function with the Configuration Object.
+
+See a working example in the docs folder.
+
 ### Configuration object
 
-The plugin is being controlled mainly by a configuration object which is passed to the inital call. It acts as configuration and a global state object.
+The script is being controlled mainly by a configuration object which is passed to the inital call. It acts as configuration and a global state object.
 
 ```javascript
 <script>
