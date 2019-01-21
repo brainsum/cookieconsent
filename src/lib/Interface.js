@@ -367,9 +367,4 @@ export default class Interface {
     document.cookie = `cconsent=${JSON.stringify(cookie)}; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;`;
     if (callback) callback();
   }
-  
-  removeCookie(cookie) {
-    document.cookie = `cconsent=; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;`;
-  }
-
 }

@@ -1,3 +1,4 @@
+import Utilities from "./Utilities";
 import loMerge from 'lodash/merge';
 
 export default class Configuration {
@@ -80,11 +81,24 @@ export default class Configuration {
   cookieToConfig() {
     document.cookie.split(';').filter((item) => {
       if (item.indexOf('cconsent')  >= 0) {
-        window.CookieConsent.config.cookieExists = true;
         var cookieData = JSON.parse(item.split('=')[1]);
+
+        // We check if cookie data categories also exist in user config
+        for (let key in cookieData) {
+
+          // The cookie contains category not present in user config so we invalidate cookie
+          if(typeof window.CookieConsent.config.categories[key] === 'undefined') {
+            Utilities.removeCookie();
+            return false;
+          }
+        }
+
+        // We we integrate cookie data into the global config object
         for (let key in cookieData) {
           window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].wanted = (cookieData[key] === true) ? true : false;
         }
+
+        window.CookieConsent.config.cookieExists = true;
         return true;
       }
     });
