@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cookieconsent</title>
   
-  <script src="src.0b7d031f.js"></script>
+  <script src="cookieconsent.js"></script>
   <script>
     window.CookieConsent.init({
       language: {
@@ -112,10 +112,20 @@
       }
     });
   </script>
+  <style>
+    .language-switcher-wrapper {
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-  <button class="consent-edit">Consent edit</button>
-  <a href="index-hu.html">Hungarian</a>
+  <h1>Coookieconsent demo</h1>
+  <div class="consent-edit-wrapper">
+    <button class="consent-edit">Consent edit</button>
+  </div>
+  <div class="language-switcher-wrapper">
+    <a href="index-hu.html">Switch to Hungarian language</a>
+  </div>
   <!-- Facebook Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
