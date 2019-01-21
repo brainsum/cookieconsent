@@ -13,6 +13,7 @@ See the demo: [Cookieconsent](https://brainsum.github.io/cookieconsent/)
 - IE11 compatible
 - Four different blocking methods
 - Multilingual
+- Mobile ready
 
 Currently it can block all the bad cookie monsters in 4 ways.
 
