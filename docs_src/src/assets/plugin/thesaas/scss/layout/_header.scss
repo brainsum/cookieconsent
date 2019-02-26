@@ -1,0 +1,22 @@
+
+.header {
+  $padding: 90px;
+
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: $padding + $navbar-min-height;
+  padding-bottom: $padding;
+  //background-color: #f1f3f6;
+
+  > .container,
+  > .container-fluid {
+    position: relative;
+    height: 100%;
+  }
+
+  &.h-fullscreen {
+    padding-top: $padding;
+  }
+}

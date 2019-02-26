@@ -1,0 +1,305 @@
+
+
+body {
+
+}
+
+
+//----------------------------------------------------/
+// Text
+//----------------------------------------------------/
+a {
+  color: $color-primary;
+  transition: .2s linear;
+
+  &:hover,
+  &:focus {
+    color: $color-primary;
+    text-decoration: none;
+    outline: none;
+  }
+
+  &.anchor::before {
+    content: '#';
+    vertical-align: text-bottom;
+  }
+}
+
+.link-color-default a {
+  color: $color-text;
+
+  &:hover,
+  &:focus {
+    color: $color-primary;
+  }
+}
+
+
+b,
+strong {
+  font-weight: 600;
+}
+
+del {
+  opacity: .6;
+}
+
+
+.semibold {
+  font-weight: 400;
+}
+
+
+.lead {
+  font-size: 1.125rem;
+}
+
+small,
+.small {
+  //font-size: $font-size-sm;
+}
+
+.label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  //color: $color-text-secondary;
+}
+
+
+//----------------------------------------------------/
+// Headings
+//----------------------------------------------------/
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: $color-title;
+  letter-spacing: 0.5px;
+
+  small {
+    font-size: 65%;
+    color: $color-text-secondary;
+  }
+
+  strong,
+  b {
+    font-weight: 500;
+  }
+
+  a {
+    color: $color-title;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  .anchor {
+    position: absolute;
+    right: 100%;
+    opacity: 0;
+    //padding-right: 0.5rem;
+    color: $color-primary;
+  }
+
+  &.anchor-visible .anchor,
+  &:hover .anchor {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+}
+
+h1, .h1 { font-weight: $h1-font-weight; }
+h2, .h2 { font-weight: $h2-font-weight; }
+h3, .h3 { font-weight: $h3-font-weight; }
+h4, .h4 { font-weight: $h4-font-weight; }
+h5, .h5 { font-weight: $h5-font-weight; }
+h6, .h6 { font-weight: $h6-font-weight; }
+
+h6, .h6 {
+  letter-spacing: 0.75px;
+
+  &.bold {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: .5px;
+
+    &::before {
+      content: '\2014 \00A0';
+    }
+  }
+}
+
+.heading-alt {
+  font-family: $font-family-base;
+  letter-spacing: 0;
+}
+
+
+
+
+//----------------------------------------------------/
+// Blockquote
+//----------------------------------------------------/
+.blockquote {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .quote-sign::before {
+    content: '“';
+    display: block;
+    font-size: 9rem;
+    line-height: .2;
+    font-weight: 600;
+    padding-top: 4rem;
+    opacity: .1;
+  }
+
+  .quote-sign-end::before {
+    content: '”';
+  }
+
+  p::before,
+  p::after {
+    font-size: 1.5rem;
+    line-height: 1;
+    opacity: .5;
+  }
+
+  p::before {
+    content: '“';
+    margin-left: -13px;
+    padding-right: 4px;
+  }
+
+  p::after {
+    content: '”';
+    margin-right: -13px;
+    padding-left: 4px;
+  }
+
+  footer {
+    color: $color-text;
+    font-size: 0.875rem;
+    margin-top: 1.5rem;
+
+    &::before {
+      content: '\2014';
+      margin-right: 0.5rem;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-bottom: 2rem;
+
+    .quote-sign::before {
+      font-size: 5rem;
+    }
+  }
+
+}
+
+
+.text-quoted {
+
+  &::before,
+  &::after {
+    opacity: .7;
+  }
+
+  &::before {
+    content: '“';
+    padding-right: 2px;
+  }
+
+  &::after {
+    content: '”';
+    padding-left: 2px;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Dividers
+//----------------------------------------------------/
+hr {
+  border-top-color: $color-alpha-dark-divider;
+  margin: 2rem auto;
+}
+
+.hr-dash {
+  border-top-style: dashed;
+}
+
+.hr-dot {
+  border-top-style: dotted;
+}
+
+.hr-light {
+  border-top-color: $color-alpha-dark-bg-hover;
+}
+
+.mark-underline {
+  padding-bottom: 2px;
+  border-bottom: 1px dashed white;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  flex: 0;
+  color: $color-text-secondary;
+  font-size: 0.8375rem;
+  letter-spacing: .5px;
+  margin: 2rem auto;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    flex-grow: 1;
+    border-top: 1px solid $color-divider;
+  }
+
+  &::before {
+    margin-right: 1rem;
+  }
+
+  &::after {
+    margin-left: 1rem;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Selection
+//----------------------------------------------------/
+::selection {
+  background: lighten($color-primary, 7%);
+  color: #fff;
+}
+::-moz-selection {
+  background: lighten($color-primary, 7%);
+  color: #fff;
+}
+
+
+//----------------------------------------------------/
+// Responsive typography
+//----------------------------------------------------/
+
+@include media-breakpoint-down(sm) {
+  html {
+    font-size: $font-size-base * 0.9375;
+  }
+}

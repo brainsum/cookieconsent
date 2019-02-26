@@ -1,0 +1,186 @@
+
+
+//----------------------------------------------------/
+// General classes for pricing
+//----------------------------------------------------/
+.price-unit {
+  display: inline-block;
+  font-size: 16px;
+  vertical-align: text-top;
+  margin-right: -10px;
+  margin-top: 16px;
+}
+
+.plan-period {
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: text-bottom;
+  margin-left: -10px;
+  margin-bottom: 14px;
+  color: $color-text-secondary;
+}
+
+
+
+//----------------------------------------------------/
+// Pricing #1
+//----------------------------------------------------/
+.pricing-1 {
+  background-color: #fff;
+  border: 1px solid $color-divider-light;
+  border-radius: 5px;
+  text-align: center;
+  transition: .5s;
+
+  &.popular,
+  &:hover {
+    box-shadow: 0 0 25px rgba(0,0,0,.07)
+  }
+
+  .plan-name {
+    padding: 16px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid $color-divider-light;
+    background-color: $color-bg-lightest;
+  }
+
+  .price {
+    font-size: 60px;
+    font-weight: 600;
+  }
+
+}
+
+
+
+//----------------------------------------------------/
+// Pricing #2
+//----------------------------------------------------/
+.pricing-2 {
+  text-align: center;
+
+  .price {
+    font-size: 5rem;
+    font-weight: 200;
+    opacity: .9;
+  }
+
+  .plan-name {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.8325rem;
+    opacity: .9;
+  }
+
+  .plan-description {
+    opacity: .9;
+  }
+
+}
+
+
+
+//----------------------------------------------------/
+// Pricing #3
+//----------------------------------------------------/
+.pricing-3 {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+
+  &.popular {
+    background-color: $color-bg-gray;
+    position: relative;
+  }
+
+  .popular-tag {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    background-color: $color-success;
+    color: #fff;
+    padding: 1px 0.75rem;
+    padding-right: 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    border-top-right-radius: 5rem;
+    border-bottom-right-radius: 5rem;
+    transform: rotate(90deg);
+    transform-origin: top left;
+  }
+
+  .price {
+    font-size: 3.75rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-name {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.8325rem;
+    letter-spacing: 1px;
+    opacity: .9;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+}
+
+
+
+//----------------------------------------------------/
+// Pricing #4
+//----------------------------------------------------/
+.pricing-4 {
+  align-items: center;
+  color: $color-text;
+  border: 1px solid $color-divider-light;
+
+  &.popular,
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 15px rgba(0,0,0,0.06);
+    color: $color-text;
+  }
+
+  .plan-description {
+    background-color: $color-bg-gray;
+    padding: 2rem;
+
+    h5 {
+      font-weight: 500;
+    }
+  }
+
+  .plan-price {
+
+    text-align: center;
+
+    h3 {
+      font-weight: 300;
+      font-size: 2.25rem;
+      padding-top: 1rem;
+
+      small {
+        font-weight: 300;
+        font-size: 0.8325rem;
+      }
+    }
+
+    p {
+      @extend .lead;
+    }
+
+  }
+
+}
+

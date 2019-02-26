@@ -1,0 +1,47 @@
+
+//-----------------------------------------------------------------
+// Star rating
+//
+.rating {
+  display: inline-flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  label {
+    color: $yellow;
+    cursor: default;
+
+    &::before {
+      margin-right: 5px;
+      display: inline-block;
+    }
+  }
+
+  label.active {
+    color: $yellow;
+  }
+
+  label.empty {
+    color: darken($color-bg-gray, 5%);
+  }
+
+}
+
+
+// Sizes
+//
+.rating-xs label::before {
+  margin-right: 1px;
+  font-size: 11px;
+}
+
+.rating-sm label::before {
+  margin-right: 2px;
+  font-size: 13px;
+}
+
+.rating-lg label::before {
+  font-size: 18px;
+}

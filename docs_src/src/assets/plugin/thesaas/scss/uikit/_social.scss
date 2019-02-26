@@ -1,0 +1,266 @@
+
+.social {
+  $size: 32px;
+
+  a {
+    display: inline-block;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    //margin-right: 20px;
+    text-align: center;
+    color: inherit;
+    font-size: 1rem;
+    border-radius: 3px;
+    opacity: 0.8;
+    transition: .4s ease-out;
+
+    &:hover {
+      //color: #fff;
+      opacity: 1;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @each $name, $color in $brand-colors {
+      &.social-#{$name}:hover {
+        color: $color;
+      }
+    }
+
+  }
+
+}
+
+
+.social-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+// Sizes
+//
+.social-sm a {
+  $size: 28px;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  font-size: 0.8125rem;
+  //margin-right: 16px;
+}
+
+
+.social-lg a {
+  $size: 38px;
+  width: $size;
+  height: $size;
+  line-height: $size - 2px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 1.25rem;
+  //margin-right: 24px;
+}
+
+
+.social-inline a {
+  width: auto;
+  height: auto;
+  margin-right: 1rem;
+}
+
+
+
+//----------------------------------------------------/
+// Color
+//----------------------------------------------------/
+.social-brand a {
+  @each $name, $color in $brand-colors {
+    &.social-#{$name} {
+      color: $color;
+    }
+  }
+}
+
+.social-gray a {
+  color: $color-text-secondary;
+
+  &:hover {
+    color: $color-text !important;
+  }
+}
+
+.social-light a {
+  color: rgba(#fff, 0.65);
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Background color
+//----------------------------------------------------/
+.social-bg-brand {
+
+  a {
+    color: #fff;
+    opacity: 1;
+
+    &:hover {
+      color: #fff !important;
+    }
+  }
+
+  @each $name, $color in $brand-colors {
+    .social-#{$name} {
+      background-color: $color;
+    }
+  }
+}
+
+
+.social-bg-pale-brand {
+
+  a {
+    opacity: 1;
+  }
+
+  @each $name, $color in $brand-colors {
+    .social-#{$name} {
+      color: $color;
+      background-color: color-level($color, -11);
+
+      &:hover {
+        color: $color !important;
+        background-color: color-level($color, -10) !important;
+      }
+    }
+  }
+}
+
+
+.social-bg-gray a {
+  color: $color-text-secondary;
+  border: none;
+  background-color: $color-bg-gray;
+}
+
+.social-bg-light a {
+  border: none;
+  background-color: #fff;
+}
+
+.social-bg-dark a {
+  border: none;
+  color: rgba(#fff,0.6);
+  background-color: rgba(#fff,0.1);
+
+  &:hover {
+    color: rgba(#fff,0.8) !important;
+    background-color: rgba(#fff,0.15) !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Hover text
+//----------------------------------------------------/
+.social-hover-primary a:hover {
+  color: $color-primary !important;
+}
+
+
+//----------------------------------------------------/
+// Hover background
+//----------------------------------------------------/
+.social-hover-bg-brand a {
+  @each $name, $color in $brand-colors {
+    &.social-#{$name}:hover {
+      background-color: $color;
+      color: #fff;
+    }
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Rounded
+//----------------------------------------------------/
+.social-rounded a {
+  border-radius: 50%;
+  border: 1px solid $color-divider-light;
+}
+
+.social-rounded.social-gray a {
+  border-color: $color-bg-light;
+}
+
+.social-rounded.social-light {
+
+  a {
+    border-color: rgba(#fff, .5);
+    font-size: 0.8125rem;
+  }
+
+  &.social-sm a {
+    font-size: 0.6875rem;
+  }
+
+
+  &.social-lg a {
+    font-size: 0.9375rem;
+  }
+
+}
+
+
+
+//----------------------------------------------------/
+// Bordered
+//----------------------------------------------------/
+.social-bordered a {
+  border: 1px solid $color-divider;
+}
+
+.social-bordered.social-gray a {
+  border-color: $color-bg-light;
+}
+
+.social-bordered.social-light a {
+  border-color: rgba(#fff, .6);
+}
+
+
+
+
+//----------------------------------------------------/
+// Cycling
+//----------------------------------------------------/
+.social-cycling a:hover i {
+  animation: cycle .4s forwards;
+}
+
+
+@keyframes cycle {
+  49% {
+    transform: translateY(-100%);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  51% {
+    opacity: 1;
+  }
+}

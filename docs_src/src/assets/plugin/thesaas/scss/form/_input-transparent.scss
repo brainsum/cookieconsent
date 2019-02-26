@@ -1,0 +1,69 @@
+.input-transparent {
+
+  $input-transparent-border-color:       rgba(#fff, .3);
+  $input-transparent-border-color-focus: rgba(#fff, .5);
+  $input-transparent-color-placeholder:  rgba(#fff, .65);
+  $input-transparent-color-text:         rgba(#fff, .8);
+
+  .form-control {
+    border-color: $input-transparent-border-color;
+    background-color: transparent;
+    color: $input-transparent-color-text;
+
+    &.is-valid {
+      border-color: rgba($color-success, 0.4);
+    }
+
+    &.is-invalid {
+      border-color: rgba($color-danger, 0.4);
+    }
+
+    &::placeholder {
+      color: $input-transparent-color-placeholder;
+    }
+
+    &:focus {
+      @include input-transparent-focus($input-transparent-border-color-focus);
+    }
+  }
+
+  select option {
+    color: $color-title;
+  }
+
+  label {
+    opacity: .8;
+  }
+
+  .input-group {
+    border-color: $input-transparent-border-color;
+
+    &.focus {
+      @include input-transparent-focus($input-transparent-border-color-focus);
+    }
+
+    .btn-outline-light {
+      border-color: $input-transparent-border-color;
+    }
+
+    .input-group-prepend .btn-outline-light {
+      border-top-width: 0;
+      border-left-width: 0;
+      border-bottom-width: 0;
+    }
+
+    .input-group-append .btn-outline-light {
+      border-top-width: 0;
+      border-right-width: 0;
+      border-bottom-width: 0;
+    }
+  }
+
+  .input-group-text {
+    background-color: transparent;
+    border-color: $input-transparent-border-color;
+    color: rgba(#fff, .75);
+  }
+
+}
+

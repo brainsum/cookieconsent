@@ -1,0 +1,9 @@
+.input-border {
+
+  .form-control:focus,
+  .input-group.focus {
+    border-color: theme-color-level('primary', -5);
+    box-shadow: none;
+  }
+
+}

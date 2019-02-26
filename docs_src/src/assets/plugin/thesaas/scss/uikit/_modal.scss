@@ -1,0 +1,88 @@
+
+.modal {
+
+  .close {
+    font-weight: 100;
+  }
+}
+
+.modal-dialog {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  height: 100%;
+}
+
+
+.modal-content {
+  margin-top: auto;
+  margin-bottom: auto;
+  border: none;
+}
+
+
+.modal-header,
+.modal-footer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+
+.modal-header {
+
+}
+
+
+.modal-body > .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem 0.75rem;
+  z-index: 1;
+}
+
+// Disable transform from/to top
+.modal.fade:not(.modal-top, .modal-bottom) .modal-dialog {
+  transform: translate(0,0);
+}
+
+
+// Positions
+//
+.modal-top .modal-content {
+  margin-top: 3rem;
+}
+
+.modal-bottom {
+
+  &.modal.fade .modal-dialog {
+    transform: translate(0, 0);
+    overflow: hidden;
+
+    .modal-content {
+      margin-bottom: 0;
+      transform: translate(0, 100%);
+      transition: 0.3s ease-out;
+    }
+  }
+
+  &.modal.show .modal-dialog {
+    //transform: translate(0, 0);
+
+    .modal-content {
+      margin-bottom: 3rem;
+      transform: translate(0, 0);
+      transition: 0.3s ease-out;
+    }
+  }
+
+}
+
+
+// Modal with long content
+//
+.modal-long {
+  height: auto;
+  margin-top: 1.75rem;
+  margin-bottom: 1.75rem;
+}

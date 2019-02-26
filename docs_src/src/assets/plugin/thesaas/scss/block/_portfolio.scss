@@ -1,0 +1,117 @@
+
+
+.portfolio-1 {
+
+  position: relative;
+  overflow: hidden;
+  display: block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-primary;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #fff;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 2;
+  }
+
+  &:hover {
+
+    &::before {
+      opacity: .8;
+    }
+
+    &::after {
+      opacity: .8;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+    }
+
+    img {
+      transform: scale(1.1);
+    }
+
+    .portfolio-detail {
+      opacity: 1;
+    }
+
+  }
+
+  img {
+    transition: all 0.3s;
+  }
+
+  .portfolio-detail {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 0.3s;
+    color: #fff;
+    z-index: 3;
+  }
+
+  h5 {
+    color: #fff;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 13px;
+  }
+
+}
+
+
+
+.portfolio-2 {
+
+  img {
+    @extend .shadow-2, .hover-shadow-5;
+  }
+
+}
+
+
+
+.project-detail {
+  list-style: none;
+  padding-left: 0;
+
+  li:not(:last-child) {
+    //padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    //border-bottom: 1px solid $color-divider;
+  }
+
+  strong {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $color-title;
+  }
+}

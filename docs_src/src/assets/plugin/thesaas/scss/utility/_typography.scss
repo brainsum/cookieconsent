@@ -1,0 +1,92 @@
+
+
+//----------------------------------------------------/
+// Font family
+//----------------------------------------------------/
+.font-body {
+  font-family: $font-family-base;
+}
+
+.font-title {
+  font-family: $font-family-title;
+}
+
+
+//----------------------------------------------------/
+// Font size
+//----------------------------------------------------/
+$font-size-list: 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20;
+@each $value in $font-size-list {
+  .fs-#{$value},
+  .font-size-#{$value} {
+    font-size: #{$value}px !important;
+  }
+}
+
+// .lead-*
+//
+@each $step, $size in $font-lead {
+  .lead-#{$step} {
+    font-size: $size !important;
+  }
+}
+
+// .small-*
+//
+@each $step, $size in $font-small {
+  .small-#{$step} {
+    font-size: $size !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Font weight
+//----------------------------------------------------/
+$font-weight-list: 100 200 300 400 500 600 700 800 900;
+@each $value in $font-weight-list {
+  .fw-#{$value},
+  .font-weight-#{$value} {
+    font-weight: #{$value} !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Line height
+//----------------------------------------------------/
+.lh-1,
+.line-height-1 {
+  line-height: 1;
+}
+
+@for $i from 2 through 9 {
+  .lh-#{$i},
+  .line-height-#{$i} {
+    line-height: 1 + $i*1.5/10;
+  }
+}
+
+
+//----------------------------------------------------/
+// Letter spacing
+//----------------------------------------------------/
+$letter-spacing-list: 0 1 2 3 4 5;
+@each $value in $letter-spacing-list {
+  .ls-#{$value},
+  .letter-spacing-#{$value} {
+    letter-spacing: #{$value}px;
+  }
+}
+
+
+//----------------------------------------------------/
+// Misc
+//----------------------------------------------------/
+.text-truncate {
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

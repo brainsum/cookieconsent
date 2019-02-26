@@ -1,0 +1,17 @@
+
+.page-link {
+  margin: 0 3px;
+  padding: 0;
+  text-align: center;
+  min-width: $pagination-line-height;
+}
+
+.page-link,
+.page-item:last-child .page-link,
+.page-item:first-child .page-link {
+  border-radius: 2px;
+}
+
+.page-item.disabled {
+  opacity: 0.6;
+}

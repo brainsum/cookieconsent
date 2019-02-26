@@ -1,0 +1,75 @@
+
+.fa {
+  font-weight: inherit;
+}
+
+
+
+.iconbox {
+  $size: $height-md;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  background-color: $color-bg-light;
+  color: $color-text-light;
+  border-radius: 10rem;
+
+
+  // Sizes
+  //
+  &.iconbox-xs {
+    $size:  $height-xs;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: .6875rem;
+  }
+
+  &.iconbox-sm {
+    $size:  $height-sm;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: .75rem;
+  }
+
+  &.iconbox-lg {
+    $size:  $height-lg;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: 1.25rem;
+  }
+
+  &.iconbox-xl {
+    $size:  $height-xl;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: 1.5rem;
+  }
+
+  &.iconbox-xxl {
+    $size:  $height-xxl;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: 2rem;
+  }
+
+}
+
+
+.iconbox-sq {
+  border-radius: 0;
+}
+
+
+.iconbox-outline {
+  border: 1px solid $color-divider-light;
+  background-color: transparent;
+}

@@ -1,0 +1,22 @@
+
+.partner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+
+  img {
+    margin: 16px 24px;
+    max-width: 100%;
+  }
+
+  [class*="col-"] img {
+    margin: 0;
+  }
+}
+
+
+.partner-sm img {
+  height: 20px;
+}

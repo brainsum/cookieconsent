@@ -1,0 +1,115 @@
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery-item {
+  position: relative;
+  flex-basis: 50%;
+  padding: 0.25rem;
+  display: block;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.gallery-item-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.25rem;
+  background-color: rgba(#000,0.4);
+  color: #fff;
+  font-size: 1.75rem;
+  transition: 0.3s ease-out;
+
+  &:hover {
+    background-color: rgba(#000,0.45);
+  }
+}
+
+.gallery.items-connected {
+
+  .gallery-item {
+    padding: 0;
+  }
+
+  .gallery-item-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.gallery-item-group {
+
+}
+
+.gallery-extra-items {
+  display: none;
+}
+
+
+//----------------------------------------------------/
+// 3 items
+//----------------------------------------------------/
+.gallery-3-type1 {
+  .gallery-item { flex-basis: 33.33%; }
+}
+
+.gallery-3-type2 {
+  .gallery-item { flex-basis: 100%; }
+  .gallery-item:nth-child(n+2) { flex-basis: 50%; }
+}
+
+.gallery-3-type3 {
+  .gallery-item { flex-basis: 50%; }
+  .gallery-item:nth-child(n+3) { flex-basis: 100%; }
+}
+
+.gallery-3-type4 {
+  > .gallery-item     { flex-basis: 60%; }
+  .gallery-item-group { flex-basis: 40%; }
+}
+
+.gallery-3-type5 {
+  > .gallery-item     { flex-basis: 60%; }
+  .gallery-item-group { flex-basis: 40%; }
+}
+
+
+//----------------------------------------------------/
+// 4 items
+//----------------------------------------------------/
+.gallery-4-type1 {
+  .gallery-item { flex-basis: 25%; }
+}
+
+.gallery-4-type2 {
+  .gallery-item { flex-basis: 100%; }
+  .gallery-item:nth-child(n+2) { flex-basis: 33.33%; }
+}
+
+.gallery-4-type3 {
+  .gallery-item { flex-basis: 33.33%; }
+  .gallery-item:nth-child(n+4) { flex-basis: 100%; }
+}
+
+.gallery-4-type4 {
+  > .gallery-item     { flex-basis: 70%; }
+  .gallery-item-group { flex-basis: 30%; }
+}
+
+.gallery-4-type5 {
+  > .gallery-item     { flex-basis: 70%; }
+  .gallery-item-group { flex-basis: 30%; }
+}

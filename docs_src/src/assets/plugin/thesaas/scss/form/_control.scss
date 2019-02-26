@@ -1,0 +1,87 @@
+
+//-----------------------------------------------------------------
+// Custom checkbox and radiobox
+//
+.custom-control {
+  padding-left: 0;
+  min-height: auto;
+}
+
+.custom-control-input {
+
+  &:checked ~ .custom-control-label::after {
+    transform: scale(1);
+  }
+
+  &:disabled ~ .custom-control-label {
+    opacity: .7;
+
+    &::before,
+    &::after {
+      opacity: 0.7;
+    }
+  }
+
+}
+
+.custom-control-label {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+
+  &::before {
+    position: static;
+    top: auto;
+    border: 1px solid $color-divider;
+    margin-right: 0.5rem;
+  }
+
+  &::after {
+    transform: scale(0);
+    transition: transform .3s;
+  }
+}
+
+
+// Radio only
+//
+.custom-radio {
+
+  cursor: pointer;
+
+  .custom-control-label::after {
+    $size: $custom-control-indicator-size - 0.125rem;
+    top: 12px - 4px;
+    left: $size/4 + 0.0625rem;
+    //margin-top: -$size/4 - 2px;
+    border-radius: 50%;
+    width: $size/2;
+    height: $size/2;
+    background-color: $color-primary;
+  }
+
+}
+
+
+// Checkbox only
+//
+.custom-checkbox {
+
+  cursor: pointer;
+
+  .custom-control-label::after {
+    top: 50%;
+    left: 6px;
+    margin-top: -6px;
+    width: 5px;
+    height: 10px;
+    border: solid $color-primary;
+    border-width: 0 1px 1px 0;
+    transform: scale(0) rotate(35deg);
+  }
+
+  .custom-control-input:checked ~ .custom-control-label::after {
+    transform: scale(1) rotate(35deg);
+  }
+
+}

@@ -1,0 +1,129 @@
+
+
+@mixin navbar-sticky-style($shadow: true) {
+  //@include navbar-dark();
+
+  background-color: rgba(255,255,255,0.99);
+  @if $shadow {
+    box-shadow: 0 1px 9px rgba(0,0,0,0.05);
+  }
+
+  .d-stick-none         { display: none !important; }
+  .d-stick-block        { display: block !important; }
+  .d-stick-flex         { display: flex !important; }
+  .d-stick-inline-flex  { display: inline-flex !important; }
+  .d-stick-inline-block { display: inline-block !important; }
+}
+
+
+@mixin navbar-dark() {
+  @include navbar-logo('dark');
+
+  .navbar-toggler {
+    color: $navbar-dark-color;
+
+    &:hover {
+      color: $navbar-dark-color-hover;
+    }
+  }
+
+  .navbar-divider {
+    background-color: $navbar-dark-color;
+  }
+
+  .nav-navbar {
+    > .nav-item > .nav-link,
+    > .nav-link {
+      color: $navbar-dark-color;
+
+      > .arrow {
+        border-top: 3px solid $navbar-dark-color;
+      }
+    }
+
+    > .nav-item.show > .nav-link,
+    > .nav-item:hover > .nav-link,
+    > .nav-link.show,
+    > .nav-link:hover {
+      color: $navbar-dark-color-hover;
+
+      > .arrow {
+        border-top-color: inherit;
+      }
+    }
+
+    > .nav-item.active > .nav-link,
+    > .nav-item > .nav-link.active,
+    > .nav-link.active {
+      color: $navbar-dark-color-active;
+
+      > .arrow {
+        border-top-color: inherit;
+      }
+    }
+
+  }
+
+}
+
+
+@mixin navbar-light() {
+  @include navbar-logo('light');
+
+  .navbar-toggler {
+    color: $navbar-light-color;
+
+    &:hover {
+      color: $navbar-light-color-hover;
+    }
+  }
+
+  .navbar-divider {
+    background-color: $navbar-light-color;
+  }
+
+  .nav-navbar {
+    > .nav-item > .nav-link,
+    > .nav-link {
+      color: $navbar-light-color;
+
+      > .arrow {
+        border-top: 3px solid $navbar-light-color;
+      }
+    }
+
+    > .nav-item.show > .nav-link,
+    > .nav-item:hover > .nav-link,
+    > .nav-link.show,
+    > .nav-link:hover {
+      color: $navbar-light-color-hover;
+
+      > .arrow {
+        border-top-color: inherit;
+      }
+    }
+
+    > .nav-item.active > .nav-link,
+    > .nav-item > .nav-link.active,
+    > .nav-link.active {
+      color: $navbar-light-color-active;
+
+      > .arrow {
+        border-top-color: inherit;
+      }
+    }
+
+  }
+
+}
+
+
+@mixin navbar-logo($color) {
+  @if $color == 'dark' {
+    .logo-dark  { display: inline-block; }
+    .logo-light { display: none; }
+  } @else {
+    .logo-dark  { display: none; }
+    .logo-light { display: inline-block; }
+  }
+}

@@ -1,0 +1,13 @@
+
+
+// Request a theme color level
+@function color-level($color, $level: 0) {
+  $color-base: if($level > 0, #000, #fff);
+  $level: abs($level);
+
+  @return mix($color-base, $color, $level * $theme-color-interval);
+}
+
+@function pale-color($value) {
+  @return change-color($value, $saturation: 70, $lightness: 96);
+}

@@ -1,0 +1,122 @@
+
+//-----------------------------------------------------------------
+// Input group
+//
+.input-group {
+  border: 1px solid $input-border-color;
+  border-radius: 2px;
+  transition: $input-transition;
+
+  &.focus {
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-box-shadow;
+  }
+
+  .form-control {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+
+}
+
+.input-group-prepend,
+.input-group-append {
+
+  margin-left: 0;
+  margin-right: 0;
+
+  .btn {
+    height: calc(100% + 2px);
+    margin: -1px;
+  }
+}
+
+/*
+.input-group-prepend .input-group-text {
+  padding-right: 0;
+}
+*/
+
+
+.input-group-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #fff;
+  border: none;
+  color: $color-text-placeholder;
+  font-weight: 300;
+  border-radius: 0;
+  height: 100%;
+
+  .custom-control {
+    margin-bottom: 0;
+  }
+
+  + .form-control {
+    padding-left: 0;
+  }
+
+}
+
+
+.input-group .form-control:not(:last-child),
+.input-group-text:not(:last-child) {
+  border-right: 0;
+}
+
+.input-group .form-control:not(:first-child),
+.input-group-text:not(:first-child) {
+  border-left: 0;
+}
+
+
+.input-group-prepend .btn { margin-right: 0; }
+.input-group-append .btn  { margin-left: 0; }
+.input-group-prepend .input-group-text:last-child { padding-right: 0; }
+
+
+.input-group-lg > .input-group-prepend > .btn,
+.input-group-lg > .input-group-append > .btn {
+  @extend .btn-lg;
+}
+
+.input-group-sm > .input-group-prepend > .btn,
+.input-group-sm > .input-group-append > .btn {
+  @extend .btn-sm;
+}
+
+
+//----------------------------------------------------/
+// Validation
+//----------------------------------------------------/
+.input-group {
+
+  .was-validated &:valid,
+  &.is-valid {
+    border-color: $color-success;
+
+    .valid-feedback,
+    .valid-tooltip,
+    ~ .valid-feedback,
+    ~ .valid-tooltip {
+      display: block;
+    }
+  }
+
+  .was-validated &:invalid,
+  &.is-invalid {
+    border-color: $color-danger;
+
+    .invalid-feedback,
+    .invalid-tooltip,
+    ~ .invalid-feedback,
+    ~ .invalid-tooltip {
+      display: block;
+    }
+  }
+
+}

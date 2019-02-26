@@ -1,0 +1,198 @@
+
+.card {
+  border: 0;
+  transition: .5s;
+
+  &.bg-img .card-body {
+    //z-index: 1;
+    position: relative;
+  }
+
+  &.text-white {
+
+    a {
+      color: rgba(#fff,0.8);
+    }
+  }
+
+  >,
+  .card-body {
+
+    // Alert
+    .alert {
+      border-radius: 0;
+      margin-bottom: 0;
+    }
+
+    // Tabs
+    .nav-tabs {
+      margin-bottom: 0;
+    }
+
+  }
+
+  > .table {
+    margin-bottom: 0;
+
+    tr td:first-child,
+    tr th:first-child {
+      padding-left: 20px;
+    }
+
+    tr td:last-child,
+    tr th:last-child {
+      padding-right: 20px;
+    }
+  }
+
+
+  .card-hover-show {
+    opacity: 0;
+    transition: .3s linear;
+  }
+
+  &:hover {
+    .card-hover-show {
+      opacity: 1;
+    }
+  }
+
+}
+
+
+.card-title {
+  color: inherit;
+}
+
+
+.card-body {
+  //padding-top: 30px;
+  //padding-bottom: 30px;
+  //flex-grow: 0;
+}
+
+.card-footer {
+  background-color: #fff;
+  border-top: 1px solid $color-divider-light;
+}
+
+.card-body-bottom {
+  flex: 0 0 auto;
+  position: absolute;
+  bottom: 0;
+}
+
+.card-shadow {
+  box-shadow: 0 1px 25px rgba(0,0,0,.05);
+}
+
+.card-hover-shadow:hover {
+  box-shadow: 0 1px 35px rgba(0,0,0,.07);
+}
+
+.card-img-top {
+  position: relative;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+
+  img {
+    border-radius: inherit;
+  }
+
+  .badges {
+    position: absolute;
+    top: 0;
+    padding: 1rem 1.25rem;
+  }
+
+  .badges-right {
+    right: 0;
+  }
+}
+
+.card-img-bottom {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+
+//----------------------------------------------------/
+// Card hover
+//----------------------------------------------------/
+.card-hover {
+  display: flex;
+  flex: 1 1 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+
+  visibility: hidden;
+  opacity: 0;
+
+  &.bg-img {
+    position: absolute;
+  }
+
+  &[data-animation] {
+    transition: 0.4s ease-out;
+  }
+
+  &[data-animation="zoom"] {
+    transform: scale(0, 0);
+  }
+
+  &[data-animation="slide-up"] {
+    top: 100%;
+  }
+
+  &[data-animation="slide-down"] {
+    top: -100%;
+  }
+
+  &[data-animation="slide-left"] {
+    left: 100%;
+  }
+
+  &[data-animation="slide-right"] {
+    left: -100%;
+  }
+
+  .card:hover & {
+    top: 0;
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+
+    &[data-animation="zoom"] {
+      transform: scale(1, 1);
+    }
+
+  }
+
+  .card-body {
+    position: relative;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Layout
+//----------------------------------------------------/
+.card-columns {
+
+  .card {
+    margin-bottom: 1.5rem;
+  }
+
+  @include media-breakpoint-down(lg) {
+    column-count: 2;
+  }
+  @include media-breakpoint-down(sm) {
+    column-count: 1;
+  }
+}

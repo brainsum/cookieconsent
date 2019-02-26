@@ -1,0 +1,79 @@
+
+.offcanvas {
+  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(#000, 0.05);
+
+  z-index: $zindex-offcanvas;
+  visibility: hidden;
+
+  > .container,
+  > .container-fluid {
+    position: relative;
+    height: 100%;
+  }
+
+
+  // Animations
+  //
+  &[data-animation] {
+    transition: 0.4s ease-out;
+  }
+
+  &[data-animation="fade"] {
+    opacity: 0;
+  }
+
+  &[data-animation="slide-up"] {
+    opacity: 1;
+    transform: translate(0, 100%);
+  }
+
+  &[data-animation="slide-down"] {
+    transform: translate(0, -100%);
+  }
+
+  &[data-animation="slide-left"] {
+    left: auto;
+    right: 0;
+    transform: translate(100%, 0);
+  }
+
+  &[data-animation="slide-right"] {
+    transform: translate(-100%, 0);
+  }
+
+  &.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  .close {
+    float: none;
+    padding: 0.75rem 1rem;
+    font-weight: 100;
+    font-size: 2.5rem;
+    transition: color 0.3s ease-out;
+  }
+
+  .close:not(.position-static) {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &.bg-img {
+    position: fixed;
+  }
+}
+
+.backdrop-offcanvas {
+  z-index: $zindex-offcanvas - 1;
+}

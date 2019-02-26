@@ -1,0 +1,74 @@
+.input-glass {
+
+  $input-glass-bg-color:           rgba(#fff, .2);
+  $input-glass-focus-bg-color:     rgba(#fff, .25);
+  $input-glass-btn-bg-color:       rgba(#fff, .3);
+  $input-glass-color-placeholder:  rgba(#fff, .65);
+  $input-glass-color-text:         rgba(#fff, .8);
+
+  .form-control {
+    border: none;
+    background-color: $input-glass-bg-color;
+    font-weight: 400;
+    color: $input-glass-color-text;
+
+    &.is-valid {
+      background-color: rgba($color-success, 0.2);
+    }
+
+    &.is-invalid {
+      background-color: rgba($color-danger, 0.2);
+    }
+
+    &::placeholder {
+      color: $input-glass-color-placeholder;
+    }
+
+    &:focus {
+      box-shadow: none;
+      color: #fff;
+    }
+  }
+
+  select option {
+    color: $color-title;
+  }
+
+  label {
+    opacity: .8;
+  }
+
+  .input-group {
+    border: none;
+  }
+
+  .input-group-prepend,
+  .input-group-append {
+    .btn {
+      height: 100%;
+      margin: 0;
+    }
+  }
+
+  .input-group-text {
+    background-color: $input-glass-bg-color;
+    border: none;
+    color: $input-glass-color-text;
+  }
+
+
+  &.input-round {
+
+    .input-group {
+      background-color: $input-glass-bg-color;
+
+      .form-control,
+      .input-group-text {
+        background-color: transparent;
+      }
+
+    }
+
+  }
+
+}

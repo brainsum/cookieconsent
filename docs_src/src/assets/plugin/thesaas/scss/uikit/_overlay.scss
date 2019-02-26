@@ -1,0 +1,104 @@
+
+
+//----------------------------------------------------/
+// Overlay
+//----------------------------------------------------/
+
+[data-overlay],
+[data-overlay-light] {
+  position: relative;
+}
+[data-overlay]::before,
+[data-overlay-light]::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #191919;
+  border-radius: inherit;
+  //z-index: -1;
+}
+
+[data-overlay-light]::before {
+  background: #fff;
+}
+
+
+[data-overlay-primary]::before {
+  background: $color-primary;
+}
+
+
+// Default overlay
+//
+@for $i from 1 through 9 {
+  [data-overlay="#{$i}"]::before {
+    opacity: $i / 10;
+  }
+}
+
+
+// Light overlay
+//
+@for $i from 1 through 9 {
+  [data-overlay-light="#{$i}"]::before {
+    opacity: $i / 10;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Scrim
+//----------------------------------------------------/
+
+[data-scrim-top],
+[data-scrim-bottom] {
+  position: relative;
+}
+[data-scrim-top]::before,
+[data-scrim-bottom]::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 20%;
+  background: linear-gradient(to bottom, #191919 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 0;
+  border-radius: inherit;
+}
+
+[data-scrim-bottom]::before {
+  top: 20%;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #191919 100%)
+}
+
+
+// Default scrim
+//
+@for $i from 1 through 9 {
+  [data-scrim-top="#{$i}"]::before,
+  [data-scrim-bottom="#{$i}"]::before {
+    opacity: $i / 10;
+  }
+}
+
+[data-scrim-top="0"]::before,
+[data-scrim-bottom="0"]::before {
+  opacity: 0;
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  border-radius: inherit;
+}

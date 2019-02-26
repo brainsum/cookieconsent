@@ -1,0 +1,14 @@
+
+.media-list {
+
+  .media {
+    border-bottom: 1px solid $color-divider-light;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+}

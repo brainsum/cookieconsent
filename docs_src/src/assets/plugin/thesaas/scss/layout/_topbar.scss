@@ -1,0 +1,56 @@
+
+
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid $color-divider-light;
+  height: 40px;
+  z-index: $zindex-topbar;
+
+  display: none;
+
+  > .container,
+  > .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    height: inherit;
+  }
+
+  &.text-white {
+    border-bottom-color: rgba(#fff, 0.05);
+  }
+}
+
+
+.topbar-divider {
+  display: inline-block;
+  height: 12px;
+  width: 1px;
+  background-color: rgba(127,127,127,0.15);
+  margin: 0 1rem;
+  margin-bottom: 2px;
+  vertical-align: middle;
+}
+
+
+body:not(.body-scrolled) .topbar {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &.d#{$infix}-flex ~ .navbar {
+      @include media-breakpoint-down($breakpoint) {
+
+      }
+
+      @include media-breakpoint-up($next) {
+        top: 40px;
+      }
+    }
+  }
+}

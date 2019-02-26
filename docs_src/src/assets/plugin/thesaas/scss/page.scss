@@ -1,0 +1,45 @@
+@charset 'UTF-8';
+
+//--------------------------------------------------------------------------
+// Core
+//--------------------------------------------------------------------------
+//
+// Include core functionality of the template, including Bootstrap. This
+// file is required.
+//
+@import "loaders/core";
+
+
+//--------------------------------------------------------------------------
+// Vendors
+//--------------------------------------------------------------------------
+//
+// Load style of some plugins and icon fonts. If you don't need any
+// of the following plugins, simply comment the line.
+//
+// The minified size of each module has stated for your reference. So you'd
+// know how much KB you can save by removing a vendor.
+//
+@import "vendor/aos";            // 34 kb
+@import "vendor/constellation";  // ~0 kb
+@import "vendor/countdown";      // 01 kb
+@import "vendor/countup";        // ~0 kb
+@import "vendor/fontawesome";    // 30 kb
+//@import "vendor/fontawesome5";   // 35 kb
+@import "vendor/et-line-icon";   // 06 kb
+@import "vendor/themify-icons";  // 13 kb
+@import "vendor/jarallax";       // ~0 kb
+@import "vendor/slick";          // 08 kb
+@import "vendor/lity";           // 03 kb
+@import "vendor/photoswipe";     // 11 kb
+@import "vendor/typedjs";        // ~0 kb
+
+
+//--------------------------------------------------------------------------
+// Partials
+//--------------------------------------------------------------------------
+//
+// Split the application code to several files. It includes most of the
+// functionalities that you see in demo. This file is required.
+//
+@import "loaders/partials";

@@ -1,0 +1,35 @@
+.input-round {
+
+  .form-control,
+  .input-group,
+  .input-group-text,
+  .input-group .btn {
+    border-radius: 10rem;
+  }
+
+  .form-control {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  textarea.form-control {
+    border-radius: 2px;
+  }
+
+  .input-group-text {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    opacity: .8;
+
+    + .form-control {
+      padding-left: 0;
+    }
+  }
+
+  .form-control-lg,
+  .input-group-lg .form-control {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+}

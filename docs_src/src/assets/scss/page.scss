@@ -1,0 +1,65 @@
+@charset 'UTF-8';
+
+//--------------------------------------------------------------------------
+// Theme
+//--------------------------------------------------------------------------
+//
+// Override default variables of TheSaaS and personalize the font and colors
+// for your own project.
+//
+@import "theme";
+
+
+//--------------------------------------------------------------------------
+// Core
+//--------------------------------------------------------------------------
+//
+// Include core functionality of the template, including Bootstrap. This
+// file is required.
+//
+@import "../plugin/thesaas/scss/loaders/core";
+
+
+//--------------------------------------------------------------------------
+// Vendors
+//--------------------------------------------------------------------------
+//
+// Load style of some plugins and icon fonts. If you don't need any
+// of the following plugins, simply comment the line.
+//
+// The minified size of each module has stated for your reference. So you'd
+// know how much KB you can save by removing a vendor.
+//
+@import "../plugin/thesaas/scss/vendor/aos";            // 34 kb
+@import "../plugin/thesaas/scss/vendor/constellation";  // ~0 kb
+@import "../plugin/thesaas/scss/vendor/countdown";      // 01 kb
+@import "../plugin/thesaas/scss/vendor/countup";        // ~0 kb
+@import "../plugin/thesaas/scss/vendor/fontawesome";    // 30 kb
+//@import "../plugin/thesaas/scss/vendor/fontawesome5";   // 35 kb
+@import "../plugin/thesaas/scss/vendor/et-line-icon";   // 06 kb
+@import "../plugin/thesaas/scss/vendor/themify-icons";  // 13 kb
+@import "../plugin/thesaas/scss/vendor/jarallax";       // ~0 kb
+@import "../plugin/thesaas/scss/vendor/slick";          // 08 kb
+@import "../plugin/thesaas/scss/vendor/lity";           // 03 kb
+@import "../plugin/thesaas/scss/vendor/photoswipe";     // 11 kb
+@import "../plugin/thesaas/scss/vendor/typedjs";        // ~0 kb
+
+
+//--------------------------------------------------------------------------
+// Partials
+//--------------------------------------------------------------------------
+//
+// Split the application code to several files. It includes most of the
+// functionalities that you see in demo. This file is required.
+//
+@import "../plugin/thesaas/scss/loaders/partials";
+
+
+//--------------------------------------------------------------------------
+// Custom style
+//--------------------------------------------------------------------------
+//
+// Write your custom style. Feel free to split your code to several files
+// and import the other files here or inside _style.scss
+//
+@import "style";

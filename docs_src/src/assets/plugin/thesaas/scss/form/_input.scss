@@ -1,0 +1,78 @@
+
+.form-control {
+  font-weight: 300;
+
+  option {
+    font-weight: 300;
+  }
+
+}
+
+label {
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+
+  &.require::after {
+    content: '*';
+    color: $color-danger;
+    font-weight: 500;
+    margin-left: 8px
+  }
+}
+
+.form-row .btn-block {
+  height: 100%;
+}
+
+select:invalid {
+  color: red;
+}
+
+
+//----------------------------------------------------/
+// File upload
+//----------------------------------------------------/
+.file-group {
+  position: relative;
+  overflow: hidden;
+
+  input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    width: 20px;
+  }
+
+  .file-value {
+    background-color: #fff;
+  }
+}
+
+.file-group-inline {
+  display: inline-block;
+}
+
+.custom-file input {
+  cursor: pointer;
+}
+
+.custom-file-label {
+  font-size: $font-size-base;
+  color: $color-text-placeholder;
+  font-weight: 300;
+
+  &::after {
+    cursor: pointer;
+    font-weight: 400;
+  }
+}
+
+
+//----------------------------------------------------/
+// Mailer
+//----------------------------------------------------/
+[data-form="mailer"] .d-on-success {
+  display: none;
+}

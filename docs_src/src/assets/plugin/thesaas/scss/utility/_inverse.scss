@@ -1,0 +1,92 @@
+
+
+
+
+//----------------------------------------------------/
+// Card
+//----------------------------------------------------/
+.card-outline {
+  background-color: transparent;
+  border: 1px solid rgba(#fff,.3);
+}
+
+.card-hover-inverse:hover {
+  background-color: $color-bg-dark;
+  border-color: $color-bg-dark;
+}
+
+
+
+//----------------------------------------------------/
+// Section
+//----------------------------------------------------/
+.text-white {
+
+  color: rgba(#fff, .85) !important;
+
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #fff;
+  }
+
+  a:not(.btn):not(.dropdown-item) {
+    color: rgba(#fff, .8);
+  }
+
+  hr {
+    border-top-color: $color-alpha-light-divider;
+  }
+
+  p {
+    color: rgba(#fff, .85);
+  }
+
+  code {
+    background-color: rgba(255,255,255,.1);
+    color: #eee;
+  }
+
+  small,
+  .small {
+    color: rgba(#fff, .8);
+  }
+
+
+  .divider {
+    color: rgba(#fff, .5);
+
+    &::before,
+    &::after {
+      border-top-color: $color-alpha-light-divider;
+    }
+  }
+
+  .section-header {
+
+    small {
+      color: rgba(#fff, .6);
+    }
+  }
+
+  .rating label.empty {
+    color: rgba(#fff, .3);
+  }
+
+  .card-inverse {
+    background-color: rgba(#fff, .1);
+  }
+
+  .btn-outline-light {
+    color: rgba(#fff, .6);
+    border-color: rgba(#fff, .3);
+
+    &:hover {
+      color: $color-text;
+    }
+  }
+
+  .close {
+    color: rgba(#fff, 0.85);
+  }
+
+}

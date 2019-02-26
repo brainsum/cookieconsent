@@ -1,0 +1,201 @@
+
+.btn {
+  font-size: 11px;
+  padding: 8px 26px 6px;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  //border: none;
+  outline: none;
+  transition: 0.15s linear;
+}
+
+
+button:focus {
+  outline: none;
+}
+
+
+//----------------------------------------------------/
+// Colors
+//----------------------------------------------------/
+
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: normal;
+}
+
+.btn-outline-secondary {
+  color: $color-text-secondary;
+}
+
+.btn-white {
+  @include button-variant(#fff, #fff);
+
+  &:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: $color-title;
+  }
+}
+
+@each $name in 'facebook', 'google', 'twitter' {
+  .btn-#{$name} {
+    $color: map-get($brand-colors, $name);
+    @include button-variant($color, $color);
+  }
+}
+
+
+
+
+
+//----------------------------------------------------/
+// Sizes
+//----------------------------------------------------/
+// button-size($padding-top, $padding-bottom, $padding-x, $font-size)
+.btn-xs { @include button-size(4px, 3px, 12px, 10px); }
+.btn-sm { @include button-size(8px, 6px, 20px, 11px); }
+//.btn  { @include button-size(8px, 6px, 26px, 11px); }
+.btn-lg { @include button-size(7px, 6px, 32px, 12px); }
+.btn-xl { @include button-size(10px, 10px, 38px, 13px); }
+
+// Calculate heights
+//
+// line-height * font-size + padding-top + padding-bottom + border-width
+//
+$btn-height-xs: 27px; //$line-height-base * 10px + 4px + 2px + 2px;
+$btn-height-sm: 32px; //$line-height-base * 11px + 8px + 6px + 2px;
+$btn-height-md: 36px; //$line-height-base * 11px + 8px + 6px + 2px;
+$btn-height-lg: 40px; //$line-height-base * 12px + 6px + 6px + 2px;
+$btn-height-xl: 46px; //$line-height-base * 13px + 11px + 9px + 2px;
+
+
+//----------------------------------------------------/
+// Round
+//----------------------------------------------------/
+.btn-round {
+  border-radius: 10rem;
+}
+
+
+//----------------------------------------------------/
+// Circle
+//----------------------------------------------------/
+.btn-circle {
+  @include circle-button-size(56px);
+
+  padding: 0;
+  border-radius: 10rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+
+  .fa-play {
+    margin-left: 4px;
+    font-size: 0.875rem;
+  }
+
+  // Sizes
+  //
+  &.btn-xs { @include circle-button-size(40px); font-size: 0.875rem; }
+  &.btn-sm { @include circle-button-size(48px); font-size: 0.9325rem; }
+  &.btn-lg { @include circle-button-size(64px); font-size: 1.25rem; }
+  &.btn-xl { @include circle-button-size(72px); font-size: 1.5rem; }
+}
+
+
+//----------------------------------------------------/
+// Glass
+//----------------------------------------------------/
+@each $color, $value in $theme-colors {
+  .btn-glass.btn-#{$color} {
+    background-color: rgba($value, 0.6);
+    border-color: transparent;
+    color: #fff;
+
+    &:hover {
+      background-color: rgba($value, 0.9);
+    }
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Label
+//----------------------------------------------------/
+.btn-label {
+  position: relative;
+  padding-left: $btn-height-md + 16px;
+  overflow: hidden;
+
+  label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: $btn-height-md;
+    line-height: inherit;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+
+  &.btn-xl {
+    padding-left: $btn-height-xl + 16px;
+    label { width: $btn-height-xl; }
+  }
+
+  &.btn-lg {
+    padding-left: $btn-height-lg + 16px;
+    label { width: $btn-height-lg; }
+  }
+
+  &.btn-sm {
+    padding-left: $btn-height-sm + 16px;
+    label { width: $btn-height-sm; }
+  }
+
+  &.btn-xs {
+    padding-left: $btn-height-xs + 16px;
+    label { width: $btn-height-xs; padding-top: 1px; }
+  }
+
+}
+
+
+
+//----------------------------------------------------/
+// Square
+//----------------------------------------------------/
+.btn-square {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: $btn-height-md;
+  height: $btn-height-md;
+
+  &.btn-xl {
+    width: $btn-height-xl;
+    height: $btn-height-xl;
+  }
+
+  &.btn-lg {
+    width: $btn-height-lg;
+    height: $btn-height-lg;
+  }
+
+  &.btn-sm {
+    width: $btn-height-sm;
+    height: $btn-height-sm;
+  }
+
+  &.btn-xs {
+    width: $btn-height-xs;
+    height: $btn-height-xs;
+  }
+}
+

@@ -1,0 +1,99 @@
+
+
+video {
+  max-width: 100%;
+}
+
+
+.video-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  &::before {
+    display: block;
+    content: "";
+    z-index: 0;
+  }
+
+  &.ratio-21x9::before { padding-top: percentage(9 / 21) }
+  &.ratio-16x9::before { padding-top: percentage(9 / 16) }
+  &.ratio-4x3::before  { padding-top: percentage(3 / 4) }
+  &.ratio-1x1::before  { padding-top: percentage(1 / 1) }
+
+  .poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    border-radius: inherit;
+    z-index: 1;
+    transition: .3s;
+  }
+
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: .3s;
+
+    &:hover {
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: inherit;
+  }
+
+  &.reveal {
+
+    .poster,
+    .btn {
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.8s linear;
+    }
+
+  }
+
+}
+
+
+.video-btn-wrapper {
+  position: relative;
+
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s;
+  }
+
+}
+
+
+// Background video
+//
+.bg-video {
+  position:absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
+}

@@ -1,0 +1,36 @@
+
+// Write your custom style. Feel free to split your code to several files
+body {
+  .navbar {
+    .navbar-group {
+      color: #FFF;
+      .navbar-brand {
+        color: #FFF;
+        margin-right: 0;
+      }
+    }
+    &.stick {
+      .navbar-group {
+        color: #000;
+        .navbar-brand {
+          color: #000;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .header {
+    .brainsum-logo-img {
+      margin: 0 auto;
+      display: block;
+      width: 100px;
+      height: auto;
+    }
+  }
+  .brainsum {
+    background-color: #f7ca00;
+    background-image: url(../img/bg/logo-logo.png);
+    background-size: auto;
+    background-position:  100px center;
+  }
+}

@@ -1,0 +1,231 @@
+
+
+//----------------------------------------------------/
+// Tabs
+//----------------------------------------------------/
+.nav-tabs {
+
+  .nav-link {
+    border-top-width: 2px;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Tabs minimal
+//----------------------------------------------------/
+.nav-tabs-minimal {
+
+  border-bottom: 1px solid $color-divider-light;
+
+  .nav-link {
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    border-bottom-color: $color-primary;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Tabs outline
+//----------------------------------------------------/
+.nav-tabs-outline {
+  $color: $color-dark;
+
+  justify-content: center;
+
+  .nav-link {
+    padding: 0.25rem 1.25rem;
+    border: 1px solid $color;
+    color: $color;
+    text-transform: uppercase;
+    font-size: 0.8325rem;
+    letter-spacing: 1px;
+
+    &:hover,
+    &.active {
+      color: #fff;
+      background-color: $color;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: default;
+
+      &:hover {
+        color: $color;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .nav-item {
+    min-width: 120px;
+    text-align: center;
+
+    + .nav-item .nav-link {
+      border-left-width: 0;
+    }
+
+    &:first-child .nav-link {
+      border-top-left-radius: 10rem;
+      border-bottom-left-radius: 10rem;
+    }
+
+    &:last-child .nav-link {
+      border-top-right-radius: 10rem;
+      border-bottom-right-radius: 10rem;
+    }
+  }
+
+  &.nav-separated {
+    .nav-item {
+      min-width: 150px;
+      padding: 0.25rem 0.5rem;
+
+      + .nav-item .nav-link {
+        border-left-width: 1px;
+      }
+    }
+
+    .nav-link {
+      border-radius: 10rem;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .nav-item {
+      min-width: 150px;
+      padding: 0.25rem 0.5rem;
+
+      + .nav-item .nav-link {
+        border-left-width: 1px;
+      }
+    }
+
+    .nav-link {
+      border-radius: 10rem;
+    }
+  }
+
+}
+
+
+
+//----------------------------------------------------/
+// Tabs border
+//----------------------------------------------------/
+.nav-tabs-border {
+
+  flex-direction: column;
+
+  .nav-link {
+    border: 1px solid transparent;
+    padding: 1.25rem 1.5rem;
+    border-radius: 5px;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+      color: $color-text;
+    }
+  }
+
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    opacity: 1;
+    color: $color-text;
+    border-color: $color-divider-light;
+  }
+
+  .nav-link.disabled {
+    opacity: 0.6;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Tabs gray
+//----------------------------------------------------/
+.nav-tabs-gray {
+
+  flex-direction: column;
+
+  .nav-link {
+    padding: 1.5rem 1.75rem;
+    border-radius: 5px;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+      color: $color-text;
+    }
+  }
+
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    opacity: 1;
+    color: $color-text;
+    background-color: $color-bg-lighter;
+  }
+
+  .nav-link.disabled {
+    opacity: 0.6;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Tabs shadow
+//----------------------------------------------------/
+.nav-tabs-shadow {
+
+  flex-direction: column;
+
+  .nav-link {
+    padding: 1.5rem 1.75rem;
+    border-radius: 5px;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+      color: $color-text;
+    }
+  }
+
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    opacity: 1;
+    color: $color-text;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(#000, 0.05);
+  }
+
+  .nav-link.disabled {
+    opacity: 0.6;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Dark
+//----------------------------------------------------/
+.nav-dark {
+
+}
+
+
+//----------------------------------------------------/
+// Light
+//----------------------------------------------------/
+.nav-light {
+
+}

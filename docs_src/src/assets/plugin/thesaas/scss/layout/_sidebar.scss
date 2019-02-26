@@ -1,0 +1,121 @@
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+
+  hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-top-style: solid;
+  }
+
+  .nav-sidebar {
+    height: 100%;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+.sidebar-fixed {
+  position: fixed;
+  top: 0;
+  left: - $sidebar-width;
+  bottom: 0;
+  width: $sidebar-width;
+  background-color: #fff;
+  border-right: 1px solid $color-divider-light;
+  z-index: $zindex-sidebar;
+  transition: left 0.3s ease-out;
+
+  .sidebar-open & {
+    left: 0;
+    box-shadow: 0 0 15px rgba(#000, 0.05);
+  }
+
+}
+
+.sidebar-sticky {
+
+  &.stick:not(.is-mobile-wide) {
+    position: fixed;
+    top: 0;
+  }
+
+  &.is-mobile-wide {
+    padding-bottom: 0 !important;
+  }
+}
+
+.sidebar-header {
+  text-align: center;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid $color-divider-light;
+}
+
+.sidebar-title {
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: .85em;
+  margin-bottom: 1rem;
+}
+
+.sidebar-body {
+  position: relative;
+  padding-right: 20px;
+}
+
+.sidebar-footer {
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 30px;
+  border-top: 1px solid $color-divider-light;
+}
+
+
+.sidebar-toggler {
+  padding: .25rem .75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  background: 0 0;
+  border: none;
+  border-radius: .25rem;
+  margin-right: 0.5rem;
+  margin-bottom: -1px;
+}
+
+.backdrop-sidebar {
+  z-index: $zindex-sidebar - 1;
+}
+
+
+.sidebar-fixed.sidebar-expand {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+
+      }
+
+      @include media-breakpoint-up($next) {
+        position: fixed;
+        left: 0;
+        background-color: #f5f6f7;
+        box-shadow: 3px 0 5px rgba(#000, 0.015);
+
+        ~ .main-content {
+          margin-left: $sidebar-width;
+        }
+      }
+    }
+  }
+}

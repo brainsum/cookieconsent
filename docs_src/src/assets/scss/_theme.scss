@@ -1,0 +1,111 @@
+
+// Theme
+//
+// Change the default theme color, fonts, sizing, etc. by modifying
+// the following variables.
+
+// Google fonts
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Dosis:200,400,500,600');
+
+
+//----------------------------------------
+// Color system
+//----------------------------------------
+$blue:                            #50a1ff;
+$indigo:                          #6610f2;
+$purple:                          #926dde;
+$pink:                            #e83e8c;
+$red:                             #ff4954;
+$orange:                          #ffbe00;
+$yellow:                          #ffba00;
+$green:                           #3cd458;
+$teal:                            #20c997;
+$cyan:                            #17a2b8;
+
+// Context colors
+$color-primary:                   $blue;
+$color-secondary:                 #e9ecf0;
+$color-success:                   $green;
+$color-info:                      $purple;
+$color-warning:                   $yellow;
+$color-danger:                    $red;
+$color-light:                     #f8f9fa;
+$color-dark:                      #191919;
+
+
+//----------------------------------------
+// Background colors
+//----------------------------------------
+$color-bg-lightest:               #fcfdfe;
+$color-bg-lighter:                #f9fafb;
+$color-bg-light:                  #f5f6f7;
+$color-bg-body:                   #ffffff;
+$color-bg-dark:                   #191919;
+$color-bg-gray:                   #fafbfb;
+
+
+//----------------------------------------
+// Text colors
+//----------------------------------------
+$color-text-darker:               #323d47;
+$color-text-dark:                 #555555;
+$color-text:                      #757575;
+$color-text-light:                #999999;
+$color-text-lighter:              #bfc5ca;
+$color-text-lightest:             #d3d3d3;
+$color-text-secondary:            #929daf;
+$color-text-disable:              #a5b3c7;
+$color-text-placeholder:          #c9ccce;
+$color-title:                     $color-text-darker;
+$color-subtitle:                  $color-text-light;
+
+
+////----------------------------------------
+// Fonts
+////----------------------------------------
+$font-family-base:                "Open Sans", sans-serif;
+$font-family-title:               Dosis, sans-serif;
+
+$font-size-base:                  0.9375rem;
+
+$font-weight-base:                300;
+$line-height-base:                1.9;
+
+$h1-font-size:                    $font-size-base * 2.75;
+$h2-font-size:                    $font-size-base * 2.25;
+$h3-font-size:                    $font-size-base * 1.875;
+$h4-font-size:                    $font-size-base * 1.625;
+$h5-font-size:                    $font-size-base * 1.3125;
+$h6-font-size:                    $font-size-base * 1.125;
+
+$h1-font-weight:                  400;
+$h2-font-weight:                  400;
+$h3-font-weight:                  400;
+$h4-font-weight:                  400;
+$h5-font-weight:                  400;
+$h6-font-weight:                  500;
+
+$display1-size:                   5rem;
+$display2-size:                   4rem;
+$display3-size:                   3.5rem;
+$display4-size:                   3rem;
+
+$display1-weight:                 200;
+$display2-weight:                 200;
+$display3-weight:                 200;
+$display4-weight:                 200;
+
+
+//----------------------------------------
+// Navbar
+//----------------------------------------
+$navbar-min-height:               56px;
+$navbar-offset-top:               10px;
+
+
+//----------------------------------------
+// Other variables
+//----------------------------------------
+
+// Feel free to override other variables here. You can see the list of
+// all the available variables in `/plugin/thesaas/scss/_variables.scss`

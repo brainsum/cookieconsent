@@ -1,0 +1,61 @@
+
+
+
+// Children gap
+//
+@mixin gap-items($size: 8px) {
+  margin: -$size;
+  > * {
+    display: inline-block;
+    margin: $size;
+  }
+}
+
+@mixin gap-items-x($size: 8px) {
+  > * {
+    display: inline-block;
+    margin-left:  $size;
+    margin-right: $size;
+
+    &:first-child { margin-left: 0; }
+    &:last-child  { margin-right: 0; }
+  }
+
+}
+
+
+@mixin row-x-gap($size) {
+  $size: $size/2;
+  margin-left: -$size;
+  margin-right: -$size;
+
+  > .col,
+  > [class*="col-"] {
+    padding-left: $size;
+    padding-right: $size;
+  }
+}
+
+
+
+@mixin row-y-gap($size) {
+  $size: $size/2;
+  margin-top: -$size;
+  margin-bottom: -$size;
+
+  > .col,
+  > [class*="col-"] {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+}
+
+
+
+@mixin masonry-gap($size) {
+  column-gap: $size;
+
+  .masonry-item {
+    padding-bottom: $size;
+  }
+}

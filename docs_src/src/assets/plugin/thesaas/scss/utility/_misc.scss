@@ -1,0 +1,93 @@
+
+//----------------------------------------------------/
+// Opacity
+//----------------------------------------------------/
+.opacity-0 { opacity: 0; }
+
+@for $i from 1 through 20 {
+  .opacity-#{$i*5} {
+    opacity: $i*5 / 100 !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Box shadow
+//----------------------------------------------------/
+.shadow-0, .hover-shadow-0:hover { box-shadow: none; }
+.shadow-1, .hover-shadow-1:hover { box-shadow: 0 0 4px  rgba(#000, 0.06); }
+.shadow-2, .hover-shadow-2:hover { box-shadow: 0 0 8px  rgba(#000, 0.06); }
+.shadow-3, .hover-shadow-3:hover { box-shadow: 0 0 12px rgba(#000, 0.06); }
+.shadow-4, .hover-shadow-4:hover { box-shadow: 0 0 18px rgba(#000, 0.06); }
+.shadow-5, .hover-shadow-5:hover { box-shadow: 0 0 26px rgba(#000, 0.06); }
+.shadow-6, .hover-shadow-6:hover { box-shadow: 0 0 36px rgba(#000, 0.06); }
+.shadow-7, .hover-shadow-7:hover { box-shadow: 0 0 48px rgba(#000, 0.06); }
+.shadow-8, .hover-shadow-8:hover { box-shadow: 0 0 60px rgba(#000, 0.06); }
+.shadow-9, .hover-shadow-9:hover { box-shadow: 0 0 74px rgba(#000, 0.06); }
+
+
+//----------------------------------------------------/
+// Uncategorized
+//----------------------------------------------------/
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.transition {
+  transition: 0.3s ease-out;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-move-up {
+  display: block;
+  transition: 0.2s ease-out;
+
+  &:hover {
+    transform: translateY(-0.5rem);
+  }
+}
+
+
+.fit-cover {
+  object-fit: cover;
+}
+
+.fill-parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+//----------------------------------------------------/
+// Hue rotate
+//----------------------------------------------------/
+.text-hue-rotate {
+  color: #f35626;
+  background-image: -webkit-linear-gradient(92deg,#f35626,#feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue-rotate 60s infinite linear;
+}
+
+.bg-hue-rotate {
+  -webkit-animation: hue-rotate 30s linear infinite;
+}
+
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}

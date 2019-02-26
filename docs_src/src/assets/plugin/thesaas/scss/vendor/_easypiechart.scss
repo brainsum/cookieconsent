@@ -1,0 +1,26 @@
+
+[data-provide="radial"] {
+  display: inline-flex;
+  //align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.radial-data {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  margin-bottom: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+  }
+
+}

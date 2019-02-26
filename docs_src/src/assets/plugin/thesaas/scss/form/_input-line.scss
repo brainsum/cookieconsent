@@ -1,0 +1,60 @@
+.input-line {
+
+  .form-control {
+    $color: theme-color-level('primary', -5);
+
+    border-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
+    background-size: 0 1px, 100% 1px;
+    background-repeat: no-repeat;
+    background-position: center bottom, center calc(100%);
+    background-image: linear-gradient($color, $color), linear-gradient($color-divider, $color-divider);
+    transition: background 0.3s;
+
+    &:focus,
+    &.focus {
+      background-size: 100% 1px, 100% 1px;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &:disabled,
+    &[readonly] {
+      background-color: #fff;
+      opacity: 0.7;
+    }
+
+    &.is-valid {
+      background-image: linear-gradient($color, $color), linear-gradient($color-success, $color-success);
+    }
+
+    &.is-invalid {
+      background-image: linear-gradient($color, $color), linear-gradient($color-danger, $color-danger);
+    }
+  }
+
+  .input-group {
+    border: none;
+
+    &.focus {
+      box-shadow: none;
+    }
+  }
+
+  .input-group-prepend,
+  .input-group-append {
+    .btn {
+      height: 100%;
+      margin: 0;
+    }
+  }
+
+  .input-group-text {
+    background-color: transparent;
+  }
+
+  .input-group-prepend .input-group-text:last-child { padding-right: $input-padding-x; }
+
+}

@@ -1,0 +1,97 @@
+
+.countdown {
+
+  text-align: center;
+
+  .col {
+    padding: 0;
+  }
+
+  h5 {
+    font-weight: 500;
+    font-size: 3rem;
+    margin-bottom: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  small {
+    display: block;
+    font-size: 0.8325rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  @include media-breakpoint-down(sm) {
+    h5 { font-size: 2rem; }
+    small { font-size: 0.75rem; }
+  }
+
+}
+
+
+.countdown-uppercase small {
+  text-transform: uppercase;
+}
+
+//----------------------------------------------------/
+// Sizes
+//----------------------------------------------------/
+.countdown-sm {
+  h5    { font-size: 2.5rem; }
+  small { font-size: 0.75rem; }
+
+  @include media-breakpoint-down(sm) {
+    h5 { font-size: 28px; }
+    small { font-size: 0.625rem; }
+  }
+}
+
+
+.countdown-lg {
+  h5    { font-size: 3.5rem; }
+  small { font-size: 0.875rem; }
+
+  @include media-breakpoint-down(sm) {
+    h5 { font-size: 2.25rem; }
+    small { font-size: 0.75rem; }
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Outline
+//----------------------------------------------------/
+.countdown-outline {
+  $border-color: rgba($color-text, 0.5);
+
+  .col {
+    border: 1px solid $border-color;
+    border-radius: 0.125rem;
+  }
+
+  h5 {
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Light
+//----------------------------------------------------/
+.countdown-light {
+  $border-color: rgba(#fff, .5);
+
+  .col {
+    border-color: $border-color;
+  }
+
+  h5,
+  small {
+    color: rgba(#fff, 0.85);
+    border-color: $border-color;
+  }
+
+}

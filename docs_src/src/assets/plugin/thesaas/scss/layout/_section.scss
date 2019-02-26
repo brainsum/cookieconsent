@@ -1,0 +1,128 @@
+
+
+.section {
+  position: relative;
+  border-bottom: none;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  //z-index: 0;
+
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+
+  > .container,
+  > .container-fluid,
+  > .container-wide {
+    position: relative;
+    height: 100%;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Header
+//----------------------------------------------------/
+.section-header {
+
+  text-align: center;
+  max-width: 70%;
+  margin: 0 auto 70px;
+
+  small {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+    margin-bottom: 1.5rem;
+    word-spacing: 2px;
+    color: rgba($color-text-light, 0.6);
+  }
+
+  hr {
+    width: 50px;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: 1.0625rem;
+
+    &.lead {
+      font-size: 1.125rem;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    max-width: 90%;
+  }
+
+}
+
+
+//----------------------------------------------------/
+// Parallax
+//----------------------------------------------------/
+
+/*
+.section[data-parallax] {
+  background-color: transparent;
+}
+
+
+.parallax-slider {
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+*/
+
+
+//----------------------------------------------------/
+// Video background
+//----------------------------------------------------/
+.section-video {
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  > .container,
+  > .container-fluid,
+  > .container-wide {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+}
+
+
+
+
+//----------------------------------------------------/
+// Dialog
+//----------------------------------------------------/
+.section-dialog {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+
+  @include media-breakpoint-up(md) {
+    padding: 20px 24px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding: 30px 32px;
+  }
+
+}
+

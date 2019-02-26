@@ -1,0 +1,19 @@
+
+.typed-cursor {
+  font-weight: 200;
+  opacity: 1;
+  animation: blink 0.7s infinite;
+}
+
+@each $color, $value in $theme-colors {
+  [data-type].text-#{$color} + .typed-cursor {
+    color: $value;
+  }
+}
+
+
+@keyframes blink{
+  0% { opacity:1; }
+  50% { opacity:0; }
+  100% { opacity:1; }
+}

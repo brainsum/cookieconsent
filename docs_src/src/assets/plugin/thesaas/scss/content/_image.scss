@@ -1,0 +1,68 @@
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-thumbnail {
+  padding: 0.25rem;
+  border-color: lighten($color-divider, 3%);
+  border-radius: 3px;
+}
+
+.img-outside-right {
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    transform: translateX(15%);
+  }
+}
+
+
+
+
+// Avatar
+//
+.avatar {
+  border-radius: 10rem;
+  width: 48px;
+  height: 48px;
+}
+
+.avatar-xxs {
+  width: 22px;
+  height: 22px;
+}
+
+.avatar-xs {
+  width: 34px;
+  height: 34px;
+}
+
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-lg {
+  width: 56px;
+  height: 56px;
+}
+
+.avatar-xl {
+  width: 64px;
+  height: 64px;
+}
+
+
+
+
+.img-fadein {
+  opacity: .75;
+  transition: .5s;
+
+  &:hover {
+    opacity: 1;
+  }
+}

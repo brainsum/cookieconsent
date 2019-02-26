@@ -1,0 +1,56 @@
+
+
+
+//----------------------------------------------------/
+// Element size
+//----------------------------------------------------/
+$element-sizes-list: 125 150 175 200 250 300 350 400 500 600 700 800 900;
+@each $value in $element-sizes-list {
+  .w-#{$value} {
+    width: #{$value}px !important;
+  }
+
+  .h-#{$value} {
+    height: #{$value}px !important;
+  }
+
+  .mw-#{$value} {
+    min-width: #{$value}px !important;
+  }
+
+  .mh-#{$value} {
+    min-height: #{$value}px !important;
+  }
+}
+
+@for $i from 1 through 20 {
+  .w-#{$i*5}px {
+    width: #{$i*5}px !important;
+  }
+
+  .h-#{$i*5}px {
+    height: #{$i*5}px !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Extra
+//----------------------------------------------------/
+.h-auto { height: auto; }
+.w-auto { width: auto; }
+
+.w-fullscreen, .w-100vw   { width: 100vw !important; }
+.h-fullscreen, .h-100vh   { height: 100vh !important; }
+
+.mw-fullscreen, .mw-100vw { min-width: 100vw !important; }
+.mh-fullscreen, .mh-100vh { min-height: 100vh !important; }
+
+
+// In small screen devices, 100vh might not be enough
+@media (max-height:640px) {
+  .h-fullscreen {
+    height: auto !important;
+    //min-height: 100vh !important;
+  }
+}

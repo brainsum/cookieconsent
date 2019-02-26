@@ -1,0 +1,27 @@
+
+//----------------------------------------------------/
+// Gap items
+//----------------------------------------------------/
+
+// Horizontally
+//
+.gap-x-1 { @include gap-items-x(2px); }
+.gap-x-2 { @include gap-items-x(4px); }
+.gap-x,
+.gap-x-3 { @include gap-items-x(8px); }
+.gap-x-4 { @include gap-items-x(12px); }
+.gap-x-5 { @include gap-items-x(16px); }
+.gap-x-6 { @include gap-items-x(24px); }
+.gap-x-7 { @include gap-items-x(32px); }
+
+
+// Horizontal & Vertical
+//
+.gap-xy-1 { @include gap-items(2px); }
+.gap-xy-2 { @include gap-items(4px); }
+.gap-xy,
+.gap-xy-3 { @include gap-items(8px); }
+.gap-xy-4 { @include gap-items(12px); }
+.gap-xy-5 { @include gap-items(16px); }
+.gap-xy-6 { @include gap-items(24px); }
+.gap-xy-7 { @include gap-items(32px); }

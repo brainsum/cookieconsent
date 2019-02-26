@@ -1,0 +1,17 @@
+
+pre {
+  background-color: lighten($color-bg-gray, 0.7%);
+  padding: 12px;
+  border: 1px solid $color-divider-light;
+  border-left: 3px solid $primary;
+  box-shadow: 0 0 15px rgba(0,0,0,.02);
+}
+
+.pre-scrollable {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+code {
+  //background-color: transparent;
+}

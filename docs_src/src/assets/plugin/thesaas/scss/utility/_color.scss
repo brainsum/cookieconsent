@@ -1,0 +1,36 @@
+
+//----------------------------------------------------/
+// Background color
+//----------------------------------------------------/
+.bg-gray { background-color: $color-bg-gray; }
+
+
+//----------------------------------------------------/
+// Pale background
+//----------------------------------------------------/
+@each $color, $value in $pale-colors {
+  .bg-pale-#{$color} {
+    background-color: $value !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Gradient background
+//----------------------------------------------------/
+@each $color, $value in $gradient-colors {
+  .bg-gradient-#{$color} {
+    background-image: $value !important;
+  }
+}
+
+
+//----------------------------------------------------/
+// Text color
+//----------------------------------------------------/
+@include text-emphasis-variant(".text-default", $color-text);
+@include text-emphasis-variant(".text-light", $color-text-light);
+@include text-emphasis-variant(".text-lighter", $color-text-lighter);
+@include text-emphasis-variant(".text-lightest", $color-text-lightest);
+
+.text-inherit { color: inherit; }

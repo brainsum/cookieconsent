@@ -1,0 +1,170 @@
+
+.switch {
+  position: relative;
+  min-height: (1rem * $line-height-base);
+}
+
+.switch-inline {
+  display: inline-flex;
+  margin-right: $custom-control-spacer-x;
+}
+
+
+.switch-input {
+  position: absolute;
+  z-index: -1; // Put the input behind the label so it doesn't overlay text
+  opacity: 0;
+
+  &:checked ~ .switch-label {
+
+    &::before {
+      border-color: theme-color-level('primary', -9);
+    }
+
+    &::after {
+      background: $color-primary;
+      left: 24px;
+      //box-shadow: 0px 0px 3px $color-bg-lightest;
+    }
+  }
+
+  &:disabled ~ .switch-label {
+    opacity: .5;
+  }
+}
+
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  margin-bottom: 0;
+
+  &::before {
+    content: '';
+    width: 40px;
+    height: 20px;
+    background: transparent;
+    border: 2px solid $color-divider-light;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+    transition: 0.3s;
+  }
+
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 6px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    cursor: inherit;
+    background: $color-divider-dark;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+}
+
+
+
+//
+// Stacked
+//
+.switch-stacked .switch {
+  display: inline;
+
+  &::after {
+    display: block;
+    margin-bottom: .25rem;
+    content: "";
+  }
+
+}
+
+
+
+
+/*
+.switch {
+  font-weight: 300;
+  letter-spacing: 0;
+  margin-bottom: 0;
+  line-height: $height-sm;
+  cursor: pointer;
+  white-space: nowrap;
+
+  input {
+    display: none;
+
+    &:checked ~ .switch-indicator {
+      border-color: theme-color-level('primary', -9);
+      //background: lighten($color-primary, 20%);
+
+      &::after {
+        background: $color-primary;
+        left: calc(100% - 14px);
+        box-shadow: 0px 0px 3px $color-bg-lightest;
+      }
+    }
+
+    &:disabled ~ span {
+      cursor: default;
+      opacity: .5;
+    }
+  }
+
+  &.disabled {
+    opacity: .5;
+    cursor: default;
+  }
+
+}
+
+.switch-indicator {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background: transparent;
+  border: 2px solid $color-divider-light;
+  border-radius: 20px;
+  vertical-align: middle;
+  transition: 0.3s;
+
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    transition: 0.3s;
+    cursor: inherit;
+    background: $color-divider-dark;
+    border-radius: 50%;
+  }
+}
+
+.switch-description {
+  padding-left: 6px;
+}
+
+
+//
+// Stacked
+//
+.switch-stacked .switch {
+  display: inline;
+
+  &::after {
+    display: block;
+    margin-bottom: .25rem;
+    content: "";
+  }
+
+}
+*/

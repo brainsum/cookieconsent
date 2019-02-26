@@ -1,0 +1,32 @@
+
+//----------------------------------------------------/
+// Border
+//----------------------------------------------------/
+@for $i from 1 through 3 {
+  .bt-#{$i}, .border-top-#{$i}    { border-top: #{$i}px solid $color-divider-light; }
+  .bl-#{$i}, .border-left-#{$i}   { border-left: #{$i}px solid $color-divider-light; }
+  .br-#{$i}, .border-right-#{$i}  { border-right: #{$i}px solid $color-divider-light; }
+  .bb-#{$i}, .border-bottom-#{$i} { border-bottom: #{$i}px solid $color-divider-light; }
+}
+
+.bt-0, .border-top-0    { border-top-width: 0; }
+.bl-0, .border-left-0   { border-left-width: 0; }
+.br-0, .border-right-0  { border-right-width: 0; }
+.bb-0, .border-bottom-0 { border-bottom-width: 0; }
+
+.b-1 { border: 1px solid $color-divider-light; }
+.b-2 { border: 2px solid $color-divider-light; }
+.b-3 { border: 3px solid $color-divider-light; }
+.b-0 { border-width: 0; }
+
+//----------------------------------------------------/
+// Border radius
+//----------------------------------------------------/
+.rounded-md { border-radius: 0.5rem !important; }
+.rounded-lg { border-radius: 0.75rem !important; }
+.rounded-xl { border-radius: 1rem !important; }
+
+.border-glass,
+.border-glass-1 { border-color: rgba(#fff, 0.35) !important; }
+.border-glass-2 { border-color: rgba(#fff, 0.25) !important; }
+.border-glass-3 { border-color: rgba(#fff, 0.15) !important; }

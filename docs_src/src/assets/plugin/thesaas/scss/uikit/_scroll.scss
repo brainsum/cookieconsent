@@ -1,0 +1,241 @@
+//http://codepen.io/nxworld/pen/OyRrGy
+
+
+
+//----------------------------------------------------/
+// Bounce down
+//----------------------------------------------------/
+.scroll-down-1 {
+
+  span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    transform: rotate(-45deg);
+    animation: scrollDown1 2s infinite;
+  }
+}
+
+@keyframes scrollDown1 {
+  0%  { transform: rotate(-45deg) translate(0, 0); }
+  20% { transform: rotate(-45deg) translate(-16px, 16px); }
+  40% { transform: rotate(-45deg) translate(0, 0); }
+}
+
+
+
+
+
+//----------------------------------------------------/
+// Move down
+//----------------------------------------------------/
+.scroll-down-2 {
+
+  span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    transform: rotate(-45deg);
+    animation: scrollDown2 2s infinite;
+  }
+}
+
+@keyframes scrollDown2 {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Three angle
+//----------------------------------------------------/
+.scroll-down-3 {
+  position: relative;
+
+  span {
+    position: absolute;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    transform: rotate(-45deg);
+    animation: scrollDown3 2s infinite;
+    opacity: 0;
+
+    &:nth-of-type(1) {
+      animation-delay: 0s;
+    }
+    &:nth-of-type(2) {
+      top: 16px;
+      animation-delay: .15s;
+    }
+    &:nth-of-type(3) {
+      top: 32px;
+      animation-delay: .3s;
+    }
+  }
+}
+
+@keyframes scrollDown3 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+//----------------------------------------------------/
+// Mouse
+//----------------------------------------------------/
+.scroll-down-4 {
+  span {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 50px;
+    opacity: .5;
+
+    &::before {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      content: '';
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      background-color: #000;
+      border-radius: 100%;
+    }
+  }
+}
+
+
+//----------------------------------------------------/
+// Mouse move down
+//----------------------------------------------------/
+.scroll-down-5 {
+
+  span {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 50px;
+    opacity: .5;
+
+    &::before {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      content: '';
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      background-color: #000;
+      border-radius: 100%;
+      animation: scrollDown5 2s infinite;
+    }
+  }
+}
+
+@keyframes scrollDown5 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translate(0, 20px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+
+
+.scroll-down-white span {
+  border-color: #fff;
+
+  &::before {
+    background-color: #fff;
+  }
+}
+
+
+
+
+//----------------------------------------------------/
+// Scroll to top button
+//----------------------------------------------------/
+.scroll-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-weight: 300;
+  opacity: 0;
+  box-shadow: 0 0 20px rgba(#000, 0.1);
+  z-index: $zindex-scrolltop;
+  transition: .5s ease-in-out;
+
+  .header-scrolled & {
+    opacity: 0.6;
+  }
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    transition: .2s ease-out;
+  }
+
+  .fa {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+
+  .scroll-top {
+    right: 15px;
+    bottom: 5px;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+
+    .fa {
+      font-size: 15px;
+    }
+  }
+
+}

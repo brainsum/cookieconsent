@@ -1,0 +1,267 @@
+
+//----------------------------------------------------/
+// Product
+//----------------------------------------------------/
+
+//
+// Product #1
+//
+.product-1 {
+  position: relative;
+  display: block;
+  border: 1px solid $color-divider-light;
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+  background-color: $color-bg-lightest;
+  color: $color-text;
+
+  &:hover {
+    //@extend .shadow-5;
+
+    img {
+      transform: scale(1.01);
+    }
+
+    background-color: $color-bg-lighter;
+    color: $color-text;
+  }
+
+  img {
+    transition: all 0.3s;
+
+    + .product-detail {
+      margin-top: 1rem;
+    }
+  }
+
+  .product-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h5, h6 {
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: $color-text-secondary;
+      line-height: 1.4;
+    }
+
+    .product-price {
+      font-weight: 100;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      padding-left: 1rem;
+      white-space: nowrap;
+
+      .unit {
+        font-size: 0.75rem;
+        vertical-align: text-top;
+      }
+
+      s {
+        color: $color-text-lightest;
+        margin-right: 0.5rem;
+        font-size: 65%;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .badge-pos-left,
+  .badge-pos-right {
+    position: absolute;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    font-size: 11px;
+    top: -0.5rem;
+    z-index: 1;
+  }
+
+  .badge-pos-left  { left: -0.5rem; }
+  .badge-pos-right { right: -0.5rem; }
+
+}
+
+
+//
+// Product #2
+//
+.product-2 {
+
+  .product-media {
+    position: relative;
+    display: block;
+    border-radius: 0.35rem;
+    margin-bottom: 1rem;
+
+    &,
+    &:hover {
+      background-color: $color-bg-lighter;
+    }
+
+  }
+
+  .product-detail {
+    text-align: center;
+
+    .product-price {
+
+      s {
+        color: $color-text-lightest;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .badge-pos-left,
+  .badge-pos-right {
+    position: absolute;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    font-size: 11px;
+    top: 0.5rem;
+    z-index: 1;
+  }
+
+  .badge-pos-left  { left: 0.5rem; }
+  .badge-pos-right { right: 0.5rem; }
+
+}
+
+
+//
+// Product #3
+//
+.product-3 {
+  @extend .shadow-1, .hover-shadow-6;
+
+  position: relative;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  transition: 0.3s ease-out;
+
+  .product-media {
+    border-radius: inherit;
+  }
+
+  .product-detail {
+    padding: 1rem;
+    text-align: center;
+
+    .product-price {
+
+      s {
+        color: $color-text-lightest;
+        margin-right: 0.5rem;
+      }
+    }
+
+  }
+
+  .badge-pos-left,
+  .badge-pos-right {
+    position: absolute;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    font-size: 11px;
+    top: -0.5rem;
+    z-index: 1;
+  }
+
+  .badge-pos-left  { left: -0.5rem; }
+  .badge-pos-right { right: -0.5rem; }
+
+}
+
+
+
+//----------------------------------------------------/
+// Cart table
+//----------------------------------------------------/
+.table-cart {
+
+  border: 1px solid $color-divider;
+  border-top: none;
+
+  td {
+    vertical-align: middle;
+    border-top-color: $color-divider;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  tr td:first-child {
+    padding-left: 30px;
+  }
+
+  tr td:last-child {
+    padding-right: 30px;
+    text-align: right;
+  }
+
+  h5 {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 13px;
+    color: $color-text-secondary;
+    line-height: 1.4;
+    margin-bottom: 0;
+  }
+
+  img {
+    max-height: 80px;
+  }
+
+  label {
+    font-size: 12px;
+    display: inline-block;
+    padding-right: 8px;
+  }
+
+  input {
+    max-width: 60px;
+    display: inline-block;
+  }
+
+  .item-remove {
+    color: $color-text-secondary;
+
+    &:hover {
+      color: $color-danger;
+    }
+  }
+
+  .price {
+    font-weight: 100;
+  }
+}
+
+
+
+//----------------------------------------------------/
+// Cart price
+//----------------------------------------------------/
+.cart-price {
+  border: 1px solid $color-divider;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  padding: 20px;
+  background-color: $color-bg-lightest;
+
+  .flexbox {
+    p {
+      margin-bottom: 4px;
+    }
+
+    strong {
+      font-weight: 400;
+      font-size: .9em;
+    }
+  }
+}

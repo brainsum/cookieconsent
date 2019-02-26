@@ -1,0 +1,33 @@
+
+.table {
+  border: 1px solid $color-divider-light;
+}
+
+.table th {
+  border-top: 0;
+  font-weight: 400;
+}
+
+.table thead th {
+  border-bottom: 1px solid $color-divider;
+}
+
+.table-hover tbody tr {
+  transition: background-color 0.2s linear;
+}
+
+// Sizes
+//
+.table-sm {
+  th,
+  td {
+    padding: .5rem;
+  }
+}
+
+.table-lg {
+  th,
+  td {
+    padding: 1rem;
+  }
+}

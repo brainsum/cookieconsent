@@ -1,0 +1,50 @@
+
+
+
+//----------------------------------------------------/
+// Background image
+//----------------------------------------------------/
+.bg-img {
+  //position: relative;
+  //border-bottom: none;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  //z-index: 0;
+}
+
+.bg-fixed {
+  background-attachment: fixed;
+}
+
+// iOS can't render a cover and fixed image
+@media (max-width:640px) {
+  .bg-fixed {
+    background-attachment: initial;
+  }
+}
+
+.bg-repeat {
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+.bg-img-left {
+  background-position: left center;
+}
+
+.bg-img-right {
+  background-position: right center;
+}
+
+.bg-img-top {
+  background-position: center top;
+}
+
+.bg-img-bottom {
+  background-position: center bottom;
+}
+
+.bg-size-contain {
+  background-size: contain;
+}

@@ -1,0 +1,180 @@
+
+
+//----------------------------------------------------/
+// Timeline
+//----------------------------------------------------/
+.timeline {
+  position: relative;
+  list-style: none;
+  padding: 1rem 0;
+  margin: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    margin-left: -1px;
+    background-color: $timeline-color;
+  }
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 1rem 0;
+  padding-right: 2.5rem;
+  text-align: right;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 1.35rem;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid $timeline-color;
+    background-color: #fff;
+  }
+
+  &:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 2.5rem;
+    padding-right: 0;
+    text-align: left;
+
+    &::before {
+      right: auto;
+      left: -8px;
+    }
+  }
+}
+
+
+// Horizontal timeline
+//
+.timeline-horizontal {
+  display: flex;
+
+  &::before {
+    left: 0;
+    bottom: auto;
+    right: 0;
+    width: 100%;
+    height: 2px;
+  }
+
+  .timeline-item {
+    padding: 1.5rem 1rem;
+    text-align: left;
+
+    &::before {
+      top: -1.5rem;
+      left: 0.75rem;
+    }
+
+    &:nth-child(even) {
+      margin-left: 0;
+    }
+  }
+}
+
+
+
+@include media-breakpoint-down(sm) {
+  .timeline::before {
+    left: 8px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    text-align: left;
+    padding-left: 2.5rem;
+    padding-right: 0;
+
+    &::before {
+      top: 1.25rem;
+      left: 1px;
+    }
+
+    &:nth-child(even) {
+      margin-left: 0rem;
+
+      &::before {
+        left: 1px;
+      }
+    }
+  }
+
+  .timeline-horizontal {
+    flex-direction: column;
+
+    &::before {
+      right: auto;
+      bottom: 0;
+      width: 2px;
+      height: 100%;
+    }
+
+    .timeline-item {
+      padding: 1rem 0;
+      padding-left: 2.5rem;
+
+      &::before {
+        top: 1.25rem;
+        left: 1px;
+      }
+    }
+  }
+}
+
+
+//----------------------------------------------------/
+// Steps
+//----------------------------------------------------/
+.step {
+  list-style: none;
+  margin: 0;
+}
+
+.step-item {
+  display: flex;
+  padding: 1rem 0;
+}
+
+.step-icon {
+  position: relative;
+  width: 7rem;
+  flex-shrink: 0;
+  text-align: center;
+
+  .iconbox {
+    @extend .iconbox-lg;
+    color: $color-text-lighter;
+    background-color: $color-divider;
+    font-size: 1.5rem;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 48px;
+    bottom: -2rem;
+    margin-left: -1px;
+    border-left: 2px dashed $color-divider;
+  }
+}
+
+.step-content {
+  margin-left: 1rem;
+}
+
+.step .step-item:last-child .step-icon::before {
+  bottom: 1rem;
+  //display: none;
+}
