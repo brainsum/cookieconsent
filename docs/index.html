@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <title>Cookie consent</title>
+
+    <!-- Styles -->
+    <link href="assets/css/page.min.css" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="icon" href="assets/img/favicon.ico">
+
+    <!-- Scripts -->
+    <script src="assets/js/cookieconsent.js"></script>
+    <script>
+        window.CookieConsent.init({
+          language: {
+            current: 'en'
+          },
+          categories: {
+            necessary: {
+              needed: true,
+              wanted: true,
+              checked: true,
+              language: {
+                locale: {
+                  en: {
+                    name: 'Strictly Necessary Cookies',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+                  },
+                  hu: {
+                    name: 'Szükséges sütik',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+                  }
+                }
+              }
+            },
+            various: {
+              needed: false,
+              wanted: false,
+              checked: false,
+              language: {
+                locale: {
+                  en: {
+                    name: 'Various Cookies',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                  },
+                  hu: {
+                    name: 'Egyéb sütik',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo est, nec gravida odio. Suspendisse scelerisque a ex nec semper.',
+                  }
+                }
+              }
+            }
+          },
+          services: {
+            facebook: {
+              category: 'various',
+              type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
+              search: 'facebook',
+              language: {
+                locale: {
+                  en: {
+                    name: 'Facebook'
+                  },
+                  hu: {
+                    name: 'Facebook'
+                  }
+                }
+              }
+            },
+            azalead: {
+              category: 'various',
+              type: 'script-tag',
+              search: 'azalead',
+              language: {
+                locale: {
+                  en: {
+                    name: 'Azalead'
+                  },
+                  hu: {
+                    name: 'Azalead'
+                  }
+                }
+              }
+            },
+            wrapped: {
+              category: 'various',
+              type: 'wrapped',
+              search: 'wrapped',
+              language: {
+                locale: {
+                  en: {
+                    name: 'Wrapped'
+                  },
+                  hu: {
+                    name: 'Csomagolt süti'
+                  }
+                }
+              }
+            },
+            localcookie: {
+              category: 'various',
+              type: 'localcookie',
+              search: 'localcookie',
+              language: {
+                locale: {
+                  en: {
+                    name: 'Local cookie'
+                  },
+                  hu: {
+                    name: 'Helyi süti'
+                  }
+                }
+              }
+            }
+          }
+        });
+      </script>
+  </head>
+
+  <body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-stick-dark" data-navbar="sticky">
+      <div class="container">
+
+        <div class="navbar-left">
+          <button class="navbar-toggler" type="button">&#9776;</button>
+          <span class="navbar-group"><a class="navbar-brand" target="_blank" rel="noreferrer noopener" href="https://www.brainsum.com">BRAINSUM</a>&nbsp;&nbsp;/&nbsp;&nbsp;Cookie consent</span>
+        </div>
+
+        <section class="navbar-mobile">
+          <nav class="nav nav-navbar ml-auto">
+            <a class="nav-link" target="_blank" rel="noreferrer noopener" href="https://github.com/brainsum/cookieconsent/blob/master/readme.md">Documentation</a>
+            <a class="nav-link" target="_blank" rel="noreferrer noopener" href="https://github.com/brainsum/cookieconsent/blob/master/docs/index.html">Example</a>
+            <a class="nav-link ccb__edit" href="#">Edit consent</a>
+          </nav>
+        </section>
+
+      </div>
+    </nav><!-- /.navbar -->
+
+
+    <!-- Header -->
+    <header class="header text-white h-fullscreen" style="background-image: url(assets/img/bg/02.jpg)">
+      <div class="overlay opacity-70" style="background-color: #563d7c"></div>
+
+      <div class="container text-center">
+
+        <div class="row h-100">
+          <div class="col-lg-8 mx-auto align-self-center">
+            <div class="brainsum-logo">
+              <a target="_blank" rel="noreferrer noopener" href="https://www.brainsum.com"><img class="brainsum-logo-img" src="assets/img/brainsum-logo-white.svg" alt="Brainsum"></a>
+            </div>
+            <h1 class="display-4 mt-1 mb-6"><strong>Cookie consent</strong></h1>
+            <p class="lead-3">Outdated cookie notice bars are not enough! It’s not lawful to store most cookies without prior user consent.</p>
+            <p class="lead-3">This <b>personalized</b> (try it now!) GDPR and ePrivacy Directive (aka. ePR) compliant script can <b>block even 3rd party</b> cookies without needing to refactor your website / web app.</p>
+
+            <hr class="w-80px">
+
+            <p>
+              <a class="btn btn-xl btn-round btn-outline-light w-250" href="https://github.com/brainsum/cookieconsent/releases" target="_blank" rel="noreferrer noopener">Download Now</a>
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </header><!-- /.header -->
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Features
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section">
+        <div class="container">
+          <header class="section-header">
+            <small>Regulations</small>
+            <h2>Relevant parts of the regulations:</h2>
+          </header>
+
+          <div class="row gap-y text-center">
+
+            <div class="col-md-6 col-xl-6 feature-1">
+              <p class="feature-icon text-success"><i class="icon-search"></i></p>
+              <h5>ePR paragraph 66</h5>
+              <p class="text-left">Third parties may wish to store information on the equipment of a user, or gain access to information already stored, for a number of purposes, ranging from the legitimate (such as certain types of <b>cookies</b>) to those involving unwarranted intrusion into the private sphere (such as spyware or viruses). It is therefore of paramount importance that users be provided with clear and comprehensive information when engaging in any activity which could result in such storage or gaining of access. The methods of providing information and offering the right to refuse should be as user-friendly as possible. <b>Exceptions to the obligation to provide information and offer the right to refuse should be limited to those situations where the technical storage or access is strictly necessary for the legitimate purpose of enabling the use of a specific service explicitly requested by the subscriber or user.</b> Where it is technically possible and effective, in accordance with the relevant provisions of Directive 95/46/EC, the user’s consent to processing may be expressed by using the appropriate settings of a browser or other application. The enforcement of these requirements should be made more effective by way of enhanced powers granted to the relevant national authorities.</p>
+            </div>
+
+
+            <div class="col-md-6 col-xl-6 feature-1">
+              <p class="feature-icon text-primary"><i class="icon-mobile"></i></p>
+              <h5>GDPR Article 7</h5>
+              <ol class="text-left">
+                <li>
+                  Where processing is based on consent, the controller shall be able to demonstrate that the data subject has consented to processing of his or her personal data.
+                </li>
+                <li>
+                  If the data subject's consent is given in the context of a written declaration which also concerns other matters, the request for consent shall be presented in a manner which is clearly distinguishable from the other matters, in an intelligible and easily accessible form, using clear and plain language. Any part of such a declaration which constitutes an infringement of this Regulation shall not be binding.
+                </li>
+                <li>
+                  The data subject shall have the right to withdraw his or her consent at any time. The withdrawal of consent shall not affect the lawfulness of processing based on consent before its withdrawal. Prior to giving consent, the data subject shall be informed thereof. It shall be as easy to withdraw as to give consent.
+                </li>
+                <li>
+                  When assessing whether consent is freely given, utmost account shall be taken of whether, inter alia, the performance of a contract, including the provision of a service, is conditional on consent to the processing of personal data that is not necessary for the performance of that contract.
+                </li>
+              </ol>
+            </div>
+
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | CTA
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section text-center bg-gray">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <h3 class="mb-6"><strong>Examples of cookies which you can create without prior user consent:</strong></h3>
+              <ul class="lead text-muted text-left">
+                <li>
+                    Session cookie for login area or shopping cart on a webshop
+                  </li>
+                  <li>
+                    Simple analytics cookies (e.g. Google Analytics) if they are anonymized. Do not store full IP addresses or any other personal data, this way GDPR will not apply, and for ePR you can use an enabled by default analytics section in your cookie settings.
+                    Examples of cookies which you can create only after user consent:
+                  </li>
+                  <li>
+                    Marketing cookies created by ad services which will be used for profiling, remarketing e.g. Adwords
+                  </li>
+                  <li>
+                    Tracking cookies of social networks e.g. Facebook.
+                </li>
+              </ul>
+              <br>
+              <a class="btn btn-lg btn-round btn-primary px-7" href="#">View GitHub Project</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!--
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      | Brainsum
+      |‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒‒
+      !-->
+      <section class="section brainsum text-center bg-gray">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <h3 class="mb-6 text-dark font-weight-bold"><strong>Cookie Consent</strong></h3>
+              <p class="lead text-dark">
+                  This open source tool is brought to you by <a target="_blank" rel="noreferrer noopener" href="https://www.brainsum.com" class="text-dark font-weight-bold"><b>BRAINSUM.</b></a>
+              </p>
+              <p class="lead text-dark">
+                  Instructions how to set it up can be found in the <a target="_blank" rel="noreferrer noopener" href="https://github.com/brainsum/cookieconsent/blob/master/readme.md" class="text-dark font-weight-bold"><b>README.</b></a>
+              </p>
+              <p class="lead text-dark">
+                  <a target="_blank" rel="noreferrer noopener" href="https://www.brainsum.com/contact" class="text-dark font-weight-bold"><b>If you need professional assistance contact us.</b></a>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer bg-gray">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-lg-6 mx-auto">
+
+            <div class="nav nav-center">
+              <a class="nav-link" target="_blank" rel="noreferrer noopener" href="https://github.com/brainsum/cookieconsent">GitHub</a>
+              <a class="nav-link" target="_blank" rel="noreferrer noopener" href="https://twitter.com/brainsumcom">Twitter</a>
+              <a class="nav-link" target="_blank" rel="noreferrer noopener" href="https://github.com/brainsum/cookieconsent/blob/master/docs/index.html">Examples</a>
+              <a class="nav-link ccb__edit" href="#">Edit consent</a>
+            </div>
+            <hr>
+            <p class="text-center">This open source tool is brought to you by <a href="https://brainsum.com" target="_blank" rel="noreferrer noopener"><b>Brainsum</b></a></p>
+
+          </div>
+        </div>
+      </div>
+    </footer><!-- /.footer -->
+
+
+    <!-- Scripts -->
+    <script src="assets/js/page.min.js"></script>
+
+  </body>
+</html>
