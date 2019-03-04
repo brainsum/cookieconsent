@@ -12,6 +12,10 @@
   "author": "TheThemeio",
   "homepage": "http://thetheme.io/thesaas",
   "license": "ISC",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp dist"
+  },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
     "ajv": "^6.6.2",
