@@ -77,4 +77,17 @@ export default class Utilities {
     return categories;
   }
 
+  static dispatchEvent(elem, event) {
+    var event;
+
+    if (typeof(Event) === 'function') {
+      event = new Event(event);
+    } else {
+      event = document.createEvent('Event');
+      event.initEvent(event, true, true);
+    }
+    
+    elem.dispatchEvent(event);
+  }
+
 }

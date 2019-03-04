@@ -76,7 +76,7 @@ export default class Configuration {
     this.cookieToConfig();
 
     // We tell the world we did this
-    document.dispatchEvent(new Event('CCConfigSet'));
+    Utilities.dispatchEvent(document, 'CCConfigSet');
   }
 
   cookieToConfig() {
