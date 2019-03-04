@@ -20,6 +20,7 @@ export default class Configuration {
       active: true,
       cookieExists: false,
       modalMainTextMoreLink: null,
+      barTimeout: 1000,
       theme: {
         barColor: '#2C7CBF',
         barTextColor: '#FFF',

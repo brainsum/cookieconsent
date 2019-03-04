@@ -223,7 +223,7 @@ export default class Interface {
         if ( ! window.CookieConsent.config.cookieExists) {
           setTimeout(() => {
             bar.classList.remove('ccb--hidden');
-          }, 3000);
+          }, window.CookieConsent.config.barTimeout);
         }
       });
 
