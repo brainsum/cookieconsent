@@ -54,6 +54,10 @@ The script is being controlled mainly by a configuration object which is passed 
 ```javascript
 <script>
   window.CookieConsent.init({
+    // More link URL on bar
+    modalMainTextMoreLink: null,
+    // How lond to wait until bar comes up
+    barTimeout: 1000,
     // Look and feel
     theme: {
       barColor: '#2C7CBF',
