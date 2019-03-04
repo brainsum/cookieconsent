@@ -274,7 +274,7 @@ export default class Interface {
     this.elements['modal'].querySelector('.ccm__tabs').addEventListener('click', (event) => {
 
       // If you click trough the tabs on Cookie settings
-      if (event.target.classList.contains('ccm__tab-head') || event.target.classList.contains('icon-wedge')) {
+      if (event.target.classList.contains('ccm__tab-head') || event.target.classList.contains('ccm__tab-head__icon-wedge')) {
 
         function getDlParent(eventTarget) {
           var parent = eventTarget.parentNode;
