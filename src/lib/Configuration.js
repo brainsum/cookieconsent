@@ -84,18 +84,30 @@ export default class Configuration {
         var cookieData = JSON.parse(item.split('=')[1]);
 
         // We check if cookie data categories also exist in user config
-        for (let key in cookieData) {
+        for (let key in cookieData.categories) {
 
           // The cookie contains category not present in user config so we invalidate cookie
           if(typeof window.CookieConsent.config.categories[key] === 'undefined') {
             Utilities.removeCookie();
+            document.location.reload();
             return false;
           }
         }
 
+        // We check if cookie data services also exist in user config
+        cookieData.services.forEach(function(service){
+
+          // The cookie contains service not present in user config so we invalidate cookie
+          if(typeof window.CookieConsent.config.services[service] === 'undefined') {
+            Utilities.removeCookie();
+            document.location.reload();
+            return false;
+          } 
+        });
+
         // We we integrate cookie data into the global config object
-        for (let key in cookieData) {
-          window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].wanted = (cookieData[key] === true) ? true : false;
+        for (let key in cookieData.categories) {
+          window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].wanted = (cookieData.categories[key].wanted === true) ? true : false;
         }
 
         window.CookieConsent.config.cookieExists = true;

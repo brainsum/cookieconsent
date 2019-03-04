@@ -55,4 +55,26 @@ export default class Utilities {
     document.cookie = `cconsent=; expires=Thu, 01 Jan 1980 00:00:00 UTC; path=/;`;
   }
 
+  // Create an array of services from Cookieconsent global object
+  // Filter based on category or leave empty is all is wanted
+  static listGlobalServices(category) {
+    let categories = [];
+
+    // Global config objectnot set
+    if (typeof window.CookieConsent === 'undefined') return categories;
+
+    // Category is not specified or opposite
+    if (typeof category === 'undefined') {
+      for (let key in window.CookieConsent.config.services) {
+        categories.push(key);
+      }
+    } else {
+      for (let key in window.CookieConsent.config.services) {
+        if (window.CookieConsent.config.services[key].category === category)  categories.push(key);
+      }
+    }
+
+    return categories;
+  }
+
 }

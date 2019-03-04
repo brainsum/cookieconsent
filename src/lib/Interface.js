@@ -353,11 +353,18 @@ export default class Interface {
   }
 
   buildCookie(callback) {
-    let cookie = {};
+    let cookie = {
+      categories: {},
+      services: []
+    };
     
     for(let key in window.CookieConsent.config.categories) {
-      cookie[key] = window.CookieConsent.config.categories[key].wanted;
+      cookie.categories[key] = {
+        wanted: window.CookieConsent.config.categories[key].wanted,
+      };
     }
+
+    cookie.services = Utilities.listGlobalServices();
   
     if (callback) callback(cookie);
     return cookie;
