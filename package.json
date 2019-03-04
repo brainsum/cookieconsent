@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/index.html --no-hmr",
-    "build": "npm run build:nomin && npm run build:min",
+    "build": "npm run build:nomin && npm run build:min && npm run build:docs",
     "build:nomin": "parcel build src/index.js --out-dir build --public-url . --out-file cookieconsent.js --no-minify",
-    "build:min": "parcel build src/index.js --out-dir build --public-url . --out-file cookieconsent.min.js"
+    "build:min": "parcel build src/index.js --out-dir build --public-url . --out-file cookieconsent.min.js",
+    "build:docs": "parcel build src/index.js --out-dir docs_src/src/assets/js --public-url . --out-file cookieconsent.min.js"
   },
   "repository": {
     "type": "git",
