@@ -2966,6 +2966,7 @@ function () {
     key: "buildCookie",
     value: function buildCookie(callback) {
       var cookie = {
+        version: window.CookieConsent.config.cookieVersion,
         categories: {},
         services: []
       };
@@ -5638,6 +5639,7 @@ function () {
     window.CookieConsent.config = {
       active: true,
       cookieExists: false,
+      cookieVersion: 1,
       modalMainTextMoreLink: null,
       barTimeout: 1000,
       theme: {
@@ -5698,17 +5700,30 @@ function () {
   }, {
     key: "cookieToConfig",
     value: function cookieToConfig() {
+      function removeReload() {
+        _Utilities.default.removeCookie();
+
+        location.reload();
+        return false;
+      }
+
       document.cookie.split(';').filter(function (item) {
         if (item.indexOf('cconsent') >= 0) {
-          var cookieData = JSON.parse(item.split('=')[1]); // We check if cookie data categories also exist in user config
+          var cookieData = JSON.parse(item.split('=')[1]); // We check cookie version. If older we need to renew cookie.
+
+          if (typeof cookieData.version === 'undefined') {
+            return removeReload();
+          } else {
+            if (cookieData.version !== window.CookieConsent.config.cookieVersion) {
+              return removeReload();
+            }
+          } // We check if cookie data categories also exist in user config
+
 
           for (var key in cookieData.categories) {
             // The cookie contains category not present in user config so we invalidate cookie
             if (typeof window.CookieConsent.config.categories[key] === 'undefined') {
-              _Utilities.default.removeCookie();
-
-              document.location.reload();
-              return false;
+              return removeReload();
             }
           } // We check if cookie data services also exist in user config
 
@@ -5716,10 +5731,7 @@ function () {
           cookieData.services.forEach(function (service) {
             // The cookie contains service not present in user config so we invalidate cookie
             if (typeof window.CookieConsent.config.services[service] === 'undefined') {
-              _Utilities.default.removeCookie();
-
-              document.location.reload();
-              return false;
+              return removeReload();
             }
           }); // We we integrate cookie data into the global config object
 

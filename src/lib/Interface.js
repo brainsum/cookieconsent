@@ -354,6 +354,7 @@ export default class Interface {
 
   buildCookie(callback) {
     let cookie = {
+      version: window.CookieConsent.config.cookieVersion,
       categories: {},
       services: []
     };
