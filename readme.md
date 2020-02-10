@@ -129,6 +129,15 @@ The script is being controlled mainly by a configuration object which is passed 
         // The filter will look for this keyword in inserted scipt tags
         // and block if match found
         search: 'analytics',
+        // List of known cookie names or Regular expressions matching
+        // cookie names placed by this service.
+        // These willbe removed from current domain and .domain.
+        cookies: [
+          // Known cookie name.
+          '_gid',
+          // Regex matching cookie name.
+          /^_ga/
+        ],
         language: {
           locale: {
             en: {
