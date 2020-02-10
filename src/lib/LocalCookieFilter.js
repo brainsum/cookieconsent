@@ -1,7 +1,7 @@
 import Filter from './Filter';
 
 export default class LocalCookieFilter extends Filter {
-  
+
   constructor() {
     super();
   }
@@ -15,7 +15,7 @@ export default class LocalCookieFilter extends Filter {
 
     cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') ||
                        Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
-                       
+
     if (! cookieDescriptor) {
 
       cookieDescriptor = {};
@@ -23,7 +23,7 @@ export default class LocalCookieFilter extends Filter {
       cookieDescriptor.set = HTMLDocument.prototype.__lookupSetter__("cookie");
 
     }
-    
+
     return cookieDescriptor;
   }
 
