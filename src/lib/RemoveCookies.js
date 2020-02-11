@@ -19,16 +19,20 @@ export default class RemoveCookies {
         // Remove cookies if they are not wanted by user
         if (! config.categories[config.services[service].category].wanted) {
           for(let i in config.services[service].cookies) {
-            let type = Utilities.objectType(config.services[service].cookies[i]);
+            let type = Utilities.objectType(config.services[service].cookies[i].name);
             if (type === 'String') {
-              if (cookieList.indexOf(config.services[service].cookies[i]) > -1) {
+              if (cookieList.indexOf(config.services[service].cookies[i].name) > -1) {
                 this.removeCookie(config.services[service].cookies[i]);
               }
             } else if (type === 'RegExp') {
               // Searching cookie list for cookies matching specified RegExp
+              let cookieDef = config.services[service].cookies[i];
               for (let c in cookieList) {
-                if (cookieList[c].match(config.services[service].cookies[i])) {
-                  this.removeCookie(cookieList[c]);
+                if (cookieList[c].match(cookieDef.name)) {
+                  this.removeCookie({
+                    name: cookieList[c],
+                    domain: Utilities.objectType(cookieDef.domain) === 'String' ? cookieDef.domain : null
+                  });
                 }
               }
             }
@@ -40,7 +44,7 @@ export default class RemoveCookies {
 
   removeCookie(cookie) {
     // Removing cookies from domain and .domain
-    document.cookie = `${cookie}=; expires=Thu, 01 Jan 1980 00:00:00 UTC; domain=${window.location.hostname}; path=/;`;
-    document.cookie = `${cookie}=; expires=Thu, 01 Jan 1980 00:00:00 UTC; domain=.${window.location.hostname}; path=/;`;
+    let domain = Utilities.objectType(cookie.domain) === 'String' ? `domain=${cookie.domain};` : '';
+    document.cookie = `${cookie.name}=; expires=Thu, 01 Jan 1980 00:00:00 UTC; ${domain} path=/;`;
   }
 }
