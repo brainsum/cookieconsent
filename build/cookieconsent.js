@@ -5795,17 +5795,22 @@ function () {
           // Remove cookies if they are not wanted by user
           if (!config.categories[config.services[service].category].wanted) {
             for (var i in config.services[service].cookies) {
-              var type = _Utilities.default.objectType(config.services[service].cookies[i]);
+              var type = _Utilities.default.objectType(config.services[service].cookies[i].name);
 
               if (type === 'String') {
-                if (cookieList.indexOf(config.services[service].cookies[i]) > -1) {
+                if (cookieList.indexOf(config.services[service].cookies[i].name) > -1) {
                   this.removeCookie(config.services[service].cookies[i]);
                 }
               } else if (type === 'RegExp') {
                 // Searching cookie list for cookies matching specified RegExp
+                var cookieDef = config.services[service].cookies[i];
+
                 for (var c in cookieList) {
-                  if (cookieList[c].match(config.services[service].cookies[i])) {
-                    this.removeCookie(cookieList[c]);
+                  if (cookieList[c].match(cookieDef.name)) {
+                    this.removeCookie({
+                      name: cookieList[c],
+                      domain: _Utilities.default.objectType(cookieDef.domain) === 'String' ? cookieDef.domain : null
+                    });
                   }
                 }
               }
@@ -5818,8 +5823,8 @@ function () {
     key: "removeCookie",
     value: function removeCookie(cookie) {
       // Removing cookies from domain and .domain
-      document.cookie = "".concat(cookie, "=; expires=Thu, 01 Jan 1980 00:00:00 UTC; domain=").concat(window.location.hostname, "; path=/;");
-      document.cookie = "".concat(cookie, "=; expires=Thu, 01 Jan 1980 00:00:00 UTC; domain=.").concat(window.location.hostname, "; path=/;");
+      var domain = _Utilities.default.objectType(cookie.domain) === 'String' ? "domain=".concat(cookie.domain, ";") : '';
+      document.cookie = "".concat(cookie.name, "=; expires=Thu, 01 Jan 1980 00:00:00 UTC; ").concat(domain, " path=/;");
     }
   }]);
 

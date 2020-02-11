@@ -133,10 +133,17 @@ The script is being controlled mainly by a configuration object which is passed 
         // cookie names placed by this service.
         // These willbe removed from current domain and .domain.
         cookies: [
-          // Known cookie name.
-          '_gid',
-          // Regex matching cookie name.
-          /^_ga/
+          {
+            // Known cookie name.
+            name: '_gid',
+            // Expected cookie domain.
+            domain: `.${window.location.hostname}`
+          },
+          {
+            // Regex matching cookie name.
+            name: /^_ga/,
+            domain: `.${window.location.hostname}`
+          }
         ],
         language: {
           locale: {
