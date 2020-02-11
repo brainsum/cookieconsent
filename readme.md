@@ -85,7 +85,7 @@ The script is being controlled mainly by a configuration object which is passed 
           off: 'Off',
         }
       }
-    }
+    },
     // List all the categories you want to display
     categories: {
       // Unique name
