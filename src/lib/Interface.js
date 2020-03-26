@@ -247,6 +247,20 @@ export default class Interface {
           window.CookieConsent.config.categories[key].checked = true;
         }
         
+        let currentLanguage = window.CookieConsent.config.language.current
+        Object.keys(window.CookieConsent.config.categories).forEach((i)=>{
+          let category = window.CookieConsent.config.categories[i];
+          if(category.checked) {
+            if(typeof ga === "undefined") {
+              console.error("Missing Google Analytics (ga function)")
+            }
+            
+            ga("send","event", "Cookie", "Accept cookies", category.language.locale[currentLanguage].name)
+          }
+        })
+
+
+
         this.writeBufferToDOM();
   
         this.buildCookie((cookie) => {
