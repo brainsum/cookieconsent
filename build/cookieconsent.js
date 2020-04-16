@@ -2984,7 +2984,8 @@ function () {
   }, {
     key: "setCookie",
     value: function setCookie(cookie, callback) {
-      document.cookie = "cconsent=".concat(JSON.stringify(cookie), "; expires=Thu, 01 Jan 2099 00:00:00 UTC; path=/;");
+      var expires_in = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = "cconsent=".concat(JSON.stringify(cookie), "; expires=").concat(expires_in, "; path=/;");
       if (callback) callback();
     }
   }]);
