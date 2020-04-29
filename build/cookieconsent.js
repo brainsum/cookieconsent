@@ -2811,6 +2811,19 @@ function () {
               window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = true;
             }
 
+            var currentLanguage = window.CookieConsent.config.language.current;
+            Object.keys(window.CookieConsent.config.categories).forEach(function (i) {
+              var category = window.CookieConsent.config.categories[i];
+
+              if (category.checked) {
+                if (typeof ga === "undefined") {
+                  console.error("Missing Google Analytics (ga function)");
+                } else {
+                  ga("send", "event", "Cookie", "Accept cookies", category.language.locale[currentLanguage].name);
+                }
+              }
+            });
+
             _this.writeBufferToDOM();
 
             _this.buildCookie(function (cookie) {
