@@ -27,8 +27,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "core-js": "^2.6.5",
-    "lodash": "^4.17.11",
     "parcel-bundler": "^1.11.0",
     "redom": "^3.18.0"
-  }
+  },
+  "dependencies": {}
 }
