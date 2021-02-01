@@ -11,16 +11,15 @@ export default class Interface {
 
   buildStyle() {
     return el('style',
-      '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', 
-      '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', 
-      '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block;}', 
+      '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }',
+      '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}',
+      '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block;}',
       '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
       '#cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}',
       '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}',
       '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}',
       '#cconsent-bar a { text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; }',
-      '#cconsent-bar button { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
-      '#cconsent-bar a.ccb__edit { margin-right:15px }',
+      '#cconsent-bar button { line-height:normal; margin-left: 15px; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
       '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }',
       '#cconsent-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
       '@media (max-width: 600px) { #cconsent-modal { height: 100% } }',
@@ -65,9 +64,8 @@ export default class Interface {
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list .ccm__list__title {color:#333; font-weight:600;}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }',
       '#cconsent-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
-      '#cconsent-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
-      '#cconsent-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
-      '#cconsent-modal .ccm__footer button#ccm__footer__consent-modal-submit {  margin-right:10px; }'
+      '#cconsent-modal .ccm__footer button { margin-left: 10px; line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
+      '#cconsent-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }'
       );
   }
 
@@ -80,6 +78,7 @@ export default class Interface {
           el('div.ccb__right',
             el('div.ccb__button',
               el('a.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
+              el('button.consent-reject', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')),
               el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
             )
           )
@@ -169,6 +168,7 @@ export default class Interface {
         ),
         el('div.ccm__footer',
           el('button#ccm__footer__consent-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
+          el('button.consent-reject', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')),
           el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       )
@@ -182,11 +182,13 @@ export default class Interface {
       if(window.CookieConsent.config.categories[tabGroup.dataset.category].checked) {
         if( ! tabGroup.classList.contains('checked-5jhk')) {
           tabGroup.classList.add('checked-5jhk');
-          tabGroup.querySelector('input.category-onoff').checked = true;
+          var checkbox = tabGroup.querySelector('input.category-onoff')
+          if (checkbox) checkbox.checked = true;
         };
       } else {
         if(tabGroup.classList.contains('checked-5jhk')) tabGroup.classList.remove('checked-5jhk');
-        tabGroup.querySelector('input.category-onoff').checked = false;
+        var checkbox = tabGroup.querySelector('input.category-onoff')
+        if (checkbox) checkbox.checked = false;
       }
     }
   }
@@ -261,6 +263,32 @@ export default class Interface {
       });
     }
 
+    // If you click Reject all cookies
+    var buttonConsentReject = document.querySelectorAll('.consent-reject');
+
+    for(let button of buttonConsentReject) {
+      button.addEventListener('click', () => {
+
+        // We set config to reject consent
+        for(let key in window.CookieConsent.config.categories) {
+          if (window.CookieConsent.config.categories[key].needed == false){
+            window.CookieConsent.config.categories[key].wanted =
+            window.CookieConsent.config.categories[key].checked = false;
+          }
+        }
+
+        this.writeBufferToDOM();
+
+        this.buildCookie((cookie) => {
+          this.setCookie(cookie);
+        });
+
+        this.elements['bar'].classList.add('ccb--hidden');
+        this.elements['modal'].classList.remove('ccm--visible');
+
+        this.modalRedrawIcons();
+      });
+    }
 
     // If you click Cookie settings and open modal
     Array.prototype.forEach.call(document.getElementsByClassName('ccb__edit'), (edit) => {
