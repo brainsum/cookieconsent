@@ -54,7 +54,9 @@ The script is being controlled mainly by a configuration object which is passed 
 ```javascript
 <script>
   window.CookieConsent.init({
-    // More link URL on bar
+    // More link URL on consent bar
+    barMainTextMoreLink: null,
+    // More link URL on modal
     modalMainTextMoreLink: null,
     // How lond to wait until bar comes up
     barTimeout: 1000,
@@ -81,6 +83,7 @@ The script is being controlled mainly by a configuration object which is passed 
           modalBtnAcceptAll: 'Accept all cookies and close',
           modalAffectedSolutions: 'Affected solutions:',
           learnMore: 'Learn More',
+          barLearnMore: 'Learn More',
           on: 'On',
           off: 'Off',
         }

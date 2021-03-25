@@ -20,6 +20,7 @@ export default class Configuration {
       cookieExists: false,
       cookieVersion: 1,
       modalMainTextMoreLink: null,
+      barMainTextMoreLink: null,
       barTimeout: 1000,
       theme: {
         barColor: '#2C7CBF',
@@ -42,6 +43,7 @@ export default class Configuration {
             modalBtnAcceptAll: 'Accept all cookies and close',
             modalAffectedSolutions: 'Affected solutions:',
             learnMore: 'Learn More',
+            barLearnMore: 'Learn More',
             on: 'On',
             off: 'Off',
           },
