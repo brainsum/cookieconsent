@@ -1,3 +1,5 @@
+[![Node.js CI][ci-badge]][ci]
+
 # Cookieconsent Script
 
 A script that displays a cookie consent message as required by EU regulation (GDPR). The plugin displays a message on the user's first visit and they have the ability to consent to different categories of cookies and services.
@@ -160,3 +162,6 @@ The script is being controlled mainly by a configuration object which is passed 
   });
   </script>
 ```
+
+[ci-badge]: https://github.com/brainsum/cookieconsent/actions/workflows/nodejs.yml/badge.svg
+[ci]: https://github.com/brainsum/cookieconsent/actions/workflows/nodejs.yml
