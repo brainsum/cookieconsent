@@ -58,7 +58,7 @@ export default class Configuration {
             modalBtnSave: 'Uložit nastavení',
             modalBtnAcceptAll: 'Povolit všechny cookies a zavřít',
             modalBtnRejectAll: 'Odmítnout všechny cookies a zavřít',
-            modalAffectedSolutions: 'Nastavení cookies bude mít vlyv na tyto služby:',
+            modalAffectedSolutions: 'Nastavení cookies bude mít vliv na tyto služby:',
             learnMore: 'Více informací',
             on: 'Ano',
             off: 'Ne',
