@@ -10,7 +10,7 @@
   <script>
   window.CookieConsent.init({
     language: {
-      current: 'en'
+      current: (navigator.language ?? navigator.userLanguage).split('-')[0]
     },
     categories: {
       necessary: {
@@ -117,7 +117,7 @@
     <script>
         window.CookieConsent.init({
           language: {
-            current: 'en'
+            current: (navigator.language ?? navigator.userLanguage).split('-')[0]
           },
           categories: {
             necessary: {
