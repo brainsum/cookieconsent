@@ -81,7 +81,9 @@ export default class Interface {
           el('div.ccb__right',
             el('div.ccb__button',
               el('a.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
-              el('button.consent-reject', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')),
+              window.CookieConsent.config.showRejectAllButton ? 
+                el('button.consent-reject', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')) :
+                null,
               el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
             )
           )
@@ -171,7 +173,9 @@ export default class Interface {
         ),
         el('div.ccm__footer',
           el('button#ccm__footer__consent-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
-          el('button.consent-reject', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')),
+          window.CookieConsent.config.showRejectAllButton ? 
+            el('button.consent-reject', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')) :
+            null,
           el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       )

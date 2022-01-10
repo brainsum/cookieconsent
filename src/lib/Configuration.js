@@ -54,7 +54,7 @@ export default class Configuration {
             barBtnAcceptAll: 'Povolit všechny cookies',
             barBtnRejectAll: 'Odmítnout všechny cookies',
             modalMainTitle: 'Nastavení cookies',
-            modalMainText: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
+            modalMainText: 'Cookies jsou malá data odeslaná z webové stránky a uložená v počítači uživatele webovým prohlížečem uživatele, když uživatel prochází. Váš prohlížeč ukládá každou zprávu do malého souboru, který se nazývá cookie. Když si ze serveru vyžádáte další stránku, váš prohlížeč odešle cookie zpět na server. Soubory cookie byly navrženy tak, aby byly spolehlivým mechanismem pro webové stránky, aby si pamatovaly informace nebo zaznamenávaly aktivitu uživatele při prohlížení.',
             modalBtnSave: 'Uložit nastavení',
             modalBtnAcceptAll: 'Povolit všechny cookies a zavřít',
             modalBtnRejectAll: 'Odmítnout všechny cookies a zavřít',

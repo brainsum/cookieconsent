@@ -2667,7 +2667,7 @@ var Interface = /*#__PURE__*/function () {
   }, {
     key: "buildBar",
     value: function buildBar() {
-      return (0, _redom.el)('div#cconsent-bar.ccb--hidden', (0, _redom.el)("div.ccb__wrapper", (0, _redom.el)('div.ccb__left', (0, _redom.el)('div.cc-text', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))), (0, _redom.el)('div.ccb__right', (0, _redom.el)('div.ccb__button', (0, _redom.el)('a.ccb__edit', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')), (0, _redom.el)('button.consent-reject', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')), (0, _redom.el)('button.consent-give', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))))));
+      return (0, _redom.el)('div#cconsent-bar.ccb--hidden', (0, _redom.el)("div.ccb__wrapper", (0, _redom.el)('div.ccb__left', (0, _redom.el)('div.cc-text', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))), (0, _redom.el)('div.ccb__right', (0, _redom.el)('div.ccb__button', (0, _redom.el)('a.ccb__edit', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')), window.CookieConsent.config.showRejectAllButton ? (0, _redom.el)('button.consent-reject', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')) : null, (0, _redom.el)('button.consent-give', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))))));
     }
   }, {
     key: "buildModal",
@@ -2725,7 +2725,7 @@ var Interface = /*#__PURE__*/function () {
         href: window.CookieConsent.config.modalMainTextMoreLink,
         target: '_blank',
         rel: 'noopener noreferrer'
-      }, _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null), (0, _redom.el)('div.ccm__cheading__close', '×')), (0, _redom.el)('div.ccm__content__body', (0, _redom.el)('div.ccm__tabs', modalTabGroups())), (0, _redom.el)('div.ccm__footer', (0, _redom.el)('button#ccm__footer__consent-modal-submit', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')), (0, _redom.el)('button.consent-reject', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')), (0, _redom.el)('button.consent-give', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll')))));
+      }, _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null), (0, _redom.el)('div.ccm__cheading__close', '×')), (0, _redom.el)('div.ccm__content__body', (0, _redom.el)('div.ccm__tabs', modalTabGroups())), (0, _redom.el)('div.ccm__footer', (0, _redom.el)('button#ccm__footer__consent-modal-submit', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')), window.CookieConsent.config.showRejectAllButton ? (0, _redom.el)('button.consent-reject', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')) : null, (0, _redom.el)('button.consent-give', _Language.default.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll')))));
     }
   }, {
     key: "modalRedrawIcons",
@@ -3085,7 +3085,7 @@ var Configuration = /*#__PURE__*/function () {
             barBtnAcceptAll: 'Povolit všechny cookies',
             barBtnRejectAll: 'Odmítnout všechny cookies',
             modalMainTitle: 'Nastavení cookies',
-            modalMainText: 'Cookies are small piece of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
+            modalMainText: 'Cookies jsou malá data odeslaná z webové stránky a uložená v počítači uživatele webovým prohlížečem uživatele, když uživatel prochází. Váš prohlížeč ukládá každou zprávu do malého souboru, který se nazývá cookie. Když si ze serveru vyžádáte další stránku, váš prohlížeč odešle cookie zpět na server. Soubory cookie byly navrženy tak, aby byly spolehlivým mechanismem pro webové stránky, aby si pamatovaly informace nebo zaznamenávaly aktivitu uživatele při prohlížení.',
             modalBtnSave: 'Uložit nastavení',
             modalBtnAcceptAll: 'Povolit všechny cookies a zavřít',
             modalBtnRejectAll: 'Odmítnout všechny cookies a zavřít',
