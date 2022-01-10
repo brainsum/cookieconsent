@@ -19,6 +19,7 @@ export default class Interface {
       '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}',
       '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}',
       '#cconsent-bar a { text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; }',
+      '#cconsent-bar .cc-text { color:' + window.CookieConsent.config.theme.barTextColor + ' !important; }',
       '#cconsent-bar button { line-height:normal; font-size:14px; border:none; margin-left: 15px; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
       '#cconsent-bar a.ccb__edit { margin-right:15px }',
       '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }',
