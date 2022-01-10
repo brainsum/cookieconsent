@@ -2850,7 +2850,9 @@ var Interface = /*#__PURE__*/function () {
           _button.addEventListener('click', function () {
             // We set config to full rejection
             for (var key in window.CookieConsent.config.categories) {
-              window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = false;
+              if (!window.CookieConsent.config.categories[key].needed) {
+                window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = false;
+              }
             }
 
             _this.writeBufferToDOM();
