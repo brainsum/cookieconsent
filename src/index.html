@@ -112,6 +112,137 @@
     }
   });
   </script>
+  <!-- CZ example -->
+  <script src="~/js/cookieconsent.js"></script>
+    <script>
+        window.CookieConsent.init({
+          language: {
+            current: 'en'
+          },
+          categories: {
+            necessary: {
+              needed: true,
+              wanted: true,
+              checked: true,
+              language: {
+                locale: {
+                  en: {
+                    name: 'Strictly Necessary Cookies',
+                    description: 'These cookies, also called "technical cookies", are necessary for this website to work as they used to. It can contain some of the following information: user settings, shopping cart content and others. We don\'t share these with any third party services.',
+                  },
+                  cs: {
+                    name: 'Nezbytné cookies',
+                    description: 'Tyto cookies, také označované jako technické, jsou nezbytné pro provoz této stránky. Ukládáme do nich například vaše uživatelská nastavení, obsah nákupního košíku a tak dále. Nesdílíme je s třetími stranami a nepoužíváme je k vašemu sledování.',
+                  }
+                }
+              }
+            },
+            various: {
+              needed: false,
+              wanted: false,
+              checked: true,
+              language: {
+                locale: {
+                  en: {
+                    name: 'Various Cookies',
+                    description: 'These cookies are used primarilly by some third party analytic services. These are being used for website traffic analysis and also could be used for displaying more relevant content on web.',
+                  },
+                  cs: {
+                    name: 'Marketingové cookies',
+                    description: 'Tyto cookies využívají zejména analytické nástroje třetích stran. Jsou použity pro statistiky návštěvnosti a také mohou být použity pro nabízení relevantnějšího obsahu na webu.',
+                  }
+                }
+              }
+            }
+          },
+          services: {
+            facebook: {
+                category: 'various',
+                type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
+                search: 'facebook',
+                language: {
+                    locale: {
+                        en: {
+                            name: 'Facebook'
+                        },
+                        hu: {
+                            name: 'Facebook'
+                        }
+                    }
+                }
+            },
+            analytics: {
+                // Existing category Unique name
+                // This example shows how to block Google Analytics
+                category: 'various',
+                // Type of blocking to apply here.
+                // This depends on the type of script we are trying to block
+                // Can be: dynamic-script, script-tag, wrapped, localcookie
+                type: 'dynamic-script',
+                // Only needed if "type: dynamic-script"
+                // The filter will look for this keyword in inserted scipt tags
+                // and block if match found
+                search: 'analytics',
+                // List of known cookie names or Regular expressions matching
+                // cookie names placed by this service.
+                // These willbe removed from current domain and .domain.
+                cookies: [
+                    {
+                    // Known cookie name.
+                    name: '_gid',
+                    // Expected cookie domain.
+                    domain: `.${window.location.hostname}`
+                    },
+                    {
+                    // Regex matching cookie name.
+                    name: /^_ga/,
+                    domain: `.${window.location.hostname}`
+                    }
+                ],
+                language: {
+                    locale: {
+                        en: {
+                            name: 'Google Analytics'
+                        },
+                        hu: {
+                            name: 'Google Analytics'
+                        }
+                    }
+                }
+            }
+            //wrapped: {
+            //  category: 'various',
+            //  type: 'wrapped',
+            //  search: 'wrapped',
+            //  language: {
+            //    locale: {
+            //      en: {
+            //        name: 'Wrapped'
+            //      },
+            //      hu: {
+            //        name: 'Csomagolt süti'
+            //      }
+            //    }
+            //  }
+            //},
+            //localcookie: {
+            //  category: 'various',
+            //  type: 'localcookie',
+            //  search: 'localcookie',
+            //  language: {
+            //    locale: {
+            //      en: {
+            //        name: 'Local cookie'
+            //      },
+            //      hu: {
+            //        name: 'Helyi süti'
+            //      }
+            //    }
+            //  }
+            //}
+          }
+        });
+    </script>
 </head>
 <body>
   <button class="ccb__edit">Consent edit</button>
