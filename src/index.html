@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cookie consent</title>
   
-  <script src="./index.js"></script>
+  <script src="../build/cookieconsent.js"></script>
   <script>
   window.CookieConsent.init({
     language: {
-      current: 'en'
+      current: (navigator.language ?? navigator.userLanguage).split('-')[0]
     },
     categories: {
       necessary: {
@@ -60,6 +60,42 @@
             },
             hu: {
               name: 'Facebook'
+            }
+          }
+        }
+      },
+      analytics: {
+        // Existing category Unique name
+        // This example shows how to block Google Analytics
+        category: 'various',
+        // Type of blocking to apply here.
+        // This depends on the type of script we are trying to block
+        // Can be: dynamic-script, script-tag, wrapped, localcookie
+        type: 'dynamic-script',
+        // Only needed if "type: dynamic-script"
+        // The filter will look for this keyword in inserted scipt tags
+        // and block if match found
+        search: 'analytics',
+        // List of known cookie names or Regular expressions matching
+        // cookie names placed by this service.
+        // These willbe removed from current domain and .domain.
+        cookies: [{
+          // Known cookie name.
+          name: '_gid',
+          // Expected cookie domain.
+          domain: `.${window.location.hostname}`
+        }, {
+          // Regex matching cookie name.
+          name: /^_ga/,
+          domain: `.${window.location.hostname}`
+        }],
+        language: {
+          locale: {
+            en: {
+              name: 'Google Analytics'
+            },
+            hu: {
+              name: 'Google Analytics'
             }
           }
         }
@@ -115,6 +151,15 @@
 </head>
 <body>
   <button class="ccb__edit">Consent edit</button>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSP5CDTRHT" type="text/plain" data-consent="analytics"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-JSP5CDTRHT');
+  </script>
   <!-- Facebook Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)

@@ -1,5 +1,8 @@
 import Filter from './Filter';
 
+// ---------------------------------------------
+// Filter for option 'localcookie'
+// ---------------------------------------------
 export default class LocalCookieFilter extends Filter {
 
   constructor() {
