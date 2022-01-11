@@ -14,9 +14,18 @@ export default class RemoveCookies {
       cookieList.push(a.split('=')[0].replace(/(^\s*)|(\s*&)/, ''));
     });
 
+    if (window.CookieConsent.config.debug) {
+      console.log('Starting cookie removal!');
+    }
+
     for (let service in config.services) {
       if (Utilities.objectType(config.services[service].cookies) === 'Array') {
         // Remove cookies if they are not wanted by user
+
+        if (window.CookieConsent.config.debug) {
+          console.log('Checking cookies for service:', service);
+        }
+
         if (!config.categories[config.services[service].category].wanted) {
           for (let i in config.services[service].cookies) {
             let type = Utilities.objectType(config.services[service].cookies[i].name);
@@ -45,6 +54,10 @@ export default class RemoveCookies {
   }
 
   removeCookie(cookie) {
+    if (window.CookieConsent.config.debug) {
+      console.log('Removing cookie:', cookie);
+    }
+
     // Removing cookies from domain and .domain
     let domain = Utilities.objectType(cookie.domain) === 'String' ? `domain=${cookie.domain};` : '';
     document.cookie = `${cookie.name}=; expires=Thu, 01 Jan 1980 00:00:00 UTC; ${domain} path=/;`;

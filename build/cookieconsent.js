@@ -1472,6 +1472,9 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+// ---------------------------------------------
+// Filter for option 'dynamic-script'
+// ---------------------------------------------
 var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
   _inherits(InsertScriptFilter, _Filter);
 
@@ -1495,7 +1498,7 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
       Element.prototype.appendChild = function (elem) {
         if (arguments[0].tagName === 'SCRIPT') {
           if (window.CookieConsent.config.debug) {
-            console.log('Appending:', arguments);
+            console.log('Trying to append:', arguments[0]);
           }
 
           for (var key in window.CookieConsent.config.services) {
@@ -1508,10 +1511,19 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
                     'category': window.CookieConsent.config.services[key].category,
                     arguments: arguments
                   });
+
+                  if (window.CookieConsent.config.debug) {
+                    console.log('Prevented append of:', arguments[0]);
+                  }
+
                   return undefined;
                 }
               }
             }
+          }
+
+          if (window.CookieConsent.config.debug) {
+            console.log('Appending:', arguments[0]);
           }
         }
 
@@ -1524,7 +1536,7 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
       Element.prototype.insertBefore = function (elem) {
         if (arguments[0].tagName === 'SCRIPT') {
           if (window.CookieConsent.config.debug) {
-            console.log('Appending:', arguments);
+            console.log('Trying to insert:', arguments[0]);
           }
 
           for (var key in window.CookieConsent.config.services) {
@@ -1537,10 +1549,19 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
                     'category': window.CookieConsent.config.services[key].category,
                     arguments: arguments
                   });
+
+                  if (window.CookieConsent.config.debug) {
+                    console.log('Prevented insert of:', arguments[0]);
+                  }
+
                   return undefined;
                 }
               }
             }
+          }
+
+          if (window.CookieConsent.config.debug) {
+            console.log('Inserting:', arguments[0]);
           }
         }
 
@@ -1599,6 +1620,9 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+// ---------------------------------------------
+// Filter for option 'script-tag'
+// ---------------------------------------------
 var ScriptTagFilter = /*#__PURE__*/function (_Filter) {
   _inherits(ScriptTagFilter, _Filter);
 
@@ -1651,8 +1675,14 @@ var ScriptTagFilter = /*#__PURE__*/function (_Filter) {
                 _iterator2.f();
               }
 
-              newtag.innerHTML = scriptTag.innerHTML;
-              parentNode.insertBefore(newtag, scriptTag);
+              if (window.CookieConsent.config.debug) {
+                console.log('Inserting script-tag:', scriptTag);
+              }
+
+              newtag.innerHTML = scriptTag.innerHTML; // insert new script block as type text/javascript
+
+              parentNode.insertBefore(newtag, scriptTag); // remove the old one
+
               parentNode.removeChild(scriptTag);
             }
           }
@@ -1707,6 +1737,9 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+// ---------------------------------------------
+// Filter for option 'wrapped'
+// ---------------------------------------------
 var WrapperFilter = /*#__PURE__*/function (_Filter) {
   _inherits(WrapperFilter, _Filter);
 
@@ -1783,6 +1816,9 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+// ---------------------------------------------
+// Filter for option 'localcookie'
+// ---------------------------------------------
 var LocalCookieFilter = /*#__PURE__*/function (_Filter) {
   _inherits(LocalCookieFilter, _Filter);
 
@@ -3257,9 +3293,17 @@ var RemoveCookies = /*#__PURE__*/function () {
         cookieList.push(a.split('=')[0].replace(/(^\s*)|(\s*&)/, ''));
       });
 
+      if (window.CookieConsent.config.debug) {
+        console.log('Starting cookie removal!');
+      }
+
       for (var service in config.services) {
         if (_Utilities.default.objectType(config.services[service].cookies) === 'Array') {
           // Remove cookies if they are not wanted by user
+          if (window.CookieConsent.config.debug) {
+            console.log('Checking cookies for service:', service);
+          }
+
           if (!config.categories[config.services[service].category].wanted) {
             for (var i in config.services[service].cookies) {
               var type = _Utilities.default.objectType(config.services[service].cookies[i].name);
@@ -3289,7 +3333,11 @@ var RemoveCookies = /*#__PURE__*/function () {
   }, {
     key: "removeCookie",
     value: function removeCookie(cookie) {
-      // Removing cookies from domain and .domain
+      if (window.CookieConsent.config.debug) {
+        console.log('Removing cookie:', cookie);
+      } // Removing cookies from domain and .domain
+
+
       var domain = _Utilities.default.objectType(cookie.domain) === 'String' ? "domain=".concat(cookie.domain, ";") : '';
       document.cookie = "".concat(cookie.name, "=; expires=Thu, 01 Jan 1980 00:00:00 UTC; ").concat(domain, " path=/;");
     }

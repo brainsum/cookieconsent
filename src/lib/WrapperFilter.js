@@ -1,5 +1,8 @@
 import Filter from './Filter';
 
+// ---------------------------------------------
+// Filter for option 'wrapped'
+// ---------------------------------------------
 export default class WrapperFilter extends Filter {
   
   constructor() {
