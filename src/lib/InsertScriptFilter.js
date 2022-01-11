@@ -12,10 +12,11 @@ export default class InsertScriptFilter extends Filter {
   }
 
   overrideAppendChild() {
-
     Element.prototype.appendChild = function(elem) {
       if(arguments[0].tagName === 'SCRIPT') {
-        //console.log('Appending:', arguments);
+        if (window.CookieConsent.config.debug) {
+          console.log('Appending:', arguments);
+        }
         for (let key in window.CookieConsent.config.services) {
           // Did user opt-in?
           if(window.CookieConsent.config.services[key].type === 'dynamic-script') {
@@ -31,15 +32,14 @@ export default class InsertScriptFilter extends Filter {
   
       return Node.prototype.appendChild.apply(this, arguments);
     }
-
   }
 
   overrideInsertBefore() {
-
     Element.prototype.insertBefore = function(elem) {
-    
       if(arguments[0].tagName === 'SCRIPT') {
-        //console.log('Inserting:', arguments);
+        if (window.CookieConsent.config.debug) {
+          console.log('Appending:', arguments);
+        }
         for (let key in window.CookieConsent.config.services) {
           // Did user opt-in?
           if(window.CookieConsent.config.services[key].type === 'dynamic-script') {
@@ -56,5 +56,4 @@ export default class InsertScriptFilter extends Filter {
       return Node.prototype.insertBefore.apply(this, arguments);
     }
   }
-
 }

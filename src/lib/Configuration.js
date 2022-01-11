@@ -22,6 +22,7 @@ export default class Configuration {
       modalMainTextMoreLink: null,
       barTimeout: 1000,
       showRejectAllButton: true,
+      debug: false,
       theme: {
         barColor: '#2C7CBF',
         barTextColor: '#FFF',

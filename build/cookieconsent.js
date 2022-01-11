@@ -1494,7 +1494,10 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
     value: function overrideAppendChild() {
       Element.prototype.appendChild = function (elem) {
         if (arguments[0].tagName === 'SCRIPT') {
-          //console.log('Appending:', arguments);
+          if (window.CookieConsent.config.debug) {
+            console.log('Appending:', arguments);
+          }
+
           for (var key in window.CookieConsent.config.services) {
             // Did user opt-in?
             if (window.CookieConsent.config.services[key].type === 'dynamic-script') {
@@ -1520,7 +1523,10 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
     value: function overrideInsertBefore() {
       Element.prototype.insertBefore = function (elem) {
         if (arguments[0].tagName === 'SCRIPT') {
-          //console.log('Inserting:', arguments);
+          if (window.CookieConsent.config.debug) {
+            console.log('Appending:', arguments);
+          }
+
           for (var key in window.CookieConsent.config.services) {
             // Did user opt-in?
             if (window.CookieConsent.config.services[key].type === 'dynamic-script') {
@@ -3055,6 +3061,7 @@ var Configuration = /*#__PURE__*/function () {
       modalMainTextMoreLink: null,
       barTimeout: 1000,
       showRejectAllButton: true,
+      debug: false,
       theme: {
         barColor: '#2C7CBF',
         barTextColor: '#FFF',
@@ -3335,7 +3342,8 @@ var CookieConsent = /*#__PURE__*/function () {
       var insertScriptFilter = new _InsertScriptFilter.default();
       var scriptTagFilter = new _ScriptTagFilter.default();
       var wrapperFilter = new _WrapperFilter.default();
-      var localCookieFilter = new _LocalCookieFilter.default();
+      var localCookieFilter = new _LocalCookieFilter.default(); // remove cookies on init
+
       removeCookies.init();
       insertScriptFilter.init();
       scriptTagFilter.init();

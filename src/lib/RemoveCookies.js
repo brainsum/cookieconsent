@@ -14,17 +14,19 @@ export default class RemoveCookies {
       cookieList.push(a.split('=')[0].replace(/(^\s*)|(\s*&)/, ''));
     });
 
-    for(let service in config.services) {
+    for (let service in config.services) {
       if (Utilities.objectType(config.services[service].cookies) === 'Array') {
         // Remove cookies if they are not wanted by user
-        if (! config.categories[config.services[service].category].wanted) {
-          for(let i in config.services[service].cookies) {
+        if (!config.categories[config.services[service].category].wanted) {
+          for (let i in config.services[service].cookies) {
             let type = Utilities.objectType(config.services[service].cookies[i].name);
+            
             if (type === 'String') {
               if (cookieList.indexOf(config.services[service].cookies[i].name) > -1) {
                 this.removeCookie(config.services[service].cookies[i]);
               }
-            } else if (type === 'RegExp') {
+            } 
+            else if (type === 'RegExp') {
               // Searching cookie list for cookies matching specified RegExp
               let cookieDef = config.services[service].cookies[i];
               for (let c in cookieList) {
