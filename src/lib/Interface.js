@@ -385,6 +385,10 @@ export default class Interface {
         Node.prototype.insertBefore.apply(action.this, action.arguments);
       }
     }
+
+    if (window.CookieConsent.config.reloadOnSave) {
+      location.reload();
+    }
   }
 
   buildCookie(callback) {

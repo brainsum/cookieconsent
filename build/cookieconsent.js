@@ -3018,6 +3018,10 @@ var Interface = /*#__PURE__*/function () {
       } finally {
         _iterator5.f();
       }
+
+      if (window.CookieConsent.config.reloadOnSave) {
+        location.reload();
+      }
     }
   }, {
     key: "buildCookie",
@@ -3098,6 +3102,7 @@ var Configuration = /*#__PURE__*/function () {
       barTimeout: 1000,
       showRejectAllButton: true,
       debug: false,
+      reloadOnSave: true,
       theme: {
         barColor: '#2C7CBF',
         barTextColor: '#FFF',

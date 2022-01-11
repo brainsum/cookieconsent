@@ -23,6 +23,7 @@ export default class Configuration {
       barTimeout: 1000,
       showRejectAllButton: true,
       debug: false,
+      reloadOnSave: true,
       theme: {
         barColor: '#2C7CBF',
         barTextColor: '#FFF',
