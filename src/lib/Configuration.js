@@ -28,12 +28,14 @@ export default class Configuration {
         barMainButtonTextColor: '#2C7CBF',
         modalMainButtonColor: '#4285F4',
         modalMainButtonTextColor: '#FFF',
+        focusColor: 'rgb(40 168 52 / 75%)',
       },
       language: {
         current: 'en',
         locale: {
           en: {
             barMainText: 'This website uses cookies to ensure you get the best experience on our website.',
+            closeAriaLabel: 'close',
             barLinkSetting: 'Cookie Settings',
             barBtnAcceptAll: 'Accept all cookies',
             modalMainTitle: 'Cookie settings',
@@ -44,9 +46,14 @@ export default class Configuration {
             learnMore: 'Learn More',
             on: 'On',
             off: 'Off',
+            enabled: 'is enabled.',
+            disabled: 'is disabled.',
+            checked: 'checked',
+            unchecked: 'unchecked',
           },
           hu: {
             barMainText: 'Ez a weboldal Sütiket használ a jobb felhasználói élmény érdekében.',
+            closeAriaLabel: 'bazár',
             barLinkSetting: 'Süti beállítások',
             barBtnAcceptAll: 'Minden süti elfogadása',
             modalMainTitle: 'Süti beállítások',
@@ -57,6 +64,10 @@ export default class Configuration {
             learnMore: 'Tudj meg többet',
             on: 'Be',
             off: 'Ki',
+            enabled: 'bekapcsolva.',
+            enabled: 'kikapcsolva.',
+            checked: 'kipipálva',
+            checked: 'nincs kipipálva',
           }
         }
       },
