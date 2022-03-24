@@ -22,12 +22,12 @@ export default class Configuration {
       modalMainTextMoreLink: null,
       barTimeout: 1000,
       theme: {
-        barColor: '#2C7CBF',
-        barTextColor: '#FFF',
-        barMainButtonColor: '#FFF',
-        barMainButtonTextColor: '#2C7CBF',
-        modalMainButtonColor: '#4285F4',
-        modalMainButtonTextColor: '#FFF',
+        barColor: '#2b7abb',
+        barTextColor: '#fff',
+        barMainButtonColor: '#fff',
+        barMainButtonTextColor: '#2b7abb',
+        modalMainButtonColor: '#1e6ef4',
+        modalMainButtonTextColor: '#fff',
         focusColor: 'rgb(40 168 52 / 75%)',
       },
       language: {
