@@ -324,22 +324,29 @@ export default class Interface {
       if (event.target.classList.contains('ccm__switch-group')) {
         var status = event.target.getAttribute('aria-checked');
         var label = event.target.textContent.trim();
-        var dt = document.querySelector('.ccm__tabgroup.' + event.target.dataset.category);
+        var dl = document.querySelector('.ccm__tabgroup.' + event.target.dataset.category);
+        var dlStatus = document.querySelector('.ccm__tabgroup.' + event.target.dataset.category + ' .ccm__tab-head__status');
 
         window.CookieConsent.config.categories[event.target.dataset.category].wanted =
-        window.CookieConsent.config.categories[event.target.dataset.category].checked = (status === 'true') ? true : false;
+        window.CookieConsent.config.categories[event.target.dataset.category].checked = (status === 'true') ? false : true;
         event.target.setAttribute('aria-checked', status !== 'true');
 
-        if (dt.classList.contains('checked-5jhk')) {
-          dt.classList.remove('checked-5jhk');
-        }
+        dl.classList.remove('checked-5jhk');
+        dlStatus.classList.remove('ccm__tab-head__status--checked');
+        dlStatus.classList.remove('ccm__tab-head__status--unchecked');
 
         if (status !== 'true') {
           event.target.setAttribute('aria-label', label + ' ' + Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'enabled'));
-          dt.classList.add('checked-5jhk');
+          dl.classList.add('checked-5jhk');
+          dlStatus.setAttribute('aria-label', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'checked'));
+          dlStatus.textContent = '✔';
+          dlStatus.classList.add('ccm__tab-head__status--checked');
         } else {
           event.target.setAttribute('aria-label', label + ' ' + Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'disabled'));
-          dt.classList.remove('checked-5jhk');
+          dl.classList.remove('checked-5jhk');
+          dlStatus.setAttribute('aria-label', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'unchecked'));
+          dlStatus.textContent = '×';
+          dlStatus.classList.add('ccm__tab-head__status--unchecked');
         }
       }
     });
