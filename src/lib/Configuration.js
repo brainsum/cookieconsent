@@ -53,7 +53,7 @@ export default class Configuration {
           },
           hu: {
             barMainText: 'Ez a weboldal Sütiket használ a jobb felhasználói élmény érdekében.',
-            closeAriaLabel: 'bazár',
+            closeAriaLabel: 'bezár',
             barLinkSetting: 'Süti beállítások',
             barBtnAcceptAll: 'Minden süti elfogadása',
             modalMainTitle: 'Süti beállítások',
@@ -65,9 +65,9 @@ export default class Configuration {
             on: 'Be',
             off: 'Ki',
             enabled: 'bekapcsolva.',
-            enabled: 'kikapcsolva.',
+            disabled: 'kikapcsolva.',
             checked: 'kipipálva',
-            checked: 'nincs kipipálva',
+            unchecked: 'nincs kipipálva',
           }
         }
       },
