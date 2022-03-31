@@ -73,6 +73,7 @@ The script is being controlled mainly by a configuration object which is passed 
       locale: {
         en: {
           barMainText: 'This website uses cookies to ensure you get the best experience on our website.',
+          closeAriaLabel: 'close',
           barLinkSetting: 'Cookie Settings',
           barBtnAcceptAll: 'Accept all cookies',
           modalMainTitle: 'Cookie settings',
@@ -83,6 +84,28 @@ The script is being controlled mainly by a configuration object which is passed 
           learnMore: 'Learn More',
           on: 'On',
           off: 'Off',
+          enabled: 'is enabled.',
+          disabled: 'is disabled.',
+          checked: 'checked',
+          unchecked: 'unchecked',
+        },
+        hu: {
+          barMainText: 'Ez a weboldal Sütiket használ a jobb felhasználói élmény érdekében.',
+          closeAriaLabel: 'bezár',
+          barLinkSetting: 'Süti beállítások',
+          barBtnAcceptAll: 'Minden süti elfogadása',
+          modalMainTitle: 'Süti beállítások',
+          modalMainText: 'A HTTP-süti (általában egyszerűen süti, illetve angolul cookie) egy információcsomag, amelyet a szerver küld a webböngészőnek, majd a böngésző visszaküld a szervernek minden, a szerver felé irányított kérés alkalmával. Amikor egy weboldalt kérünk le a szervertől, akkor a böngésző elküldi a számára elérhető sütiket. A süti-ket úgy tervezték, hogy megbízható mechanizmust biztosítsanak a webhelyek számára az információk megőrzésére vagy a felhasználók böngészési tevékenységének rögzítésére.',
+          modalBtnSave: 'Beállítások mentése',
+          modalBtnAcceptAll: 'Minden Süti elfogadása',
+          modalAffectedSolutions: 'Mire lesz ez hatással:',
+          learnMore: 'Tudj meg többet',
+          on: 'Be',
+          off: 'Ki',
+          enabled: 'bekapcsolva.',
+          disabled: 'kikapcsolva.',
+          checked: 'kipipálva',
+          unchecked: 'nincs kipipálva',
         }
       }
     },
