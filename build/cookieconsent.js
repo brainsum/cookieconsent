@@ -2799,7 +2799,7 @@ var Interface = /*#__PURE__*/function () {
         callback(elem);
         return elem;
       } else {
-        var insertedElem = (0, _redom.mount)(document.body, elem);
+        var insertedElem = (0, _redom.mount)(document.body, elem, document.body.firstChild);
 
         if (insertedElem) {
           this.elements[name] = insertedElem;
