@@ -1,16 +1,19 @@
 {
   "presets": [
-      ["env", {
-      "targets": {
-        "browsers": [
-          "Chrome >= 52",
-          "FireFox >= 44",
-          "Safari >= 7",
-          "Explorer 11",
-          "last 4 Edge versions"
-        ]
+    [
+      "@babel/preset-env", {
+        "targets": {
+          "browsers": [
+            "Chrome >= 52",
+            "FireFox >= 44",
+            "Safari >= 7",
+            "Explorer 11",
+            "last 4 Edge versions"
+          ]
+        },
+        "useBuiltIns": "entry",
+        "corejs": "3.21.1"
       },
-      "useBuiltIns": true
-    }]
+    ]
   ]
 }
