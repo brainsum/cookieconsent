@@ -9,5 +9,5 @@
 }
 
 @function pale-color($value) {
-  @return change-color($value, $saturation: 70, $lightness: 96);
+  @return change-color($value, $saturation: 70%, $lightness: 96%);
 }
