@@ -1,42 +1,36 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const { env } = require('process');
+const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = {
-  entry: './src/index.js',
-  mode: 'development',
-  optimization: {
-    minimize: false
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html',
-      scriptLoading: 'blocking',
-      inject: 'head'
-    })
-  ],
-  output: {
-    filename: 'cookieconsent.js',
-    path: path.resolve(__dirname, 'build'),
-  },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'build'),
+
+module.exports = (env) => {
+  return {
+    entry: './src/index.js',
+    mode: env.production ? 'production' : 'development',
+    optimization: {
+      minimize: false
     },
-    hot: true,
-    port: 1234,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['*', '.js']
-  },
+
+    output: {
+      filename: env.min ? 'cookieconsent.min.js' : 'cookieconsent.js',
+      path: path.resolve(__dirname, env.docs ? 'docs_src/src/assets/js' : 'build'),
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          include: path.resolve(__dirname, 'src'),
+          exclude: /node_modules/,
+          use: ['babel-loader']
+        }
+      ]
+    },
+    optimization: {
+      minimize: !!env.min,
+      minimizer: [new TerserPlugin()],
+    },
+    resolve: {
+      extensions: ['*', '.js']
+    },
+  };
 };

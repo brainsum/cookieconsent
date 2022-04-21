@@ -2021,8 +2021,6 @@ var CookieConsent = /*#__PURE__*/function () {
 
 
 ;// CONCATENATED MODULE: ./src/index.js
-// import 'core-js/es/symbol';
-// import 'core-js/es/symbol/iterator';
 
 var cookieConsent = new CookieConsent();
 window.CookieConsent = window.CookieConsent || {};
