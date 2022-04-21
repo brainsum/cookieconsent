@@ -13,7 +13,7 @@
         },
         "useBuiltIns": "entry",
         "corejs": "3.21.1"
-      },
+      }
     ]
   ]
 }
