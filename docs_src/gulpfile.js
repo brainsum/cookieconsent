@@ -2,19 +2,16 @@
 
 var gulp = require('gulp');
 var webpack = require('webpack-stream');
-var webpackUglifyJs = require('uglifyjs-webpack-plugin')
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 var tildeImporter = require('node-sass-tilde-importer');
 var browserSync = require('browser-sync');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
 var rename = require('gulp-rename');
-var imagemin = require('gulp-imagemin');
 var changed = require('gulp-changed');
 var del = require('del');
-var sequence = require('run-sequence');
+// var sequence = require('run-sequence');
 var pkg = require('./package.json')
 
 var production = false;
@@ -36,18 +33,35 @@ var dir = {
   font:   'src/assets/fonts/',
 }
 
-var browsers = [
-  'Chrome >= 45',
-  'Firefox >= 40',
-  'Edge >= 12',
-  'Explorer >= 11',
-  'iOS >= 9',
-  'Safari >= 9',
-  'Android 2.3',
-  'Android >= 4',
-  'Opera >= 30'
-];
+/*
+|--------------------------------------------------------------------------
+| SASS
+|--------------------------------------------------------------------------
+|
+*/
+gulp.task('sass', function() {
+  var stream = gulp.src(page.scss)
+    .pipe( sourcemaps.init() )
+    .pipe( rename( { suffix: '.min' } ) )
+    .pipe( sass({ importer: tildeImporter, outputStyle: 'compressed' }).on('error', sass.logError) )
+    .pipe( autoprefixer())
+    .pipe( sourcemaps.write('.') )
+    .pipe( gulp.dest(dir.css) )
+    .pipe( browserSync.stream() );
 
+  // Create unminified version if it's in production mode
+  if ( production ) {
+    stream = gulp.src(page.scss)
+      .pipe( sourcemaps.init() )
+      .pipe( sass({importer: tildeImporter}).on('error', sass.logError) )
+      .pipe( autoprefixer())
+      .pipe( sourcemaps.write('.') )
+      .pipe( gulp.dest(dir.css) );
+  }
+
+  return stream;
+
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -59,53 +73,21 @@ gulp.task('reload', function() {
   browserSync.reload();
 });
 
-gulp.task('serve', ['sass'], function() {
+gulp.task('watch', function() {
   browserSync({
-    server: 'src/'
+    server: 'src/',
   });
 
-  gulp.watch( file.scss, ['sass'] );
-  gulp.watch( file.js, function() {
-    sequence('js', 'reload');
+  gulp.watch(file.scss, gulp.series('sass'));
+  gulp.watch(file.js, function () {
+    gulp.series('js', 'reload');
   });
-  gulp.watch( file.html, ['reload'] );
+  gulp.watch(file.html, gulp.series('reload'));
 });
 
+gulp.task('serve', gulp.series('sass', 'watch'));
 
-/*
-|--------------------------------------------------------------------------
-| SASS
-|--------------------------------------------------------------------------
-|
-*/
-gulp.task('sass', function() {
 
-  var stream = gulp.src(page.scss)
-    .pipe( sourcemaps.init() )
-    .pipe( rename( { suffix: '.min' } ) )
-    .pipe( sass({ importer: tildeImporter, outputStyle: 'compressed' }).on('error', sass.logError) )
-    .pipe( autoprefixer({
-      browsers: browsers
-    }))
-    .pipe( sourcemaps.write('.') )
-    .pipe( gulp.dest(dir.css) )
-    .pipe( browserSync.stream() );
-
-  // Create unminified version if it's in production mode
-  if ( production ) {
-    stream = gulp.src(page.scss)
-      .pipe( sourcemaps.init() )
-      .pipe( sass({importer: tildeImporter}).on('error', sass.logError) )
-      .pipe( autoprefixer({
-        browsers: browsers
-      }))
-      .pipe( sourcemaps.write('.') )
-      .pipe( gulp.dest(dir.css) );
-  }
-
-  return stream;
-
-});
 
 
 /*
@@ -114,13 +96,42 @@ gulp.task('sass', function() {
 |--------------------------------------------------------------------------
 |
 */
-gulp.task('js', function(cb) {
-
-  if ( production ) {
-    return sequence('js_production_minified', 'js_production_expanded', cb);
-  }
-  else {
+gulp.task('js_production_minified', function(done) {
+  if (production) {
     return gulp.src(page.js)
+      .pipe(webpack({
+        mode: 'none',
+        devtool: 'source-map',
+        output: {
+          filename: 'page.min.js'
+        },
+        // plugins: [
+        //   new uglify()
+        // ]
+      }))
+      .pipe( gulp.dest(dir.js) );
+  }
+  done();
+});
+
+gulp.task('js_production_expanded', function(done) {
+  if (production) {
+    return gulp.src(page.js)
+      .pipe(webpack({
+        mode: 'none',
+        devtool: 'source-map',
+        output: {
+          filename: 'page.js'
+        }
+      }))
+      .pipe( gulp.dest(dir.js) );
+  }
+  done();
+});
+
+gulp.task('wp', function(done) {
+  if (!production) {
+    gulp.src(page.js)
       .pipe(webpack({
         mode: 'none',
         devtool: 'source-map',
@@ -128,40 +139,14 @@ gulp.task('js', function(cb) {
           filename: 'page.min.js'
         }
       }))
-      .pipe( gulp.dest(dir.js) );
+      .pipe(gulp.dest(dir.js));
   }
-
+  done();
 });
 
-
-gulp.task('js_production_minified', function() {
-  return gulp.src(page.js)
-    .pipe(webpack({
-      mode: 'none',
-      devtool: 'source-map',
-      output: {
-        filename: 'page.min.js'
-      },
-      plugins: [
-        new webpackUglifyJs()
-      ]
-    }))
-    .pipe( gulp.dest(dir.js) );
+gulp.task('js', gulp.series('wp', 'js_production_minified', 'js_production_expanded'), function(done) {
+  done();
 });
-
-
-gulp.task('js_production_expanded', function() {
-  return gulp.src(page.js)
-    .pipe(webpack({
-      mode: 'none',
-      devtool: 'source-map',
-      output: {
-        filename: 'page.js'
-      }
-    }))
-    .pipe( gulp.dest(dir.js) );
-});
-
 
 /*
 |--------------------------------------------------------------------------
@@ -177,6 +162,7 @@ gulp.task('copyFonts', function() {
 });
 
 gulp.task('distCopy', function() {
+  console.log('COPY');
   return gulp.src( ['src/**/*', '!src/assets/{js/src,plugin/thesaas,scss}{,/**}'] ).pipe(gulp.dest('../docs/'));
 });
 
@@ -187,8 +173,9 @@ gulp.task('distCopy', function() {
 |--------------------------------------------------------------------------
 |
 */
-gulp.task('distClean', function() {
-  return del('../docs/', { force: true });
+gulp.task('distClean', function(done) {
+  del('../docs/', { force: true });
+  done();
 });
 
 /*
@@ -199,7 +186,6 @@ gulp.task('distClean', function() {
 */
 gulp.task('img', function() {
   return gulp.src('src/assets/img/**/*.{jpg,jpeg,png,gif}')
-    .pipe( imagemin() )
     .pipe( gulp.dest('src/assets/img/') );
 });
 
@@ -209,14 +195,18 @@ gulp.task('img', function() {
 |--------------------------------------------------------------------------
 |
 */
-gulp.task('dev', function(cb) {
-  sequence('copyFonts', 'sass', 'js', cb);
+gulp.task('dev', gulp.series('copyFonts', 'sass', 'js'), function(done) {
+  done();
 });
 
-gulp.task('dist', function(cb) {
+gulp.task('setProd', function(done){
   production = true;
-  sequence('distClean', 'dev', 'distCopy', cb);
+  done();
+})
+
+gulp.task('dist', gulp.series('setProd', 'distClean', 'dev', 'distCopy'), function(done) {
+  done();
 });
 
-gulp.task('watch', ['serve']);
-gulp.task('default', ['serve']);
+gulp.task('watch', gulp.series('serve'));
+gulp.task('default', gulp.series('serve'));
