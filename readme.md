@@ -4,11 +4,9 @@ A script that displays a cookie consent message as required by EU regulation (GD
 
 See the demo: [Cookieconsent](https://brainsum.github.io/cookieconsent/)
 
-
 ## Default look
 
 ![Cookieconsent modal](https://raw.githubusercontent.com/brainsum/cookieconsent/master/cc_modal_75.png "Cookieconsent modal")
-
 
 ## Features
 
@@ -35,18 +33,17 @@ Some services are not inserted in a SCRIPT tag and are obscured by layers of oth
 
 Finally the local cookies set on your domain can be also filtered by overriding the bowsers COOKIE SET method.
 
-
 ## Usage
 
 1. Download the file cookieconsent.zip from the [latest release](https://github.com/brainsum/cookieconsent/releases/latest) and unpack its content.
 
 2. Include the script file into your HTML page **before everything else.**
 
-```
+```html
 <script src="cookieconsent.js"></script>
 ```
 
-3. Call the init() function with the configuration object.
+3. Call the `init()` function with the configuration object.
 
 See a working example in the docs folder.
 
