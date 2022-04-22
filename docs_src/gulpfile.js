@@ -155,8 +155,7 @@ gulp.task('js', gulp.series('wp', 'js_production_minified', 'js_production_expan
 |
 */
 gulp.task('copyFonts', function() {
-  //gulp.src( 'node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/*').pipe(gulp.dest(dir.font));
-  gulp.src( 'node_modules/font-awesome/fonts/*').pipe(gulp.dest(dir.font));
+  gulp.src( 'node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/*').pipe(gulp.dest(dir.font));
   gulp.src( 'node_modules/themify-icons/themify-icons/fonts/*').pipe(gulp.dest(dir.font));
   return gulp.src( 'node_modules/et-line/fonts/*').pipe(gulp.dest(dir.font));
 });
