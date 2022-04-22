@@ -1,19 +1,19 @@
 {
-  "name": "TheSaaS",
-  "version": "2.1.5",
-  "description": "Responsive Bootstrap 4 SaaS, Software & WebApp Template",
+  "name": "brainsumcookieconsentdocs",
+  "version": "1.1.0",
+  "description": "One page Docs for BRAINSUM Cookie Consent based on TheSaas theme.",
   "private": true,
   "keywords": [
     "landing",
-    "startup",
-    "webapp",
-    "saas"
+    "bootstrap",
+    "gulp.js",
+    "sass"
   ],
   "author": "TheThemeio",
   "homepage": "http://thetheme.io/thesaas",
   "license": "ISC",
   "scripts": {
-    "dev": "gulp",
+    "start": "gulp",
     "build": "gulp dist"
   },
   "browserslist": [
