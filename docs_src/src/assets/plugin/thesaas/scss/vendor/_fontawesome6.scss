@@ -8,7 +8,7 @@ $fa-font-path: "../fonts";
 // Brands
 //
 @font-face {
-  font-family: 'Font Awesome 5 Brands';
+  font-family: 'Font Awesome 6 Brands';
   font-style: normal;
   font-weight: normal;
   src: url('#{$fa-font-path}/fa-brands-400.eot');
@@ -20,13 +20,13 @@ $fa-font-path: "../fonts";
 }
 
 .fab {
-  font-family: 'Font Awesome 5 Brands';
+  font-family: 'Font Awesome 6 Brands';
 }
 
 // Regular
 //
 @font-face {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 Free';
   font-style: normal;
   font-weight: 400;
   src: url('#{$fa-font-path}/fa-regular-400.eot');
@@ -38,14 +38,14 @@ $fa-font-path: "../fonts";
 }
 
 .far {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 Free';
   font-weight: 400;
 }
 
 // Solid
 //
 @font-face {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 Free';
   font-style: normal;
   font-weight: 900;
   src: url('#{$fa-font-path}/fa-solid-900.eot');
@@ -58,6 +58,6 @@ $fa-font-path: "../fonts";
 
 .fa,
 .fas {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'Font Awesome 6 Free';
   font-weight: 900;
 }
