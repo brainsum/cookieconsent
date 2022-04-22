@@ -4,6 +4,8 @@
 // Overlay
 //----------------------------------------------------/
 
+@use "sass:math";
+
 [data-overlay],
 [data-overlay-light] {
   position: relative;
@@ -35,7 +37,7 @@
 //
 @for $i from 1 through 9 {
   [data-overlay="#{$i}"]::before {
-    opacity: $i / 10;
+    opacity: math.div($i, 10);
   }
 }
 
@@ -44,7 +46,7 @@
 //
 @for $i from 1 through 9 {
   [data-overlay-light="#{$i}"]::before {
-    opacity: $i / 10;
+    opacity: math.div($i, 10);
   }
 }
 
@@ -83,7 +85,7 @@
 @for $i from 1 through 9 {
   [data-scrim-top="#{$i}"]::before,
   [data-scrim-bottom="#{$i}"]::before {
-    opacity: $i / 10;
+    opacity: math.div($i, 10);
   }
 }
 
