@@ -34,7 +34,6 @@
     "browser-sync": "^2.27.9",
     "countup.js": "^2.1.0",
     "del": "^6.0.0",
-    "font-awesome": "^4.7.0",
     "granim": "^2.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",

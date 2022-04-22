@@ -2,6 +2,9 @@
 //-----------------------------------------------------------------
 // Custom checkbox and radiobox
 //
+
+@use "sass:math";
+
 .custom-control {
   padding-left: 0;
   min-height: auto;
@@ -52,11 +55,11 @@
   .custom-control-label::after {
     $size: $custom-control-indicator-size - 0.125rem;
     top: 12px - 4px;
-    left: $size/4 + 0.0625rem;
-    //margin-top: -$size/4 - 2px;
+    left: math.div($size, 4) + 0.0625rem;
+    //margin-top: math.div(-$size, 4) - 2px;
     border-radius: 50%;
-    width: $size/2;
-    height: $size/2;
+    width: math.div($size, 2);
+    height: math.div($size, 2);
     background-color: $color-primary;
   }
 

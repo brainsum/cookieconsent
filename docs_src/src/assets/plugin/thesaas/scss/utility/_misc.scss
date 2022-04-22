@@ -2,11 +2,14 @@
 //----------------------------------------------------/
 // Opacity
 //----------------------------------------------------/
+
+@use "sass:math";
+
 .opacity-0 { opacity: 0; }
 
 @for $i from 1 through 20 {
   .opacity-#{$i*5} {
-    opacity: $i*5 / 100 !important;
+    opacity: math.div($i*5, 100) !important;
   }
 }
 

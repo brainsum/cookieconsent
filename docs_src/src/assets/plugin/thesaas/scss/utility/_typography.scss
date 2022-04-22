@@ -3,6 +3,9 @@
 //----------------------------------------------------/
 // Font family
 //----------------------------------------------------/
+
+@use "sass:math";
+
 .font-body {
   font-family: $font-family-base;
 }
@@ -63,7 +66,7 @@ $font-weight-list: 100 200 300 400 500 600 700 800 900;
 @for $i from 2 through 9 {
   .lh-#{$i},
   .line-height-#{$i} {
-    line-height: 1 + $i*1.5/10;
+    line-height: 1 + $i * math.div(1.5, 10);
   }
 }
 

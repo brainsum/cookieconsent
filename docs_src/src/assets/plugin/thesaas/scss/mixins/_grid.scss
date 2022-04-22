@@ -3,6 +3,9 @@
 
 // Children gap
 //
+
+@use "sass:math";
+
 @mixin gap-items($size: 8px) {
   margin: -$size;
   > * {
@@ -25,7 +28,7 @@
 
 
 @mixin row-x-gap($size) {
-  $size: $size/2;
+  $size: math.div($size, 2);
   margin-left: -$size;
   margin-right: -$size;
 
@@ -39,7 +42,7 @@
 
 
 @mixin row-y-gap($size) {
-  $size: $size/2;
+  $size: math.div($size, 2);
   margin-top: -$size;
   margin-bottom: -$size;
 

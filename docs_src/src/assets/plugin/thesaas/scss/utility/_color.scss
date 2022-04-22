@@ -28,9 +28,9 @@
 //----------------------------------------------------/
 // Text color
 //----------------------------------------------------/
-@include text-emphasis-variant(".text-default", $color-text);
-@include text-emphasis-variant(".text-light", $color-text-light);
-@include text-emphasis-variant(".text-lighter", $color-text-lighter);
-@include text-emphasis-variant(".text-lightest", $color-text-lightest);
+@include text-emphasis-variant(".text-default", $color-text, $ignore-warning: true);
+@include text-emphasis-variant(".text-light", $color-text-light, $ignore-warning: true);
+@include text-emphasis-variant(".text-lighter", $color-text-lighter, $ignore-warning: true);
+@include text-emphasis-variant(".text-lightest", $color-text-lightest, $ignore-warning: true);
 
 .text-inherit { color: inherit; }
