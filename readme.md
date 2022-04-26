@@ -6,7 +6,7 @@ See the demo: [Cookieconsent](https://brainsum.github.io/cookieconsent/)
 
 ## Default look
 
-![Cookieconsent modal](https://raw.githubusercontent.com/brainsum/cookieconsent/master/cc_modal_75.png "Cookieconsent modal")
+![Cookieconsent modal](cc_modal_75.png "Cookieconsent modal")
 
 ## Features
 
@@ -183,3 +183,7 @@ The script is being controlled mainly by a configuration object which is passed 
   });
   </script>
 ```
+
+## Sponsors
+
+Contributed to diginomica by Brainsum, sponsored by ![diginomica](diginomica-24.png "diginomica").
