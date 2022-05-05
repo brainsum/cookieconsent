@@ -1385,16 +1385,16 @@ var Interface = /*#__PURE__*/function () {
           }))), {
             'aria-expanded': 'false',
             'aria-controls': 'ccm__tab-content--' + tabId
-          })), el('dd#ccm__tab-content--' + tabId + '.ccm__tab-content', el('div.ccm__tab-content__inner', el('div.ccm__tab-content__desc', el('h3#ccm__tab-content__title--' + tabId, Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')), el('p', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'description')), el('div.ccm__list', listCookies(key))), {
-            'role': 'region',
-            'aria-labelledby': 'ccm__tab-trigger--' + tabId,
-            'aria-hidden': 'true'
-          }, el('div.ccm__tab-content__choose', !window.CookieConsent.config.categories[key].needed && el('div.ccm__switch-component', el('span.ccm__switch__status.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')), el('button.ccm__switch-group', el('span.ccm__switch__text.visually-hide', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')), el('span.ccm__switch__slider'), {
+          })), el('dd#ccm__tab-content--' + tabId + '.ccm__tab-content', el('div.ccm__tab-content__inner', el('div.ccm__tab-content__desc', el('h3#ccm__tab-content__title--' + tabId, Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')), el('p', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'description')), el('div.ccm__list', listCookies(key))), el('div.ccm__tab-content__choose', !window.CookieConsent.config.categories[key].needed && el('div.ccm__switch-component', el('span.ccm__switch__status.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')), el('button.ccm__switch-group', el('span.ccm__switch__text.visually-hide', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')), el('span.ccm__switch__slider'), {
             'role': 'switch',
             'data-category': key,
             'aria-checked': window.CookieConsent.config.categories[key].checked,
             'aria-label': Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')
-          }), el('span.ccm__switch__status.status-on', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'on'))))))));
+          }), el('span.ccm__switch__status.status-on', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'on'))))), {
+            'role': 'region',
+            'aria-labelledby': 'ccm__tab-trigger--' + tabId,
+            'aria-hidden': 'true'
+          })));
           i++;
         }
 

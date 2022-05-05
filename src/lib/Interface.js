@@ -143,7 +143,7 @@ export default class Interface {
                   el('div.ccm__list',
                     listCookies(key)
                   )
-                ), { 'role': 'region', 'aria-labelledby': 'ccm__tab-trigger--' + tabId, 'aria-hidden': 'true' },
+                ),
                 el('div.ccm__tab-content__choose',
                   (!window.CookieConsent.config.categories[key].needed) && el('div.ccm__switch-component', el('span.ccm__switch__status.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')),
                     el('button.ccm__switch-group',
@@ -153,7 +153,7 @@ export default class Interface {
                     ),
                     el('span.ccm__switch__status.status-on', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'on')))
                 ),
-              ),
+              ), { 'role': 'region', 'aria-labelledby': 'ccm__tab-trigger--' + tabId, 'aria-hidden': 'true' },
             ),
           ),
         );
