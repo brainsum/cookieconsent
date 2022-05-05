@@ -81,7 +81,7 @@ export default class Configuration {
 
   setConfiguration(configObject) {
     // The user overrides the default config
-    console.log(window.CookieConsent.config, configObject, { ...window.CookieConsent.config, ...configObject });
+    // console.log(window.CookieConsent.config, configObject, { ...window.CookieConsent.config, ...configObject });
 
     this.mergeDeep(window.CookieConsent.config, configObject)
     //loMerge(window.CookieConsent.config, configObject);
