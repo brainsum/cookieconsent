@@ -88,7 +88,7 @@ export default class Interface {
             )
           )
         ),
-      { role: 'region', 'aria-hidden': 'false' });
+      { role: 'region', 'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'cookieBarLabel'), 'aria-hidden': 'true', tabindex: '-1' });
   }
 
   buildModal() {
@@ -235,6 +235,8 @@ export default class Interface {
         if ( ! window.CookieConsent.config.cookieExists) {
           setTimeout(() => {
             bar.classList.remove('ccb--hidden');
+            bar.setAttribute('aria-hidden', 'false');
+            bar.setAttribute('tabindex', '0');
           }, window.CookieConsent.config.barTimeout);
         }
       });
@@ -249,6 +251,8 @@ export default class Interface {
 
     // Set the default state for modal
     var modalOpen = false;
+
+    var focusTarget = document.querySelector('#cconsent-bar').nextElementSibling.nextElementSibling;
 
     // If you click Accept all cookies
     var buttonConsentGive = document.querySelectorAll('.consent-give');
@@ -270,9 +274,12 @@ export default class Interface {
 
         this.elements['bar'].classList.add('ccb--hidden');
         this.elements['bar'].setAttribute('aria-hidden', 'true');
+        this.elements['bar'].setAttribute('tabindex', '-1');
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
-        this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+        this.elements['modal'].setAttribute('tabindex', '-1');
+        window.console.log(focusTarget);
+        focusTarget.focus();
         modalOpen = false;
 
         this.modalRedrawIcons();
@@ -287,7 +294,7 @@ export default class Interface {
         modalOpen = true;
         this.elements['modal'].classList.add('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'false');
-        this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '0');
+        this.elements['modal'].setAttribute('tabindex', '0');
         this.elements['modal'].querySelector('.ccm__content').focus();
       });
     });
@@ -357,7 +364,7 @@ export default class Interface {
     this.elements['modal'].querySelector('.ccm__cheading__close').addEventListener('click', (event) => {
       this.elements['modal'].classList.remove('ccm--visible');
       this.elements['modal'].setAttribute('aria-hidden', 'true');
-      this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+      this.elements['modal'].setAttribute('tabindex', '-1');
       modalOpen = false;
     });
 
@@ -365,7 +372,7 @@ export default class Interface {
       if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
-        this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+        this.elements['modal'].setAttribute('tabindex', '-1');
         modalOpen = false;
       }
     });
@@ -385,7 +392,10 @@ export default class Interface {
           this.elements['modal'].setAttribute('aria-hidden', 'true');
           this.elements['bar'].classList.add('ccb--hidden');
           this.elements['bar'].setAttribute('aria-hidden', 'true');
-          this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+          this.elements['bar'].setAttribute('tabindex', '-1');
+          this.elements['modal'].setAttribute('tabindex', '-1');
+          window.console.log(focusTarget);
+          focusTarget.focus();
           modalOpen = false;
         });
       });

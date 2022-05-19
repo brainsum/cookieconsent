@@ -1335,7 +1335,9 @@ var Interface = /*#__PURE__*/function () {
     value: function buildBar() {
       return el('div#cconsent-bar.ccb--hidden', el("div.ccb__wrapper", el('div.ccb__left', el('div.cc-text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))), el('div.ccb__right', el('div.ccb__button', el('button.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))))), {
         role: 'region',
-        'aria-hidden': 'false'
+        'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'cookieBarLabel'),
+        'aria-hidden': 'true',
+        tabindex: '-1'
       });
     }
   }, {
@@ -1475,6 +1477,8 @@ var Interface = /*#__PURE__*/function () {
           if (!window.CookieConsent.config.cookieExists) {
             setTimeout(function () {
               bar.classList.remove('ccb--hidden');
+              bar.setAttribute('aria-hidden', 'false');
+              bar.setAttribute('tabindex', '0');
             }, window.CookieConsent.config.barTimeout);
           }
         });
@@ -1488,7 +1492,8 @@ var Interface = /*#__PURE__*/function () {
       var _this = this;
 
       // Set the default state for modal
-      var modalOpen = false; // If you click Accept all cookies
+      var modalOpen = false;
+      var focusTarget = document.querySelector('#cconsent-bar').nextElementSibling.nextElementSibling; // If you click Accept all cookies
 
       var buttonConsentGive = document.querySelectorAll('.consent-give');
 
@@ -1514,12 +1519,16 @@ var Interface = /*#__PURE__*/function () {
 
             _this.elements['bar'].setAttribute('aria-hidden', 'true');
 
+            _this.elements['bar'].setAttribute('tabindex', '-1');
+
             _this.elements['modal'].classList.remove('ccm--visible');
 
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
 
-            _this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+            _this.elements['modal'].setAttribute('tabindex', '-1');
 
+            window.console.log(focusTarget);
+            focusTarget.focus();
             modalOpen = false;
 
             _this.modalRedrawIcons();
@@ -1540,7 +1549,7 @@ var Interface = /*#__PURE__*/function () {
 
           _this.elements['modal'].setAttribute('aria-hidden', 'false');
 
-          _this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '0');
+          _this.elements['modal'].setAttribute('tabindex', '0');
 
           _this.elements['modal'].querySelector('.ccm__content').focus();
         });
@@ -1606,7 +1615,7 @@ var Interface = /*#__PURE__*/function () {
 
         _this.elements['modal'].setAttribute('aria-hidden', 'true');
 
-        _this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+        _this.elements['modal'].setAttribute('tabindex', '-1');
 
         modalOpen = false;
       });
@@ -1616,7 +1625,7 @@ var Interface = /*#__PURE__*/function () {
 
           _this.elements['modal'].setAttribute('aria-hidden', 'true');
 
-          _this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+          _this.elements['modal'].setAttribute('tabindex', '-1');
 
           modalOpen = false;
         }
@@ -1639,8 +1648,12 @@ var Interface = /*#__PURE__*/function () {
 
             _this.elements['bar'].setAttribute('aria-hidden', 'true');
 
-            _this.elements['modal'].querySelector('.ccm__content').setAttribute('tabindex', '-1');
+            _this.elements['bar'].setAttribute('tabindex', '-1');
 
+            _this.elements['modal'].setAttribute('tabindex', '-1');
+
+            window.console.log(focusTarget);
+            focusTarget.focus();
             modalOpen = false;
           });
         });
@@ -1763,6 +1776,7 @@ var Configuration = /*#__PURE__*/function () {
         current: 'en',
         locale: {
           en: {
+            cookieBarLabel: 'Cookie consent',
             barMainText: 'This website uses cookies to ensure you get the best experience on our website.',
             closeAriaLabel: 'close',
             barLinkSetting: 'Cookie Settings',
@@ -1781,6 +1795,7 @@ var Configuration = /*#__PURE__*/function () {
             unchecked: 'unchecked'
           },
           hu: {
+            cookieBarLabel: 'Hozzájárulás sütik engedélyzéséhez',
             barMainText: 'Ez a weboldal Sütiket használ a jobb felhasználói élmény érdekében.',
             closeAriaLabel: 'bezár',
             barLinkSetting: 'Süti beállítások',

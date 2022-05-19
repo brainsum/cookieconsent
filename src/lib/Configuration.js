@@ -34,6 +34,7 @@ export default class Configuration {
         current: 'en',
         locale: {
           en: {
+            cookieBarLabel: 'Cookie consent',
             barMainText: 'This website uses cookies to ensure you get the best experience on our website.',
             closeAriaLabel: 'close',
             barLinkSetting: 'Cookie Settings',
@@ -52,6 +53,7 @@ export default class Configuration {
             unchecked: 'unchecked',
           },
           hu: {
+            cookieBarLabel: 'Hozzájárulás sütik engedélyzéséhez',
             barMainText: 'Ez a weboldal Sütiket használ a jobb felhasználói élmény érdekében.',
             closeAriaLabel: 'bezár',
             barLinkSetting: 'Süti beállítások',
