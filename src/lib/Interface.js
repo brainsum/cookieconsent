@@ -20,6 +20,8 @@ export default class Interface {
       '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}',
       '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}',
       '#cconsent-bar button { line-height:normal; font-size:14px; border:0; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
+      '#cconsent-bar button.consent-give { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}',
+      '#cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; margin-right: 10px; border: 1px solid ' + window.CookieConsent.config.theme.barMainButtonColor + '}',
       '#cconsent-bar button.ccb__edit { -moz-appearance:none; -webkit-appearance:none; appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; background:none; }',
       '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }',
       '#cconsent-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
@@ -71,7 +73,7 @@ export default class Interface {
       '#cconsent-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
       '#cconsent-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
       '#cconsent-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
-      '#cconsent-modal .ccm__footer button#ccm__footer__consent-modal-submit {  margin-right:10px; }'
+      '#cconsent-modal .ccm__footer button + button { margin-left: 10px; }'
       );
   }
 
@@ -84,6 +86,7 @@ export default class Interface {
           el('div.ccb__right',
             el('div.ccb__button',
               el('button.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
+              window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')),
               el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
             )
           )
@@ -181,6 +184,7 @@ export default class Interface {
         ),
         el('div.ccm__footer',
           el('button#ccm__footer__consent-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')),
+          window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')),
           el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll'))
         )
       ), { 'aria-labelledby': 'ccm__content__title', 'aria-hidden': 'true' }
@@ -288,7 +292,38 @@ export default class Interface {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
-        window.console.log(focusTarget);
+        focusTarget.focus();
+        modalOpen = false;
+
+        this.modalRedrawIcons();
+
+      });
+    }
+
+    // If you click Reject all cookies
+    var buttonConsentDecline = document.querySelectorAll('.consent-decline');
+
+    for(let button of buttonConsentDecline) {
+      button.addEventListener('click', () => {
+
+        // We set config to full consent only in is needed
+        for(let key in window.CookieConsent.config.categories) {
+            window.CookieConsent.config.categories[key].wanted =
+            window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].needed;
+        }
+
+        this.writeBufferToDOM();
+
+        this.buildCookie((cookie) => {
+          this.setCookie(cookie);
+        });
+
+        this.elements['bar'].classList.add('ccb--hidden');
+        this.elements['bar'].setAttribute('aria-hidden', 'true');
+        this.elements['bar'].setAttribute('tabindex', '-1');
+        this.elements['modal'].classList.remove('ccm--visible');
+        this.elements['modal'].setAttribute('aria-hidden', 'true');
+        this.elements['modal'].setAttribute('tabindex', '-1');
         focusTarget.focus();
         modalOpen = false;
 
@@ -404,7 +439,6 @@ export default class Interface {
           this.elements['bar'].setAttribute('aria-hidden', 'true');
           this.elements['bar'].setAttribute('tabindex', '-1');
           this.elements['modal'].setAttribute('tabindex', '-1');
-          window.console.log(focusTarget);
           focusTarget.focus();
           modalOpen = false;
         });
