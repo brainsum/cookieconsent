@@ -240,6 +240,15 @@ export default class Interface {
     var that = this;
 
     Utilities.ready(function() {
+      if (window.CookieConsent.config.noUI) {
+        that.writeBufferToDOM();
+
+        that.buildCookie((cookie) => {
+          that.setCookie(cookie);
+        });
+        callback();
+        return;
+      }
 
       that.render('style', that.buildStyle());
 

@@ -1480,6 +1480,15 @@ var Interface = /*#__PURE__*/function () {
       if (typeof callback === 'undefined') callback = function callback() {};
       var that = this;
       Utilities.ready(function () {
+        if (window.CookieConsent.config.noUI) {
+          that.writeBufferToDOM();
+          that.buildCookie(function (cookie) {
+            that.setCookie(cookie);
+          });
+          callback();
+          return;
+        }
+
         that.render('style', that.buildStyle());
         that.render('bar', that.buildBar(), function (bar) {
           // Show the bar after a while
@@ -1817,6 +1826,7 @@ var Configuration = /*#__PURE__*/function () {
       modalMainTextMoreLink: null,
       showRejectAllButton: false,
       barTimeout: 1000,
+      noUI: false,
       theme: {
         barColor: '#2b7abb',
         barTextColor: '#fff',
@@ -1926,10 +1936,13 @@ var Configuration = /*#__PURE__*/function () {
             if (typeof window.CookieConsent.config.services[service] === 'undefined') {
               return removeReload();
             }
-          }); // We we integrate cookie data into the global config object
+          }); // If we don't have UI we ignore the saved cookie configuration.
 
-          for (var _key in cookieData.categories) {
-            window.CookieConsent.config.categories[_key].checked = window.CookieConsent.config.categories[_key].wanted = cookieData.categories[_key].wanted === true ? true : false;
+          if (!window.CookieConsent.config.noUI) {
+            // We integrate cookie data into the global config object
+            for (var _key in cookieData.categories) {
+              window.CookieConsent.config.categories[_key].checked = window.CookieConsent.config.categories[_key].wanted = cookieData.categories[_key].wanted === true ? true : false;
+            }
           }
 
           window.CookieConsent.config.cookieExists = true;

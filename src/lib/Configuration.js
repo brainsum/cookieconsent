@@ -22,6 +22,7 @@ export default class Configuration {
       modalMainTextMoreLink: null,
       showRejectAllButton: false,
       barTimeout: 1000,
+      noUI: false,
       theme: {
         barColor: '#2b7abb',
         barTextColor: '#fff',
@@ -139,9 +140,12 @@ export default class Configuration {
           }
         });
 
-        // We we integrate cookie data into the global config object
-        for (let key in cookieData.categories) {
-          window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].wanted = (cookieData.categories[key].wanted === true) ? true : false;
+        // If we don't have UI we ignore the saved cookie configuration.
+        if (!window.CookieConsent.config.noUI) {
+          // We integrate cookie data into the global config object
+          for (let key in cookieData.categories) {
+            window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].wanted = (cookieData.categories[key].wanted === true) ? true : false;
+          }
         }
 
         window.CookieConsent.config.cookieExists = true;
