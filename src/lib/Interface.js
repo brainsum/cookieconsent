@@ -34,7 +34,7 @@ export default class Interface {
       '#cconsent-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }',
       '#cconsent-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }',
       '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }',
-      '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }',
+      '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }',
       '#cconsent-modal h2, #cconsent-modal h3 { margin-top:0 }',
       '#cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }',
@@ -62,7 +62,7 @@ export default class Interface {
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s; pointer-events: none;}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider {background-color: #28A834;}',
-      '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus {box-shadow: 0 0 0 2px' + window.CookieConsent.config.theme.focusColor + ';}',
+      '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus-visible {box-shadow: 0 0 0 2px' + window.CookieConsent.config.theme.focusColor + ';}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__desc {order:2;}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}',
@@ -275,8 +275,6 @@ export default class Interface {
     // Set the default state for modal
     var modalOpen = false;
 
-    var focusTarget = document.querySelector('#cconsent-bar').nextElementSibling.nextElementSibling;
-
     // If you click Accept all cookies
     var buttonConsentGive = document.querySelectorAll('.consent-give');
 
@@ -301,7 +299,6 @@ export default class Interface {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
-        focusTarget.focus();
         modalOpen = false;
 
         this.modalRedrawIcons();
@@ -333,7 +330,6 @@ export default class Interface {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
-        focusTarget.focus();
         modalOpen = false;
 
         this.modalRedrawIcons();
@@ -349,7 +345,7 @@ export default class Interface {
         this.elements['modal'].classList.add('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'false');
         this.elements['modal'].setAttribute('tabindex', '0');
-        this.elements['modal'].querySelector('.ccm__content').focus();
+        this.elements['modal'].querySelector('.ccm__cheading__close').focus();
       });
     });
 
@@ -448,7 +444,6 @@ export default class Interface {
           this.elements['bar'].setAttribute('aria-hidden', 'true');
           this.elements['bar'].setAttribute('tabindex', '-1');
           this.elements['modal'].setAttribute('tabindex', '-1');
-          focusTarget.focus();
           modalOpen = false;
         });
       });
