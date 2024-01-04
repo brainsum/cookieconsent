@@ -14,7 +14,7 @@ export default class Interface {
       '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }',
       '#cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }',
       '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}',
-      '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block;}',
+      '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}',
       '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}',
       '#cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}',
       '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}',
@@ -274,12 +274,15 @@ export default class Interface {
 
     // Set the default state for modal
     var modalOpen = false;
+    var focusTarget = document.querySelector('body');
 
     // If you click Accept all cookies
     var buttonConsentGive = document.querySelectorAll('.consent-give');
 
     for (let button of buttonConsentGive) {
       button.addEventListener('click', () => {
+        var buttonSettings = document.querySelector('.ccb__edit');
+        var buttonConsentDecline = document.querySelector('.consent-decline');
 
         // We set config to full consent
         for (let key in window.CookieConsent.config.categories) {
@@ -299,6 +302,13 @@ export default class Interface {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
+        button.setAttribute('tabindex', '-1');
+        button.setAttribute('aria-hidden', 'true');
+        buttonSettings.setAttribute('tabindex', '-1');
+        buttonSettings.setAttribute('aria-hidden', 'true');
+        buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('tabindex', '-1');
+        buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
+        focusTarget.focus();
         modalOpen = false;
 
         this.modalRedrawIcons();
@@ -311,6 +321,8 @@ export default class Interface {
 
     for(let button of buttonConsentDecline) {
       button.addEventListener('click', () => {
+        var buttonSettings = document.querySelector('.ccb__edit');
+        var buttonConsentGive = document.querySelector('.consent-give');
 
         // We set config to full consent only in is needed
         for(let key in window.CookieConsent.config.categories) {
@@ -330,6 +342,13 @@ export default class Interface {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
+        button.setAttribute('tabindex', '-1');
+        button.setAttribute('aria-hidden', 'true');
+        buttonSettings.setAttribute('tabindex', '-1');
+        buttonSettings.setAttribute('aria-hidden', 'true');
+        buttonConsentGive.setAttribute('tabindex', '-1');
+        buttonConsentGive.setAttribute('aria-hidden', 'true');
+        focusTarget.focus();
         modalOpen = false;
 
         this.modalRedrawIcons();
@@ -436,6 +455,10 @@ export default class Interface {
         window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElement.checked;
       });
 
+      var buttonSettings = document.querySelector('.ccb__edit');
+      var buttonConsentDecline = document.querySelector('.consent-decline');
+      var buttonConsentGive = document.querySelector('.consent-give');
+
       this.buildCookie((cookie) => {
         this.setCookie(cookie, () => {
           this.elements['modal'].classList.remove('ccm--visible');
@@ -444,6 +467,13 @@ export default class Interface {
           this.elements['bar'].setAttribute('aria-hidden', 'true');
           this.elements['bar'].setAttribute('tabindex', '-1');
           this.elements['modal'].setAttribute('tabindex', '-1');
+          buttonSettings.setAttribute('tabindex', '-1');
+          buttonSettings.setAttribute('aria-hidden', 'true');
+          buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('tabindex', '-1');
+          buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
+          buttonConsentGive.setAttribute('tabindex', '-1');
+          buttonConsentGive.setAttribute('aria-hidden', 'true');
+          focusTarget.focus();
           modalOpen = false;
         });
       });
