@@ -85,9 +85,9 @@ export default class Interface {
           ),
           el('div.ccb__right',
             el('div.ccb__button',
-              el('button.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting')),
-              window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll')),
-              el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'))
+              el('button.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting'), { 'aria-hidden': 'true', tabindex: '-1' }),
+              window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll'), { 'aria-hidden': 'true', tabindex: '-1' }),
+              el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'), { 'aria-hidden': 'true', tabindex: '-1' })
             )
           )
         ),
@@ -257,9 +257,19 @@ export default class Interface {
         // Show the bar after a while
         if ( ! window.CookieConsent.config.cookieExists) {
           setTimeout(() => {
+            var buttonSettings = bar.querySelector('.ccb__edit');
+            var buttonConsentGive = bar.querySelector('.consent-give');
+            var buttonConsentDecline = bar.querySelector('.consent-decline');
+
             bar.classList.remove('ccb--hidden');
             bar.setAttribute('aria-hidden', 'false');
             bar.setAttribute('tabindex', '0');
+            buttonSettings.setAttribute('tabindex', '0');
+            buttonSettings.setAttribute('aria-hidden', 'false');
+            buttonConsentGive.setAttribute('tabindex', '0');
+            buttonConsentGive.setAttribute('aria-hidden', 'false');
+            (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('tabindex', '0');
+            (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('aria-hidden', 'false');
           }, window.CookieConsent.config.barTimeout);
         }
       });
@@ -306,8 +316,8 @@ export default class Interface {
         button.setAttribute('aria-hidden', 'true');
         buttonSettings.setAttribute('tabindex', '-1');
         buttonSettings.setAttribute('aria-hidden', 'true');
-        buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('tabindex', '-1');
-        buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
+        (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('tabindex', '-1');
+        (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
         focusTarget.focus();
         modalOpen = false;
 
@@ -456,8 +466,8 @@ export default class Interface {
       });
 
       var buttonSettings = document.querySelector('.ccb__edit');
-      var buttonConsentDecline = document.querySelector('.consent-decline');
       var buttonConsentGive = document.querySelector('.consent-give');
+      var buttonConsentDecline = document.querySelector('.consent-decline');
 
       this.buildCookie((cookie) => {
         this.setCookie(cookie, () => {
@@ -469,10 +479,10 @@ export default class Interface {
           this.elements['modal'].setAttribute('tabindex', '-1');
           buttonSettings.setAttribute('tabindex', '-1');
           buttonSettings.setAttribute('aria-hidden', 'true');
-          buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('tabindex', '-1');
-          buttonConsentDecline.length > 0 ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
           buttonConsentGive.setAttribute('tabindex', '-1');
           buttonConsentGive.setAttribute('aria-hidden', 'true');
+          (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('tabindex', '-1');
+          (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
           focusTarget.focus();
           modalOpen = false;
         });
