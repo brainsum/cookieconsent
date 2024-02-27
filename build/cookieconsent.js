@@ -1515,8 +1515,8 @@ var Interface = /*#__PURE__*/function () {
               buttonSettings.setAttribute('aria-hidden', 'false');
               buttonConsentGive.setAttribute('tabindex', '0');
               buttonConsentGive.setAttribute('aria-hidden', 'false');
-              (_ref = buttonConsentDecline && buttonConsentDecline.length > 0) !== null && _ref !== void 0 ? _ref : buttonConsentDecline.setAttribute('tabindex', '0');
-              (_ref2 = buttonConsentDecline && buttonConsentDecline.length > 0) !== null && _ref2 !== void 0 ? _ref2 : buttonConsentDecline.setAttribute('aria-hidden', 'false');
+              (_ref = buttonConsentDecline !== null) !== null && _ref !== void 0 ? _ref : buttonConsentDecline.setAttribute('tabindex', '0');
+              (_ref2 = buttonConsentDecline !== null) !== null && _ref2 !== void 0 ? _ref2 : buttonConsentDecline.setAttribute('aria-hidden', 'false');
             }, window.CookieConsent.config.barTimeout);
           }
         });
@@ -1573,8 +1573,8 @@ var Interface = /*#__PURE__*/function () {
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
             buttonSettings.setAttribute('aria-hidden', 'true');
-            (_ref5 = buttonConsentDecline && buttonConsentDecline.length > 0) !== null && _ref5 !== void 0 ? _ref5 : buttonConsentDecline.setAttribute('tabindex', '-1');
-            (_ref6 = buttonConsentDecline && buttonConsentDecline.length > 0) !== null && _ref6 !== void 0 ? _ref6 : buttonConsentDecline.setAttribute('aria-hidden', 'true');
+            (_ref5 = buttonConsentDecline !== null) !== null && _ref5 !== void 0 ? _ref5 : buttonConsentDecline.setAttribute('tabindex', '-1');
+            (_ref6 = buttonConsentDecline !== null) !== null && _ref6 !== void 0 ? _ref6 : buttonConsentDecline.setAttribute('aria-hidden', 'true');
             focusTarget.focus();
             modalOpen = false;
 
@@ -1769,8 +1769,8 @@ var Interface = /*#__PURE__*/function () {
             buttonSettings.setAttribute('aria-hidden', 'true');
             buttonConsentGive.setAttribute('tabindex', '-1');
             buttonConsentGive.setAttribute('aria-hidden', 'true');
-            (_ref3 = buttonConsentDecline && buttonConsentDecline.length > 0) !== null && _ref3 !== void 0 ? _ref3 : buttonConsentDecline.setAttribute('tabindex', '-1');
-            (_ref4 = buttonConsentDecline && buttonConsentDecline.length > 0) !== null && _ref4 !== void 0 ? _ref4 : buttonConsentDecline.setAttribute('aria-hidden', 'true');
+            (_ref3 = buttonConsentDecline !== null) !== null && _ref3 !== void 0 ? _ref3 : buttonConsentDecline.setAttribute('tabindex', '-1');
+            (_ref4 = buttonConsentDecline !== null) !== null && _ref4 !== void 0 ? _ref4 : buttonConsentDecline.setAttribute('aria-hidden', 'true');
             focusTarget.focus();
             modalOpen = false;
           });
