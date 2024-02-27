@@ -268,8 +268,8 @@ export default class Interface {
             buttonSettings.setAttribute('aria-hidden', 'false');
             buttonConsentGive.setAttribute('tabindex', '0');
             buttonConsentGive.setAttribute('aria-hidden', 'false');
-            (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('tabindex', '0');
-            (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('aria-hidden', 'false');
+            buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('tabindex', '0');
+            buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('aria-hidden', 'false');
           }, window.CookieConsent.config.barTimeout);
         }
       });
@@ -316,8 +316,8 @@ export default class Interface {
         button.setAttribute('aria-hidden', 'true');
         buttonSettings.setAttribute('tabindex', '-1');
         buttonSettings.setAttribute('aria-hidden', 'true');
-        (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('tabindex', '-1');
-        (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
+        buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('tabindex', '-1');
+        buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
         focusTarget.focus();
         modalOpen = false;
 
@@ -481,8 +481,8 @@ export default class Interface {
           buttonSettings.setAttribute('aria-hidden', 'true');
           buttonConsentGive.setAttribute('tabindex', '-1');
           buttonConsentGive.setAttribute('aria-hidden', 'true');
-          (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('tabindex', '-1');
-          (buttonConsentDecline && buttonConsentDecline.length > 0) ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
+          buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('tabindex', '-1');
+          buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('aria-hidden', 'true');
           focusTarget.focus();
           modalOpen = false;
         });
