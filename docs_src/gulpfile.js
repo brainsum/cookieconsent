@@ -2,7 +2,7 @@
 
 import gulp from 'gulp';
 import webpack from 'webpack-stream';
-import dartSass from 'sass';
+import * as dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 const sass = gulpSass(dartSass);
 import tildeImporter from 'node-sass-tilde-importer';
@@ -14,7 +14,7 @@ import rename from 'gulp-rename';
 import changed from 'gulp-changed';
 import del from 'del';
 
-const production = false;
+let production = false;
 
 const file = {
   html:   'src/**/*.html',
