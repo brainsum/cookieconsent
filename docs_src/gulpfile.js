@@ -1,37 +1,37 @@
 'use strict';
 
-var gulp = require('gulp');
-var webpack = require('webpack-stream');
-var sass = require('gulp-sass')(require('sass'));
-var tildeImporter = require('node-sass-tilde-importer');
-var browserSync = require('browser-sync');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
-var changed = require('gulp-changed');
-var del = require('del');
-// var sequence = require('run-sequence');
-var pkg = require('./package.json')
+import gulp from 'gulp';
+import webpack from 'webpack-stream';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
+import tildeImporter from 'node-sass-tilde-importer';
+import browserSync from 'browser-sync';
+import sourcemaps from 'gulp-sourcemaps';
+import autoprefixer from 'gulp-autoprefixer';
+import uglify from 'gulp-uglify';
+import rename from 'gulp-rename';
+import changed from 'gulp-changed';
+import del from 'del';
 
-var production = false;
+const production = false;
 
-var file = {
+const file = {
   html:   'src/**/*.html',
   scss:   'src/assets/scss/**/*.scss',
   js:     'src/assets/js/src/**/*.js',
-}
+};
 
-var page = {
+const page = {
   js:     'src/assets/js/src/page.js',
   scss:   'src/assets/scss/page.scss',
-}
+};
 
-var dir = {
+const dir = {
   css:    'src/assets/css/',
   js:     'src/assets/js/',
   font:   'src/assets/fonts/',
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -40,27 +40,25 @@ var dir = {
 |
 */
 gulp.task('sass', function() {
-  var stream = gulp.src(page.scss)
-    .pipe( sourcemaps.init() )
-    .pipe( rename( { suffix: '.min' } ) )
-    .pipe( sass({ importer: tildeImporter, outputStyle: 'compressed' }).on('error', sass.logError) )
-    .pipe( autoprefixer())
-    .pipe( sourcemaps.write('.') )
-    .pipe( gulp.dest(dir.css) )
-    .pipe( browserSync.stream() );
+  let stream = gulp.src(page.scss)
+    .pipe(sourcemaps.init())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(sass({ importer: tildeImporter, outputStyle: 'compressed' }).on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(dir.css))
+    .pipe(browserSync.stream());
 
-  // Create unminified version if it's in production mode
-  if ( production ) {
+  if (production) {
     stream = gulp.src(page.scss)
-      .pipe( sourcemaps.init() )
-      .pipe( sass({importer: tildeImporter}).on('error', sass.logError) )
-      .pipe( autoprefixer())
-      .pipe( sourcemaps.write('.') )
-      .pipe( gulp.dest(dir.css) );
+      .pipe(sourcemaps.init())
+      .pipe(sass({ importer: tildeImporter }).on('error', sass.logError))
+      .pipe(autoprefixer())
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest(dir.css));
   }
 
   return stream;
-
 });
 
 /*
@@ -87,9 +85,6 @@ gulp.task('watch', function() {
 
 gulp.task('serve', gulp.series('sass', 'watch'));
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | JS
@@ -105,11 +100,8 @@ gulp.task('js_production_minified', function(done) {
         output: {
           filename: 'page.min.js'
         },
-        // plugins: [
-        //   new uglify()
-        // ]
       }))
-      .pipe( gulp.dest(dir.js) );
+      .pipe(gulp.dest(dir.js));
   }
   done();
 });
@@ -124,7 +116,7 @@ gulp.task('js_production_expanded', function(done) {
           filename: 'page.js'
         }
       }))
-      .pipe( gulp.dest(dir.js) );
+      .pipe(gulp.dest(dir.js));
   }
   done();
 });
@@ -165,7 +157,6 @@ gulp.task('distCopy', function() {
   return gulp.src( ['src/**/*', '!src/assets/{js/src,plugin/thesaas,scss}{,/**}'] ).pipe(gulp.dest('../docs/'));
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | Clean /dist directory
@@ -185,7 +176,7 @@ gulp.task('distClean', function(done) {
 */
 gulp.task('img', function() {
   return gulp.src('src/assets/img/**/*.{jpg,jpeg,png,gif}')
-    .pipe( gulp.dest('src/assets/img/') );
+    .pipe(gulp.dest('src/assets/img/'));
 });
 
 /*
@@ -201,7 +192,7 @@ gulp.task('dev', gulp.series('copyFonts', 'sass', 'js'), function(done) {
 gulp.task('setProd', function(done){
   production = true;
   done();
-})
+});
 
 gulp.task('dist', gulp.series('setProd', 'distClean', 'dev', 'distCopy'), function(done) {
   done();
