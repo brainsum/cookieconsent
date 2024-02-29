@@ -1765,6 +1765,7 @@ var Configuration = /*#__PURE__*/function () {
     value: function cookieToConfig() {
       function removeReload() {
         Utilities.removeCookie();
+        localStorage.removeItem('consentMode');
         location.reload();
         return false;
       }
