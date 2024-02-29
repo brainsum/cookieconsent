@@ -46,7 +46,7 @@
               language: {
                 locale: {
                   en: {
-                    name: 'Google Analytics',
+                    name: 'Analytics',
                     description:
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                   },
@@ -60,7 +60,7 @@
               language: {
                 locale: {
                   en: {
-                    name: 'Google Ads',
+                    name: 'Marketing',
                     description:
                       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                   },
@@ -88,10 +88,34 @@
           consentModeControls: {
             ad_storage: 'marketing',
             ad_user_data: 'marketing',
-            ad_personalization: 'various',
+            ad_personalization: 'marketing',
             analytics_storage: 'analytics'
           },
           services: {
+            googleAnalytics: {
+              category: 'analytics',
+              type: '',
+              search: '',
+              language: {
+                locale: {
+                  en: {
+                    name: 'Google Analytics (analytics_storage)'
+                  }
+                }
+              }
+            },
+            googleAds: {
+              category: 'marketing',
+              type: '',
+              search: '',
+              language: {
+                locale: {
+                  en: {
+                    name: 'Google Ads (ad_storage, ad_user_data, ad_personalization)'
+                  }
+                }
+              }
+            },
             facebook: {
               category: 'various',
               type: 'dynamic-script', // dynamic-script, script-tag, wrapped, localcookie
@@ -218,6 +242,7 @@
             <h1 class="display-4 mt-1 mb-6"><strong>Cookie consent</strong></h1>
             <p class="lead-3">Outdated cookie notice bars are not enough! It’s not lawful to store most cookies without prior user consent.</p>
             <p class="lead-3">This <b>personalized</b> (try it now!) GDPR and ePrivacy Directive (aka. ePR) compliant script can <b>block even 3rd party</b> cookies without needing to refactor your website / web app.</p>
+            <p class="lead-3">Google Consent mode is also supported, but needs further testing: see the example cookie consent on this page.</p>
 
             <hr class="w-80px">
 
