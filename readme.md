@@ -179,10 +179,49 @@ The script is being controlled mainly by a configuration object which is passed 
           }
         }
       }
-    }
+    },
+    //List consent properties according to Google Consent Mode v2, and their respecting controlling categories listed above.
+    consentModeControls: {
+      ad_storage: 'necessary',
+      ad_user_data: 'necessary',
+      ad_personalization: 'necessary'
+      analytics_storage: 'necessary'
+    },
   });
   </script>
 ```
+
+## Consent Mode v2
+
+[Google consent mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) v2 is supported. For it's implementation you need to add a consentModeControls object withing the configuration settings to list the consent types and what categories will control them just as described in the example. Please, bear in mind that Google Tag Manager should be initialized with the default consent settings as per this example:
+
+```javascript
+  <!-- Google Tag Manager -->
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag(){dataLayer.push(arguments);}
+
+      if(localStorage.getItem('consentMode') === null) {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+          });
+      } else {
+        gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
+      }
+      
+    (function(w,d,s,l,i){
+      w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer', ---GTM ID---);</script>
+      <!-- End Google Tag Manager -->
+```
+
+Whenever a consent option is modified by the user, an update is sent to Google Tag Manager setting the new consent configuration.
 
 ## Sponsors
 
