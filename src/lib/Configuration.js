@@ -80,6 +80,7 @@ export default class Configuration {
         }
       },
       categories: {},
+      consentModeControls: {},
       services: {}
     }
 
@@ -128,6 +129,13 @@ export default class Configuration {
           // The cookie contains category not present in user config so we invalidate cookie
           if (typeof window.CookieConsent.config.categories[key] === 'undefined') {
             return removeReload();
+          }
+        }
+
+        // We check if cookie data consent mode controls also exist in user config
+        for (let key in cookieData.consentMode) {
+          if (typeof window.CookieConsent.config.consentModeControls[key] === 'undefined') {
+            return removeReload()
           }
         }
 

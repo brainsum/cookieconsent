@@ -509,11 +509,22 @@ export default class Interface {
     }
   }
 
+  updateConsentMode(cookie) {
+    const isGTMEnabled = window.dataLayer || false;
+
+      if(isGTMEnabled) {
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'update', cookie.consentMode);
+        localStorage.setItem('consentMode', JSON.stringify(cookie.consentMode))
+      }
+  }
+
   buildCookie(callback) {
     let cookie = {
       version: window.CookieConsent.config.cookieVersion,
       categories: {},
-      services: []
+      services: [],
+      consentMode: {}
     };
 
     for(let key in window.CookieConsent.config.categories) {
@@ -522,8 +533,13 @@ export default class Interface {
       };
     }
 
+    for(let key in window.CookieConsent.config.consentModeControls) {
+      cookie.consentMode[key] = window.CookieConsent.config.categories[window.CookieConsent.config.consentModeControls[key]]?.wanted ? 'granted' : 'denied' 
+    }
+
     cookie.services = Utilities.listGlobalServices();
 
+    this.updateConsentMode(cookie);
     if (callback) callback(cookie);
     return cookie;
   }

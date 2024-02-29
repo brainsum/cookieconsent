@@ -4,16 +4,12 @@ var __webpack_exports__ = {};
 
 ;// CONCATENATED MODULE: ./src/lib/Utilities.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 var Utilities = /*#__PURE__*/function () {
   function Utilities() {
     _classCallCheck(this, Utilities);
   }
-
   _createClass(Utilities, null, [{
     key: "ready",
     value: function ready(fn) {
@@ -32,53 +28,48 @@ var Utilities = /*#__PURE__*/function () {
     key: "lightenDarkenColor",
     value: function lightenDarkenColor(col, amt) {
       var usePound = false;
-
       if (col[0] == "#") {
         col = col.slice(1);
         usePound = true;
       }
-
       var num = parseInt(col, 16);
       var r = (num >> 16) + amt;
-
       if (r > 255) {
         r = 255;
       } else if (r < 0) {
         r = 0;
       }
-
       var b = (num >> 8 & 0x00FF) + amt;
-
       if (b > 255) {
         b = 255;
       } else if (b < 0) {
         b = 0;
       }
-
       var g = (num & 0x0000FF) + amt;
-
       if (g > 255) {
         g = 255;
       } else if (g < 0) {
         g = 0;
       }
-
       return (usePound ? "#" : "") + (g | b << 8 | r << 16).toString(16);
     }
   }, {
     key: "removeCookie",
     value: function removeCookie() {
       document.cookie = "cconsent=; expires=Thu, 01 Jan 1980 00:00:00 UTC; path=/;";
-    } // Create an array of services from Cookieconsent global object
-    // Filter based on category or leave empty is all is wanted
+    }
 
+    // Create an array of services from Cookieconsent global object
+    // Filter based on category or leave empty is all is wanted
   }, {
     key: "listGlobalServices",
     value: function listGlobalServices(category) {
-      var categories = []; // Global config objectnot set
+      var categories = [];
 
-      if (typeof window.CookieConsent === 'undefined') return categories; // Category is not specified or opposite
+      // Global config objectnot set
+      if (typeof window.CookieConsent === 'undefined') return categories;
 
+      // Category is not specified or opposite
       if (typeof category === 'undefined') {
         for (var key in window.CookieConsent.config.services) {
           categories.push(key);
@@ -88,48 +79,37 @@ var Utilities = /*#__PURE__*/function () {
           if (window.CookieConsent.config.services[_key].category === category) categories.push(_key);
         }
       }
-
       return categories;
     }
   }, {
     key: "dispatchEvent",
     value: function dispatchEvent(elem, event) {
       var event;
-
       if (typeof Event === 'function') {
         event = new Event(event);
       } else {
         event = document.createEvent('Event');
         event.initEvent(event, true, true);
       }
-
       elem.dispatchEvent(event);
     }
   }]);
-
   return Utilities;
 }();
 
-
 ;// CONCATENATED MODULE: ./src/lib/Filter.js
 function Filter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function Filter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function Filter_createClass(Constructor, protoProps, staticProps) { if (protoProps) Filter_defineProperties(Constructor.prototype, protoProps); if (staticProps) Filter_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-
 
 var Filter = /*#__PURE__*/function () {
   function Filter() {
     Filter_classCallCheck(this, Filter);
   }
-
   Filter_createClass(Filter, [{
     key: "createBlacklist",
     value: function createBlacklist(type) {
       var services = {};
-
       for (var service in window.CookieConsent.config.services) {
         if (window.CookieConsent.config.services[service].type === type) {
           if (window.CookieConsent.config.categories[window.CookieConsent.config.services[service].category].needed === false) {
@@ -139,12 +119,9 @@ var Filter = /*#__PURE__*/function () {
           }
         }
       }
-
       var blacklist = [];
-
       for (var service in services) {
         var type = Utilities.objectType(services[service].search);
-
         if (type === 'String') {
           blacklist.push(services[service].search);
         } else if (type === 'Array') {
@@ -153,51 +130,32 @@ var Filter = /*#__PURE__*/function () {
           }
         }
       }
-
       return blacklist;
     }
   }]);
-
   return Filter;
 }();
 
-
 ;// CONCATENATED MODULE: ./src/lib/InsertScriptFilter.js
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 function InsertScriptFilter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function InsertScriptFilter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function InsertScriptFilter_createClass(Constructor, protoProps, staticProps) { if (protoProps) InsertScriptFilter_defineProperties(Constructor.prototype, protoProps); if (staticProps) InsertScriptFilter_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
 
 var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
   _inherits(InsertScriptFilter, _Filter);
-
   var _super = _createSuper(InsertScriptFilter);
-
   function InsertScriptFilter() {
     InsertScriptFilter_classCallCheck(this, InsertScriptFilter);
-
     return _super.call(this);
   }
-
   InsertScriptFilter_createClass(InsertScriptFilter, [{
     key: "init",
     value: function init() {
@@ -226,7 +184,6 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
             }
           }
         }
-
         return Node.prototype.appendChild.apply(this, arguments);
       };
     }
@@ -252,63 +209,39 @@ var InsertScriptFilter = /*#__PURE__*/function (_Filter) {
             }
           }
         }
-
         return Node.prototype.insertBefore.apply(this, arguments);
       };
     }
   }]);
-
   return InsertScriptFilter;
 }(Filter);
 
-
 ;// CONCATENATED MODULE: ./src/lib/ScriptTagFilter.js
 function ScriptTagFilter_typeof(obj) { "@babel/helpers - typeof"; return ScriptTagFilter_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, ScriptTagFilter_typeof(obj); }
-
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function ScriptTagFilter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function ScriptTagFilter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function ScriptTagFilter_createClass(Constructor, protoProps, staticProps) { if (protoProps) ScriptTagFilter_defineProperties(Constructor.prototype, protoProps); if (staticProps) ScriptTagFilter_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
-
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = ScriptTagFilter_getPrototypeOf(object); if (object === null) break; } return object; }
-
 function ScriptTagFilter_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) ScriptTagFilter_setPrototypeOf(subClass, superClass); }
-
 function ScriptTagFilter_setPrototypeOf(o, p) { ScriptTagFilter_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return ScriptTagFilter_setPrototypeOf(o, p); }
-
 function ScriptTagFilter_createSuper(Derived) { var hasNativeReflectConstruct = ScriptTagFilter_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = ScriptTagFilter_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = ScriptTagFilter_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return ScriptTagFilter_possibleConstructorReturn(this, result); }; }
-
 function ScriptTagFilter_possibleConstructorReturn(self, call) { if (call && (ScriptTagFilter_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return ScriptTagFilter_assertThisInitialized(self); }
-
 function ScriptTagFilter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function ScriptTagFilter_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function ScriptTagFilter_getPrototypeOf(o) { ScriptTagFilter_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return ScriptTagFilter_getPrototypeOf(o); }
-
-
 
 
 var ScriptTagFilter = /*#__PURE__*/function (_Filter) {
   ScriptTagFilter_inherits(ScriptTagFilter, _Filter);
-
   var _super = ScriptTagFilter_createSuper(ScriptTagFilter);
-
   function ScriptTagFilter() {
     ScriptTagFilter_classCallCheck(this, ScriptTagFilter);
-
     return _super.call(this);
   }
-
   ScriptTagFilter_createClass(ScriptTagFilter, [{
     key: "init",
     value: function init() {
@@ -318,27 +251,20 @@ var ScriptTagFilter = /*#__PURE__*/function (_Filter) {
     key: "filterTags",
     value: function filterTags() {
       var _this = this;
-
       Utilities.ready(function () {
         var blacklist = _get(ScriptTagFilter_getPrototypeOf(ScriptTagFilter.prototype), "createBlacklist", _this).call(_this, 'script-tag');
-
         var scriptTags = document.querySelectorAll('script[type="text/plain"]');
-
         var _iterator = _createForOfIteratorHelper(scriptTags),
-            _step;
-
+          _step;
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var scriptTag = _step.value;
-
             if (blacklist.indexOf(scriptTag.dataset.consent) < 0) {
               var newtag = document.createElement('script');
               var parentNode = scriptTag.parentNode;
               scriptTag.type = 'text/javascript';
-
               var _iterator2 = _createForOfIteratorHelper(scriptTag.attributes),
-                  _step2;
-
+                _step2;
               try {
                 for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
                   var attribute = _step2.value;
@@ -349,7 +275,6 @@ var ScriptTagFilter = /*#__PURE__*/function (_Filter) {
               } finally {
                 _iterator2.f();
               }
-
               newtag.innerHTML = scriptTag.innerHTML;
               parentNode.insertBefore(newtag, scriptTag);
               parentNode.removeChild(scriptTag);
@@ -363,51 +288,31 @@ var ScriptTagFilter = /*#__PURE__*/function (_Filter) {
       });
     }
   }]);
-
   return ScriptTagFilter;
 }(Filter);
 
-
 ;// CONCATENATED MODULE: ./src/lib/WrapperFilter.js
 function WrapperFilter_typeof(obj) { "@babel/helpers - typeof"; return WrapperFilter_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, WrapperFilter_typeof(obj); }
-
 function WrapperFilter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function WrapperFilter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function WrapperFilter_createClass(Constructor, protoProps, staticProps) { if (protoProps) WrapperFilter_defineProperties(Constructor.prototype, protoProps); if (staticProps) WrapperFilter_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function WrapperFilter_get() { if (typeof Reflect !== "undefined" && Reflect.get) { WrapperFilter_get = Reflect.get; } else { WrapperFilter_get = function _get(target, property, receiver) { var base = WrapperFilter_superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return WrapperFilter_get.apply(this, arguments); }
-
 function WrapperFilter_superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = WrapperFilter_getPrototypeOf(object); if (object === null) break; } return object; }
-
 function WrapperFilter_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) WrapperFilter_setPrototypeOf(subClass, superClass); }
-
 function WrapperFilter_setPrototypeOf(o, p) { WrapperFilter_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return WrapperFilter_setPrototypeOf(o, p); }
-
 function WrapperFilter_createSuper(Derived) { var hasNativeReflectConstruct = WrapperFilter_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = WrapperFilter_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = WrapperFilter_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return WrapperFilter_possibleConstructorReturn(this, result); }; }
-
 function WrapperFilter_possibleConstructorReturn(self, call) { if (call && (WrapperFilter_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return WrapperFilter_assertThisInitialized(self); }
-
 function WrapperFilter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function WrapperFilter_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function WrapperFilter_getPrototypeOf(o) { WrapperFilter_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return WrapperFilter_getPrototypeOf(o); }
-
-
 
 var WrapperFilter = /*#__PURE__*/function (_Filter) {
   WrapperFilter_inherits(WrapperFilter, _Filter);
-
   var _super = WrapperFilter_createSuper(WrapperFilter);
-
   function WrapperFilter() {
     WrapperFilter_classCallCheck(this, WrapperFilter);
-
     return _super.call(this);
   }
-
   WrapperFilter_createClass(WrapperFilter, [{
     key: "init",
     value: function init() {
@@ -417,64 +322,41 @@ var WrapperFilter = /*#__PURE__*/function (_Filter) {
     key: "filterWrappers",
     value: function filterWrappers() {
       var blacklist = WrapperFilter_get(WrapperFilter_getPrototypeOf(WrapperFilter.prototype), "createBlacklist", this).call(this, 'wrapped');
-
       function wrapper() {
         var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
         var callback = arguments.length > 1 ? arguments[1] : undefined;
-
         if (blacklist.indexOf(name) < 0) {
           callback();
         }
       }
-
       window.CookieConsent.wrapper = wrapper;
     }
   }]);
-
   return WrapperFilter;
 }(Filter);
 
-
 ;// CONCATENATED MODULE: ./src/lib/LocalCookieFilter.js
 function LocalCookieFilter_typeof(obj) { "@babel/helpers - typeof"; return LocalCookieFilter_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, LocalCookieFilter_typeof(obj); }
-
 function LocalCookieFilter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function LocalCookieFilter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function LocalCookieFilter_createClass(Constructor, protoProps, staticProps) { if (protoProps) LocalCookieFilter_defineProperties(Constructor.prototype, protoProps); if (staticProps) LocalCookieFilter_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 function LocalCookieFilter_get() { if (typeof Reflect !== "undefined" && Reflect.get) { LocalCookieFilter_get = Reflect.get; } else { LocalCookieFilter_get = function _get(target, property, receiver) { var base = LocalCookieFilter_superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return LocalCookieFilter_get.apply(this, arguments); }
-
 function LocalCookieFilter_superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = LocalCookieFilter_getPrototypeOf(object); if (object === null) break; } return object; }
-
 function LocalCookieFilter_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) LocalCookieFilter_setPrototypeOf(subClass, superClass); }
-
 function LocalCookieFilter_setPrototypeOf(o, p) { LocalCookieFilter_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return LocalCookieFilter_setPrototypeOf(o, p); }
-
 function LocalCookieFilter_createSuper(Derived) { var hasNativeReflectConstruct = LocalCookieFilter_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = LocalCookieFilter_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = LocalCookieFilter_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return LocalCookieFilter_possibleConstructorReturn(this, result); }; }
-
 function LocalCookieFilter_possibleConstructorReturn(self, call) { if (call && (LocalCookieFilter_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return LocalCookieFilter_assertThisInitialized(self); }
-
 function LocalCookieFilter_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function LocalCookieFilter_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
 function LocalCookieFilter_getPrototypeOf(o) { LocalCookieFilter_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return LocalCookieFilter_getPrototypeOf(o); }
-
-
 
 var LocalCookieFilter = /*#__PURE__*/function (_Filter) {
   LocalCookieFilter_inherits(LocalCookieFilter, _Filter);
-
   var _super = LocalCookieFilter_createSuper(LocalCookieFilter);
-
   function LocalCookieFilter() {
     LocalCookieFilter_classCallCheck(this, LocalCookieFilter);
-
     return _super.call(this);
   }
-
   LocalCookieFilter_createClass(LocalCookieFilter, [{
     key: "init",
     value: function init() {
@@ -485,13 +367,11 @@ var LocalCookieFilter = /*#__PURE__*/function (_Filter) {
     value: function getCookieDescriptor() {
       var cookieDescriptor;
       cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') || Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
-
       if (!cookieDescriptor) {
         cookieDescriptor = {};
         cookieDescriptor.get = HTMLDocument.prototype.__lookupGetter__("cookie");
         cookieDescriptor.set = HTMLDocument.prototype.__lookupSetter__("cookie");
       }
-
       return cookieDescriptor;
     }
   }, {
@@ -499,7 +379,6 @@ var LocalCookieFilter = /*#__PURE__*/function (_Filter) {
     value: function filterlocalCookies() {
       // TODO - implement buffer
       var blacklist = LocalCookieFilter_get(LocalCookieFilter_getPrototypeOf(LocalCookieFilter.prototype), "createBlacklist", this).call(this, 'localcookie');
-
       var cookieDescriptor = this.getCookieDescriptor();
       Object.defineProperty(document, "cookie", {
         configurable: true,
@@ -508,7 +387,6 @@ var LocalCookieFilter = /*#__PURE__*/function (_Filter) {
         },
         set: function set() {
           var cookieArguments = arguments;
-
           if (blacklist.length) {
             var cookieName = arguments[0].split('=')[0];
             Array.prototype.forEach.call(blacklist, function (blacklistItem) {
@@ -521,10 +399,8 @@ var LocalCookieFilter = /*#__PURE__*/function (_Filter) {
       });
     }
   }]);
-
   return LocalCookieFilter;
 }(Filter);
-
 
 ;// CONCATENATED MODULE: ./node_modules/redom/dist/redom.es.js
 function parseQuery (query) {
@@ -1271,16 +1147,12 @@ function memoizeSVG (query) {
 
 ;// CONCATENATED MODULE: ./src/lib/Language.js
 function Language_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function Language_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function Language_createClass(Constructor, protoProps, staticProps) { if (protoProps) Language_defineProperties(Constructor.prototype, protoProps); if (staticProps) Language_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 var Language = /*#__PURE__*/function () {
   function Language() {
     Language_classCallCheck(this, Language);
   }
-
   Language_createClass(Language, [{
     key: "setLocale",
     value: function setLocale(locale) {
@@ -1296,35 +1168,24 @@ var Language = /*#__PURE__*/function () {
       return object.language.locale[currentLocale].hasOwnProperty(key) ? object.language.locale[currentLocale][key] : '[Missing translation]';
     }
   }]);
-
   return Language;
 }();
 
-
 ;// CONCATENATED MODULE: ./src/lib/Interface.js
 function Interface_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = Interface_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
 function Interface_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return Interface_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Interface_arrayLikeToArray(o, minLen); }
-
 function Interface_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function Interface_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function Interface_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function Interface_createClass(Constructor, protoProps, staticProps) { if (protoProps) Interface_defineProperties(Constructor.prototype, protoProps); if (staticProps) Interface_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-
 
 
 
 var Interface = /*#__PURE__*/function () {
   function Interface() {
     Interface_classCallCheck(this, Interface);
-
     this.elements = {};
   }
-
   Interface_createClass(Interface, [{
     key: "buildStyle",
     value: function buildStyle() {
@@ -1355,26 +1216,20 @@ var Interface = /*#__PURE__*/function () {
       // Cookie names list middleware
       var listCookies = function listCookies(category) {
         var list = [];
-
         for (var service in window.CookieConsent.config.services) {
           window.CookieConsent.config.services[service].category === category && list.push(window.CookieConsent.config.services[service]);
         }
-
         if (list.length) {
           var listItems = [];
-
           for (var item in list) {
             listItems.push(el('li', Language.getTranslation(list[item], window.CookieConsent.config.language.current, 'name')));
           }
-
           return [el('div.ccm__list', el('span.ccm__list__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalAffectedSolutions')), el('ul', listItems))];
         }
       };
-
       function modalTabGroups() {
         var contentItems = [];
         var i = 0;
-
         for (var key in window.CookieConsent.config.categories) {
           var tabId = Math.random().toString(16).slice(2);
           contentItems.push(el('dl.ccm__tabgroup' + '.' + key + (window.CookieConsent.config.categories[key].checked ? '.checked-5jhk' : ''), {
@@ -1408,10 +1263,8 @@ var Interface = /*#__PURE__*/function () {
           })));
           i++;
         }
-
         return contentItems;
       }
-
       return el('dialog#cconsent-modal', el('div.ccm__content', el('div.ccm__content__heading', el('h2#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')), el('p', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'), window.CookieConsent.config.modalMainTextMoreLink ? el('a', {
         href: window.CookieConsent.config.modalMainTextMoreLink,
         target: '_blank',
@@ -1427,16 +1280,13 @@ var Interface = /*#__PURE__*/function () {
     key: "modalRedrawIcons",
     value: function modalRedrawIcons() {
       var tabGroups = this.elements['modal'].querySelectorAll('.ccm__tabgroup');
-
       var _iterator = Interface_createForOfIteratorHelper(tabGroups),
-          _step;
-
+        _step;
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var tabGroup = _step.value;
           var lightSwitch = tabGroup.querySelector('button.ccm__switch-group');
           var tabStatus = tabGroup.querySelector('.ccm__tab-head__status');
-
           if (window.CookieConsent.config.categories[tabGroup.dataset.category].checked) {
             if (!tabGroup.classList.contains('checked-5jhk')) {
               tabGroup.classList.add('checked-5jhk');
@@ -1446,7 +1296,6 @@ var Interface = /*#__PURE__*/function () {
               tabStatus.textContent = '✔';
               tabStatus.classList.add('ccm__tab-head__status--checked');
             }
-
             ;
           } else {
             if (tabGroup.classList.contains('checked-5jhk')) tabGroup.classList.remove('checked-5jhk');
@@ -1466,7 +1315,6 @@ var Interface = /*#__PURE__*/function () {
     key: "render",
     value: function render(name, elem, callback) {
       if (typeof callback === 'undefined') callback = function callback() {};
-
       if (typeof this.elements[name] !== 'undefined') {
         this.elements[name].parentNode.replaceChild(elem, this.elements[name]);
         this.elements[name] = elem;
@@ -1474,11 +1322,9 @@ var Interface = /*#__PURE__*/function () {
         return elem;
       } else {
         var insertedElem = mount(document.body, elem, document.body.firstChild);
-
         if (insertedElem) {
           this.elements[name] = insertedElem;
         }
-
         callback(insertedElem);
         return insertedElem;
       }
@@ -1497,14 +1343,12 @@ var Interface = /*#__PURE__*/function () {
           callback();
           return;
         }
-
         that.render('style', that.buildStyle());
         that.render('bar', that.buildBar(), function (bar) {
           // Show the bar after a while
           if (!window.CookieConsent.config.cookieExists) {
             setTimeout(function () {
               var _ref, _ref2;
-
               var buttonSettings = bar.querySelector('.ccb__edit');
               var buttonConsentGive = bar.querySelector('.consent-give');
               var buttonConsentDecline = bar.querySelector('.consent-decline');
@@ -1528,47 +1372,36 @@ var Interface = /*#__PURE__*/function () {
     key: "addEventListeners",
     value: function addEventListeners(elements) {
       var _this = this;
-
       // Set the default state for modal
       var modalOpen = false;
-      var focusTarget = document.querySelector('body'); // If you click Accept all cookies
+      var focusTarget = document.querySelector('body');
 
+      // If you click Accept all cookies
       var buttonConsentGive = document.querySelectorAll('.consent-give');
-
       var _iterator2 = Interface_createForOfIteratorHelper(buttonConsentGive),
-          _step2;
-
+        _step2;
       try {
         var _loop = function _loop() {
           var button = _step2.value;
           button.addEventListener('click', function () {
             var _ref5, _ref6;
-
             var buttonSettings = document.querySelector('.ccb__edit');
-            var buttonConsentDecline = document.querySelector('.consent-decline'); // We set config to full consent
+            var buttonConsentDecline = document.querySelector('.consent-decline');
 
+            // We set config to full consent
             for (var key in window.CookieConsent.config.categories) {
               window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = true;
             }
-
             _this.writeBufferToDOM();
-
             _this.buildCookie(function (cookie) {
               _this.setCookie(cookie);
             });
-
             _this.elements['bar'].classList.add('ccb--hidden');
-
             _this.elements['bar'].setAttribute('aria-hidden', 'true');
-
             _this.elements['bar'].setAttribute('tabindex', '-1');
-
             _this.elements['modal'].classList.remove('ccm--visible');
-
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
-
             _this.elements['modal'].setAttribute('tabindex', '-1');
-
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1577,55 +1410,43 @@ var Interface = /*#__PURE__*/function () {
             (_ref6 = buttonConsentDecline !== null) !== null && _ref6 !== void 0 ? _ref6 : buttonConsentDecline.setAttribute('aria-hidden', 'true');
             focusTarget.focus();
             modalOpen = false;
-
             _this.modalRedrawIcons();
           });
         };
-
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           _loop();
-        } // If you click Reject all cookies
+        }
 
+        // If you click Reject all cookies
       } catch (err) {
         _iterator2.e(err);
       } finally {
         _iterator2.f();
       }
-
       var buttonConsentDecline = document.querySelectorAll('.consent-decline');
-
       var _iterator3 = Interface_createForOfIteratorHelper(buttonConsentDecline),
-          _step3;
-
+        _step3;
       try {
         var _loop2 = function _loop2() {
           var button = _step3.value;
           button.addEventListener('click', function () {
             var buttonSettings = document.querySelector('.ccb__edit');
-            var buttonConsentGive = document.querySelector('.consent-give'); // We set config to full consent only in is needed
+            var buttonConsentGive = document.querySelector('.consent-give');
 
+            // We set config to full consent only in is needed
             for (var key in window.CookieConsent.config.categories) {
               window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].needed;
             }
-
             _this.writeBufferToDOM();
-
             _this.buildCookie(function (cookie) {
               _this.setCookie(cookie);
             });
-
             _this.elements['bar'].classList.add('ccb--hidden');
-
             _this.elements['bar'].setAttribute('aria-hidden', 'true');
-
             _this.elements['bar'].setAttribute('tabindex', '-1');
-
             _this.elements['modal'].classList.remove('ccm--visible');
-
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
-
             _this.elements['modal'].setAttribute('tabindex', '-1');
-
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1634,51 +1455,43 @@ var Interface = /*#__PURE__*/function () {
             buttonConsentGive.setAttribute('aria-hidden', 'true');
             focusTarget.focus();
             modalOpen = false;
-
             _this.modalRedrawIcons();
           });
         };
-
         for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
           _loop2();
-        } // If you click Cookie settings and open modal
+        }
 
+        // If you click Cookie settings and open modal
       } catch (err) {
         _iterator3.e(err);
       } finally {
         _iterator3.f();
       }
-
       Array.prototype.forEach.call(document.getElementsByClassName('ccb__edit'), function (edit) {
         edit.addEventListener('click', function () {
           modalOpen = true;
-
           _this.elements['modal'].classList.add('ccm--visible');
-
           _this.elements['modal'].setAttribute('aria-hidden', 'false');
-
           _this.elements['modal'].setAttribute('tabindex', '0');
-
           _this.elements['modal'].querySelector('.ccm__cheading__close').focus();
         });
-      }); // If you click trough the tabs on Cookie settings
-      // If you click on/off switch
+      });
 
+      // If you click trough the tabs on Cookie settings
+      // If you click on/off switch
       this.elements['modal'].querySelector('.ccm__tabs').addEventListener('click', function (event) {
         // If you click trough the tabs on Cookie settings
         if (event.target.classList.contains('ccm__tab-trigger') || event.target.classList.contains('ccm__tab-head__icon-wedge')) {
           var getDlParent = function getDlParent(eventTarget) {
             var parent = eventTarget.parentNode;
-
             if (parent.nodeName !== 'DL') {
               return getDlParent(parent);
             } else {
               return parent;
             }
           };
-
           var parentDl = getDlParent(event.target);
-
           if (parentDl.classList.contains('ccm__tabgroup--open')) {
             parentDl.classList.remove('ccm__tabgroup--open');
             event.target.setAttribute('aria-expanded', 'false');
@@ -1688,9 +1501,9 @@ var Interface = /*#__PURE__*/function () {
             event.target.setAttribute('aria-expanded', 'true');
             parentDl.querySelector('.ccm__tab-content').setAttribute('aria-hidden', 'false');
           }
-        } // If you click on/off switch
+        }
 
-
+        // If you click on/off switch
         if (event.target.classList.contains('ccm__switch-group')) {
           var status = event.target.getAttribute('aria-checked');
           var label = event.target.textContent.trim();
@@ -1701,7 +1514,6 @@ var Interface = /*#__PURE__*/function () {
           dl.classList.remove('checked-5jhk');
           dlStatus.classList.remove('ccm__tab-head__status--checked');
           dlStatus.classList.remove('ccm__tab-head__status--unchecked');
-
           if (status !== 'true') {
             event.target.setAttribute('aria-label', label + ' ' + Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'enabled'));
             dl.classList.add('checked-5jhk');
@@ -1716,55 +1528,42 @@ var Interface = /*#__PURE__*/function () {
             dlStatus.classList.add('ccm__tab-head__status--unchecked');
           }
         }
-      }); // If you click close on open modal
+      });
 
+      // If you click close on open modal
       this.elements['modal'].querySelector('.ccm__cheading__close').addEventListener('click', function (event) {
         _this.elements['modal'].classList.remove('ccm--visible');
-
         _this.elements['modal'].setAttribute('aria-hidden', 'true');
-
         _this.elements['modal'].setAttribute('tabindex', '-1');
-
         modalOpen = false;
       });
       document.addEventListener('keydown', function (event) {
         if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
           _this.elements['modal'].classList.remove('ccm--visible');
-
           _this.elements['modal'].setAttribute('aria-hidden', 'true');
-
           _this.elements['modal'].setAttribute('tabindex', '-1');
-
           modalOpen = false;
         }
-      }); // If you click submit on cookie settings
+      });
 
+      // If you click submit on cookie settings
       document.getElementById('ccm__footer__consent-modal-submit').addEventListener('click', function () {
         var switchElements = _this.elements['modal'].querySelectorAll('.ccm__switch input');
-
         Array.prototype.forEach.call(switchElements, function (switchElement) {
           window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElement.checked;
         });
         var buttonSettings = document.querySelector('.ccb__edit');
         var buttonConsentGive = document.querySelector('.consent-give');
         var buttonConsentDecline = document.querySelector('.consent-decline');
-
         _this.buildCookie(function (cookie) {
           _this.setCookie(cookie, function () {
             var _ref3, _ref4;
-
             _this.elements['modal'].classList.remove('ccm--visible');
-
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
-
             _this.elements['bar'].classList.add('ccb--hidden');
-
             _this.elements['bar'].setAttribute('aria-hidden', 'true');
-
             _this.elements['bar'].setAttribute('tabindex', '-1');
-
             _this.elements['modal'].setAttribute('tabindex', '-1');
-
             buttonSettings.setAttribute('tabindex', '-1');
             buttonSettings.setAttribute('aria-hidden', 'true');
             buttonConsentGive.setAttribute('tabindex', '-1');
@@ -1775,7 +1574,6 @@ var Interface = /*#__PURE__*/function () {
             modalOpen = false;
           });
         });
-
         _this.writeBufferToDOM();
       });
     }
@@ -1783,12 +1581,10 @@ var Interface = /*#__PURE__*/function () {
     key: "writeBufferToDOM",
     value: function writeBufferToDOM() {
       var _iterator4 = Interface_createForOfIteratorHelper(window.CookieConsent.buffer.appendChild),
-          _step4;
-
+        _step4;
       try {
         for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
           var action = _step4.value;
-
           if (window.CookieConsent.config.categories[action.category].wanted === true) {
             Node.prototype.appendChild.apply(action.this, action.arguments);
           }
@@ -1798,14 +1594,11 @@ var Interface = /*#__PURE__*/function () {
       } finally {
         _iterator4.f();
       }
-
       var _iterator5 = Interface_createForOfIteratorHelper(window.CookieConsent.buffer.insertBefore),
-          _step5;
-
+        _step5;
       try {
         for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
           var _action = _step5.value;
-
           if (window.CookieConsent.config.categories[_action.category].wanted === true) {
             _action.arguments[1] = _action.arguments[0].parentNode === null ? _action.this.lastChild : _action.arguments[1];
             Node.prototype.insertBefore.apply(_action.this, _action.arguments);
@@ -1818,21 +1611,37 @@ var Interface = /*#__PURE__*/function () {
       }
     }
   }, {
+    key: "updateConsentMode",
+    value: function updateConsentMode(cookie) {
+      var isGTMEnabled = window.dataLayer || false;
+      if (isGTMEnabled) {
+        var gtag = function gtag() {
+          dataLayer.push(arguments);
+        };
+        gtag('consent', 'update', cookie.consentMode);
+        localStorage.setItem('consentMode', JSON.stringify(cookie.consentMode));
+      }
+    }
+  }, {
     key: "buildCookie",
     value: function buildCookie(callback) {
       var cookie = {
         version: window.CookieConsent.config.cookieVersion,
         categories: {},
-        services: []
+        services: [],
+        consentMode: {}
       };
-
       for (var key in window.CookieConsent.config.categories) {
         cookie.categories[key] = {
           wanted: window.CookieConsent.config.categories[key].wanted
         };
       }
-
+      for (var _key in window.CookieConsent.config.consentModeControls) {
+        var _window$CookieConsent;
+        cookie.consentMode[_key] = (_window$CookieConsent = window.CookieConsent.config.categories[window.CookieConsent.config.consentModeControls[_key]]) !== null && _window$CookieConsent !== void 0 && _window$CookieConsent.wanted ? 'granted' : 'denied';
+      }
       cookie.services = Utilities.listGlobalServices();
+      this.updateConsentMode(cookie);
       if (callback) callback(cookie);
       return cookie;
     }
@@ -1844,36 +1653,28 @@ var Interface = /*#__PURE__*/function () {
       if (callback) callback();
     }
   }]);
-
   return Interface;
 }();
 
-
 ;// CONCATENATED MODULE: ./src/lib/Configuration.js
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function Configuration_typeof(obj) { "@babel/helpers - typeof"; return Configuration_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Configuration_typeof(obj); }
-
 function Configuration_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function Configuration_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function Configuration_createClass(Constructor, protoProps, staticProps) { if (protoProps) Configuration_defineProperties(Constructor.prototype, protoProps); if (staticProps) Configuration_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-
 
 var Configuration = /*#__PURE__*/function () {
   function Configuration(configObject) {
     Configuration_classCallCheck(this, Configuration);
-
     window.CookieConsent.buffer = {
       appendChild: [],
       insertBefore: []
-    }; // Wrapper filter function
+    };
 
-    window.CookieConsent.wrapper = function () {}; // Settings injector for users
+    // Wrapper filter function
+    window.CookieConsent.wrapper = function () {};
 
-
+    // Settings injector for users
     window.CookieConsent.setConfiguration = this.setConfiguration.bind(this);
     window.CookieConsent.config = {
       active: true,
@@ -1940,21 +1741,23 @@ var Configuration = /*#__PURE__*/function () {
         }
       },
       categories: {},
+      consentModeControls: {},
       services: {}
     };
     this.setConfiguration(configObject);
   }
-
   Configuration_createClass(Configuration, [{
     key: "setConfiguration",
     value: function setConfiguration(configObject) {
       // The user overrides the default config
       // console.log(window.CookieConsent.config, configObject, { ...window.CookieConsent.config, ...configObject });
-      this.mergeDeep(window.CookieConsent.config, configObject); //loMerge(window.CookieConsent.config, configObject);
+
+      this.mergeDeep(window.CookieConsent.config, configObject);
+      //loMerge(window.CookieConsent.config, configObject);
       // The cookie overrides the default and user config
+      this.cookieToConfig();
 
-      this.cookieToConfig(); // We tell the world we did this
-
+      // We tell the world we did this
       Utilities.dispatchEvent(document, 'CCConfigSet');
     }
   }, {
@@ -1965,65 +1768,72 @@ var Configuration = /*#__PURE__*/function () {
         location.reload();
         return false;
       }
-
       document.cookie.split(';').filter(function (item) {
         if (item.indexOf('cconsent') >= 0) {
-          var cookieData = JSON.parse(item.split('=')[1]); // We check cookie version. If older we need to renew cookie.
+          var cookieData = JSON.parse(item.split('=')[1]);
 
+          // We check cookie version. If older we need to renew cookie.
           if (typeof cookieData.version === 'undefined') {
             return removeReload();
           } else {
             if (cookieData.version !== window.CookieConsent.config.cookieVersion) {
               return removeReload();
             }
-          } // We check if cookie data categories also exist in user config
+          }
 
-
+          // We check if cookie data categories also exist in user config
           for (var key in cookieData.categories) {
             // The cookie contains category not present in user config so we invalidate cookie
             if (typeof window.CookieConsent.config.categories[key] === 'undefined') {
               return removeReload();
             }
-          } // We check if cookie data services also exist in user config
+          }
 
+          // We check if cookie data consent mode controls also exist in user config
+          for (var _key in cookieData.consentMode) {
+            if (typeof window.CookieConsent.config.consentModeControls[_key] === 'undefined') {
+              return removeReload();
+            }
+          }
 
+          // We check if cookie data services also exist in user config
           cookieData.services.forEach(function (service) {
             // The cookie contains service not present in user config so we invalidate cookie
             if (typeof window.CookieConsent.config.services[service] === 'undefined') {
               return removeReload();
             }
-          }); // If we don't have UI we ignore the saved cookie configuration.
+          });
 
+          // If we don't have UI we ignore the saved cookie configuration.
           if (!window.CookieConsent.config.noUI) {
             // We integrate cookie data into the global config object
-            for (var _key in cookieData.categories) {
-              window.CookieConsent.config.categories[_key].checked = window.CookieConsent.config.categories[_key].wanted = cookieData.categories[_key].wanted === true ? true : false;
+            for (var _key2 in cookieData.categories) {
+              window.CookieConsent.config.categories[_key2].checked = window.CookieConsent.config.categories[_key2].wanted = cookieData.categories[_key2].wanted === true ? true : false;
             }
           }
-
           window.CookieConsent.config.cookieExists = true;
           return true;
         }
       });
       return false;
-    } // Simple object check.
+    }
 
+    // Simple object check.
   }, {
     key: "isObject",
     value: function isObject(item) {
       return item && Configuration_typeof(item) === 'object' && !Array.isArray(item);
-    } //Deep merge two objects.
+    }
 
+    //Deep merge two objects.
   }, {
     key: "mergeDeep",
     value: function mergeDeep(target) {
-      for (var _len = arguments.length, sources = new Array(_len > 1 ? _len - 1 : 0), _key2 = 1; _key2 < _len; _key2++) {
-        sources[_key2 - 1] = arguments[_key2];
+      for (var _len = arguments.length, sources = new Array(_len > 1 ? _len - 1 : 0), _key3 = 1; _key3 < _len; _key3++) {
+        sources[_key3 - 1] = arguments[_key3];
       }
-
       if (!sources.length) return target;
       var source = sources.shift();
-
       if (this.isObject(target) && this.isObject(source)) {
         for (var key in source) {
           if (this.isObject(source[key])) {
@@ -2034,29 +1844,21 @@ var Configuration = /*#__PURE__*/function () {
           }
         }
       }
-
       return this.mergeDeep.apply(this, [target].concat(sources));
     }
   }]);
-
   return Configuration;
 }();
 
-
 ;// CONCATENATED MODULE: ./src/lib/RemoveCookies.js
 function RemoveCookies_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function RemoveCookies_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function RemoveCookies_createClass(Constructor, protoProps, staticProps) { if (protoProps) RemoveCookies_defineProperties(Constructor.prototype, protoProps); if (staticProps) RemoveCookies_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-
 
 var RemoveCookies = /*#__PURE__*/function () {
   function RemoveCookies() {
     RemoveCookies_classCallCheck(this, RemoveCookies);
   }
-
   RemoveCookies_createClass(RemoveCookies, [{
     key: "init",
     value: function init() {
@@ -2070,14 +1872,12 @@ var RemoveCookies = /*#__PURE__*/function () {
       document.cookie.split(';').map(function (a) {
         cookieList.push(a.split('=')[0].replace(/(^\s*)|(\s*&)/, ''));
       });
-
       for (var service in config.services) {
         if (Utilities.objectType(config.services[service].cookies) === 'Array') {
           // Remove cookies if they are not wanted by user
           if (!config.categories[config.services[service].category].wanted) {
             for (var i in config.services[service].cookies) {
               var type = Utilities.objectType(config.services[service].cookies[i].name);
-
               if (type === 'String') {
                 if (cookieList.indexOf(config.services[service].cookies[i].name) > -1) {
                   this.removeCookie(config.services[service].cookies[i]);
@@ -2085,7 +1885,6 @@ var RemoveCookies = /*#__PURE__*/function () {
               } else if (type === 'RegExp') {
                 // Searching cookie list for cookies matching specified RegExp
                 var cookieDef = config.services[service].cookies[i];
-
                 for (var c in cookieList) {
                   if (cookieList[c].match(cookieDef.name)) {
                     this.removeCookie({
@@ -2108,19 +1907,13 @@ var RemoveCookies = /*#__PURE__*/function () {
       document.cookie = "".concat(cookie.name, "=; expires=Thu, 01 Jan 1980 00:00:00 UTC; ").concat(domain, " path=/;");
     }
   }]);
-
   return RemoveCookies;
 }();
 
-
 ;// CONCATENATED MODULE: ./src/lib/CookieConsent.js
 function CookieConsent_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function CookieConsent_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
 function CookieConsent_createClass(Constructor, protoProps, staticProps) { if (protoProps) CookieConsent_defineProperties(Constructor.prototype, protoProps); if (staticProps) CookieConsent_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-
 
 
 
@@ -2132,7 +1925,6 @@ var CookieConsent = /*#__PURE__*/function () {
   function CookieConsent() {
     CookieConsent_classCallCheck(this, CookieConsent);
   }
-
   CookieConsent_createClass(CookieConsent, [{
     key: "init",
     value: function init(configObject) {
@@ -2153,10 +1945,8 @@ var CookieConsent = /*#__PURE__*/function () {
       });
     }
   }]);
-
   return CookieConsent;
 }();
-
 
 ;// CONCATENATED MODULE: ./src/index.js
 
