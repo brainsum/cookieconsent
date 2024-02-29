@@ -105,7 +105,6 @@ export default class Configuration {
 
     function removeReload() {
       Utilities.removeCookie();
-      localStorage.removeItem('consentMode')
       location.reload();
       return false;
     }
