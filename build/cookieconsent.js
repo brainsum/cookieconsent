@@ -1366,7 +1366,18 @@ var Interface = /*#__PURE__*/function () {
             }, window.CookieConsent.config.barTimeout);
           }
         });
-        that.render('modal', that.buildModal());
+
+        //show modal if no cookie is set
+        that.render('modal', that.buildModal(), function (modal) {
+          if (!window.CookieConsent.config.cookieExists) {
+            setTimeout(function () {
+              modal.classList.add('ccm--visible');
+              modal.setAttribute('aria-hidden', 'false');
+              modal.setAttribute('tabindex', '0');
+              modal.querySelector('.ccm__cheading__close').focus();
+            }, window.CookieConsent.config.barTimeout);
+          }
+        });
         callback();
       });
     }

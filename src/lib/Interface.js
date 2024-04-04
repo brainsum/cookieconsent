@@ -274,7 +274,17 @@ export default class Interface {
         }
       });
 
-      that.render('modal', that.buildModal());
+      //show modal if no cookie is set
+      that.render('modal', that.buildModal(), (modal) => {
+        if (!window.CookieConsent.config.cookieExists){
+          setTimeout(() => {
+            modal.classList.add('ccm--visible');
+            modal.setAttribute('aria-hidden', 'false');
+            modal.setAttribute('tabindex', '0');
+            modal.querySelector('.ccm__cheading__close').focus();
+          }, window.CookieConsent.config.barTimeout)
+        }
+      });
 
       callback();
     });
