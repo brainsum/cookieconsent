@@ -1191,7 +1191,7 @@ var Interface = /*#__PURE__*/function () {
   Interface_createClass(Interface, [{
     key: "buildStyle",
     value: function buildStyle() {
-      return el('style', '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', '#cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }', '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}', '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}', '#cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}', '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}', '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}', '#cconsent-bar button { line-height:normal; font-size:14px; border:0; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-give { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; margin-right: 10px; border: 1px solid ' + window.CookieConsent.config.theme.barMainButtonColor + '}', '#cconsent-bar button.ccb__edit { -moz-appearance:none; -webkit-appearance:none; appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; background:none; }', '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }', '#cconsent-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}', '@media (max-width: 600px) { #cconsent-modal { height: 100% } }', '#cconsent-modal button { border: 0 }', '#cconsent-modal h2, #cconsent-modal h3 {color:#333}', '#cconsent-modal.ccm--visible {display:flex}', '#cconsent-modal .ccm__content { max-width:600px; min-height:500px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; }', '@media (max-width: 600px) { #cconsent-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}', '#cconsent-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }', '#cconsent-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }', '#cconsent-modal h2, #cconsent-modal h3 { margin-top:0 }', '#cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head {color:#333; font-weight:600; cursor:pointer; position:relative; padding:0; margin:0; transition: background-color .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head:hover { background-color:#F9F9F9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status { order: 1; position:absolute; left:35px; font-weight: 600; display:inline-block; margin-right: 20px; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--checked { font-size:1em; color:#28a834; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--unchecked { font-size:1.4em; color:#e56385; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__text { order: 2; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge { transition: transform .3s ease-out; transform-origin: center; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%); order: 3;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge > svg { pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head .ccm__tab-head__icon-wedge { transform:translateY(-50%) rotate(-180deg) }', '#cconsent-modal .ccm__tab-trigger { appearance: none; background: none; display: flex; flex-direction: row; width: 100%; padding:17px 35px 17px 56px; color:#333; font-weight:600; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content {padding:0; margin:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content { max-height: 0; overflow: hidden; opacity: 0; transition: all .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content__inner { display: flex; flex-direction: row; padding:25px 35px; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head { background-color:#f9f9f9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content { max-height: 900px; opacity: 1; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose {order:1;}', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content {flex-direction:column} }', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose { margin-bottom:20px; } }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-component {display:flex; margin-right:35px; align-items:center;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__status {font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group {background:none; width:40px; height:20px; margin:0 10px; position:relative;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s; pointer-events: none;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider {background-color: #28A834;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus-visible {box-shadow: 0 0 0 2px' + window.CookieConsent.config.theme.focusColor + ';}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__desc {order:2;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content p {color:#444; margin-bottom:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list:not(:empty) {margin-top:30px;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list .ccm__list__title {color:#333; font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }', '#cconsent-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }', '#cconsent-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }', '#cconsent-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }', '#cconsent-modal .ccm__footer button + button { margin-left: 10px; }');
+      return el('style', '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', '#cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }', '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}', '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}', '#cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}', '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}', '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}', '#cconsent-bar button { line-height:normal; font-size:14px; border:0; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-give { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; margin-right: 10px; border: 1px solid ' + window.CookieConsent.config.theme.barMainButtonColor + '}', '#cconsent-bar button.ccb__edit { -moz-appearance:none; -webkit-appearance:none; appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; background:none; }', '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }', '#cconsent-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}', '@media (max-width: 600px) { #cconsent-modal { height: 100% } }', '#cconsent-modal button { border: 0 }', '#cconsent-modal h2, #cconsent-modal h3 {color:#333}', '#cconsent-modal.ccm--visible {display:flex}', '#cconsent-modal .ccm__content { max-width:600px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; display:flex; flex-direction:column; justify-content:space-between; }', '@media (max-width: 600px) { #cconsent-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}', '#cconsent-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }', '#cconsent-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }', '#cconsent-modal h2, #cconsent-modal h3 { margin-top:0 }', '#cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head {color:#333; font-weight:600; cursor:pointer; position:relative; padding:0; margin:0; transition: background-color .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head:hover { background-color:#F9F9F9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status { order: 1; position:absolute; left:35px; font-weight: 600; display:inline-block; margin-right: 20px; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--checked { font-size:1em; color:#28a834; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--unchecked { font-size:1.4em; color:#e56385; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__text { order: 2; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge { transition: transform .3s ease-out; transform-origin: center; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%); order: 3;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge > svg { pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head .ccm__tab-head__icon-wedge { transform:translateY(-50%) rotate(-180deg) }', '#cconsent-modal .ccm__tab-trigger { appearance: none; background: none; display: flex; flex-direction: row; width: 100%; padding:17px 35px 17px 56px; color:#333; font-weight:600; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content {padding:0; margin:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content { max-height: 0; overflow: hidden; opacity: 0; transition: all .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content__inner { display: flex; flex-direction: row; padding:25px 35px; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head { background-color:#f9f9f9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content { max-height: 900px; opacity: 1; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose {order:1;}', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content {flex-direction:column} }', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose { margin-bottom:20px; } }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-component {display:flex; margin-right:35px; align-items:center;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__status {font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group {background:none; width:40px; height:20px; margin:0 10px; position:relative;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s; pointer-events: none;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider {background-color: #28A834;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus-visible {box-shadow: 0 0 0 2px' + window.CookieConsent.config.theme.focusColor + ';}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__desc {order:2;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content p {color:#444; margin-bottom:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list:not(:empty) {margin-top:30px;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list .ccm__list__title {color:#333; font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }', '#cconsent-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }', '#cconsent-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }', '#cconsent-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }', '#cconsent-modal .ccm__footer button + button { margin-left: 10px; }');
     }
   }, {
     key: "buildBar",
@@ -1279,6 +1279,18 @@ var Interface = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "buildInitialModal",
+    value: function buildInitialModal() {
+      return el('dialog#cconsent-modal', el('div.ccm__content', el('div.ccm__content__heading', el('h2#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')), el('p', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'), window.CookieConsent.config.modalMainTextMoreLink ? el('a', {
+        href: window.CookieConsent.config.modalMainTextMoreLink,
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null)), el('div.ccm__footer', el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnDisagree')), el('button.ccm__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnOptions')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnAgree')))), {
+        'aria-labelledby': 'ccm__content__title',
+        'aria-hidden': 'true'
+      });
+    }
+  }, {
     key: "modalRedrawIcons",
     value: function modalRedrawIcons() {
       var tabGroups = this.elements['modal'].querySelectorAll('.ccm__tabgroup');
@@ -1346,27 +1358,45 @@ var Interface = /*#__PURE__*/function () {
           return;
         }
         that.render('style', that.buildStyle());
-        that.render('bar', that.buildBar(), function (bar) {
-          // Show the bar after a while
-          if (!window.CookieConsent.config.cookieExists) {
-            setTimeout(function () {
-              var _ref, _ref2;
-              var buttonSettings = bar.querySelector('.ccb__edit');
-              var buttonConsentGive = bar.querySelector('.consent-give');
-              var buttonConsentDecline = bar.querySelector('.consent-decline');
-              bar.classList.remove('ccb--hidden');
-              bar.setAttribute('aria-hidden', 'false');
-              bar.setAttribute('tabindex', '0');
-              buttonSettings.setAttribute('tabindex', '0');
-              buttonSettings.setAttribute('aria-hidden', 'false');
-              buttonConsentGive.setAttribute('tabindex', '0');
-              buttonConsentGive.setAttribute('aria-hidden', 'false');
-              (_ref = buttonConsentDecline !== null) !== null && _ref !== void 0 ? _ref : buttonConsentDecline.setAttribute('tabindex', '0');
-              (_ref2 = buttonConsentDecline !== null) !== null && _ref2 !== void 0 ? _ref2 : buttonConsentDecline.setAttribute('aria-hidden', 'false');
-            }, window.CookieConsent.config.barTimeout);
-          }
-        });
+
+        //show the bar only if modal Layout config param is false
+        if (!window.CookieConsent.config.modalLayoutActive) {
+          that.render('bar', that.buildBar(), function (bar) {
+            // Show the bar after a while
+            if (!window.CookieConsent.config.cookieExists) {
+              setTimeout(function () {
+                var _ref, _ref2;
+                var buttonSettings = bar.querySelector('.ccb__edit');
+                var buttonConsentGive = bar.querySelector('.consent-give');
+                var buttonConsentDecline = bar.querySelector('.consent-decline');
+                bar.classList.remove('ccb--hidden');
+                bar.setAttribute('aria-hidden', 'false');
+                bar.setAttribute('tabindex', '0');
+                buttonSettings.setAttribute('tabindex', '0');
+                buttonSettings.setAttribute('aria-hidden', 'false');
+                buttonConsentGive.setAttribute('tabindex', '0');
+                buttonConsentGive.setAttribute('aria-hidden', 'false');
+                (_ref = buttonConsentDecline !== null) !== null && _ref !== void 0 ? _ref : buttonConsentDecline.setAttribute('tabindex', '0');
+                (_ref2 = buttonConsentDecline !== null) !== null && _ref2 !== void 0 ? _ref2 : buttonConsentDecline.setAttribute('aria-hidden', 'false');
+              }, window.CookieConsent.config.UITimeout);
+            }
+          });
+        }
         that.render('modal', that.buildModal());
+
+        //show init modal if modal layout param is true
+        if (window.CookieConsent.config.modalLayoutActive) {
+          that.render('modalInit', that.buildInitialModal(), function (modal) {
+            if (!window.CookieConsent.config.cookieExists) {
+              setTimeout(function () {
+                modal.classList.add('ccm--visible');
+                modal.setAttribute('aria-hidden', 'false');
+                modal.setAttribute('tabindex', '0');
+                modal.querySelector('.ccm__footer').style.justifyContent = 'center';
+              }, window.CookieConsent.config.UITimeout);
+            }
+          });
+        }
         callback();
       });
     }
@@ -1386,7 +1416,7 @@ var Interface = /*#__PURE__*/function () {
         var _loop = function _loop() {
           var button = _step2.value;
           button.addEventListener('click', function () {
-            var _ref5, _ref6;
+            var _this$elements$bar4, _this$elements$bar5, _this$elements$bar6, _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6, _ref5, _ref6;
             var buttonSettings = document.querySelector('.ccb__edit');
             var buttonConsentDecline = document.querySelector('.consent-decline');
 
@@ -1398,12 +1428,15 @@ var Interface = /*#__PURE__*/function () {
             _this.buildCookie(function (cookie) {
               _this.setCookie(cookie);
             });
-            _this.elements['bar'].classList.add('ccb--hidden');
-            _this.elements['bar'].setAttribute('aria-hidden', 'true');
-            _this.elements['bar'].setAttribute('tabindex', '-1');
+            (_this$elements$bar4 = _this.elements['bar']) === null || _this$elements$bar4 === void 0 ? void 0 : _this$elements$bar4.classList.add('ccb--hidden');
+            (_this$elements$bar5 = _this.elements['bar']) === null || _this$elements$bar5 === void 0 ? void 0 : _this$elements$bar5.setAttribute('aria-hidden', 'true');
+            (_this$elements$bar6 = _this.elements['bar']) === null || _this$elements$bar6 === void 0 ? void 0 : _this$elements$bar6.setAttribute('tabindex', '-1');
             _this.elements['modal'].classList.remove('ccm--visible');
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
             _this.elements['modal'].setAttribute('tabindex', '-1');
+            (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.remove('ccm--visible');
+            (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '-1');
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1432,6 +1465,7 @@ var Interface = /*#__PURE__*/function () {
         var _loop2 = function _loop2() {
           var button = _step3.value;
           button.addEventListener('click', function () {
+            var _this$elements$bar7, _this$elements$bar8, _this$elements$bar9, _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
             var buttonSettings = document.querySelector('.ccb__edit');
             var buttonConsentGive = document.querySelector('.consent-give');
 
@@ -1443,12 +1477,15 @@ var Interface = /*#__PURE__*/function () {
             _this.buildCookie(function (cookie) {
               _this.setCookie(cookie);
             });
-            _this.elements['bar'].classList.add('ccb--hidden');
-            _this.elements['bar'].setAttribute('aria-hidden', 'true');
-            _this.elements['bar'].setAttribute('tabindex', '-1');
+            (_this$elements$bar7 = _this.elements['bar']) === null || _this$elements$bar7 === void 0 ? void 0 : _this$elements$bar7.classList.add('ccb--hidden');
+            (_this$elements$bar8 = _this.elements['bar']) === null || _this$elements$bar8 === void 0 ? void 0 : _this$elements$bar8.setAttribute('aria-hidden', 'true');
+            (_this$elements$bar9 = _this.elements['bar']) === null || _this$elements$bar9 === void 0 ? void 0 : _this$elements$bar9.setAttribute('tabindex', '-1');
             _this.elements['modal'].classList.remove('ccm--visible');
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
             _this.elements['modal'].setAttribute('tabindex', '-1');
+            (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.remove('ccm--visible');
+            (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '-1');
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1464,13 +1501,13 @@ var Interface = /*#__PURE__*/function () {
           _loop2();
         }
 
-        // If you click Cookie settings and open modal
+        // If you click Cookie settings and open settings modal
       } catch (err) {
         _iterator3.e(err);
       } finally {
         _iterator3.f();
       }
-      Array.prototype.forEach.call(document.getElementsByClassName('ccb__edit'), function (edit) {
+      Array.prototype.forEach.call(document.querySelectorAll('.ccm__edit, .ccb__edit'), function (edit) {
         edit.addEventListener('click', function () {
           modalOpen = true;
           _this.elements['modal'].classList.add('ccm--visible');
@@ -1559,13 +1596,16 @@ var Interface = /*#__PURE__*/function () {
         var buttonConsentDecline = document.querySelector('.consent-decline');
         _this.buildCookie(function (cookie) {
           _this.setCookie(cookie, function () {
-            var _ref3, _ref4;
+            var _this$elements$modalI, _this$elements$modalI2, _this$elements$modalI3, _this$elements$bar, _this$elements$bar2, _this$elements$bar3, _ref3, _ref4;
             _this.elements['modal'].classList.remove('ccm--visible');
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
-            _this.elements['bar'].classList.add('ccb--hidden');
-            _this.elements['bar'].setAttribute('aria-hidden', 'true');
-            _this.elements['bar'].setAttribute('tabindex', '-1');
             _this.elements['modal'].setAttribute('tabindex', '-1');
+            (_this$elements$modalI = _this.elements['modalInit']) === null || _this$elements$modalI === void 0 ? void 0 : _this$elements$modalI.classList.remove('ccm--visible');
+            (_this$elements$modalI2 = _this.elements['modalInit']) === null || _this$elements$modalI2 === void 0 ? void 0 : _this$elements$modalI2.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI3 = _this.elements['modalInit']) === null || _this$elements$modalI3 === void 0 ? void 0 : _this$elements$modalI3.setAttribute('tabindex', '-1');
+            (_this$elements$bar = _this.elements['bar']) === null || _this$elements$bar === void 0 ? void 0 : _this$elements$bar.classList.add('ccb--hidden');
+            (_this$elements$bar2 = _this.elements['bar']) === null || _this$elements$bar2 === void 0 ? void 0 : _this$elements$bar2.setAttribute('aria-hidden', 'true');
+            (_this$elements$bar3 = _this.elements['bar']) === null || _this$elements$bar3 === void 0 ? void 0 : _this$elements$bar3.setAttribute('tabindex', '-1');
             buttonSettings.setAttribute('tabindex', '-1');
             buttonSettings.setAttribute('aria-hidden', 'true');
             buttonConsentGive.setAttribute('tabindex', '-1');
@@ -1682,9 +1722,10 @@ var Configuration = /*#__PURE__*/function () {
       active: true,
       cookieExists: false,
       cookieVersion: 1,
+      modalLayoutActive: false,
       modalMainTextMoreLink: null,
       showRejectAllButton: false,
-      barTimeout: 1000,
+      UITimeout: 1000,
       noUI: false,
       theme: {
         barColor: '#2b7abb',
@@ -1710,6 +1751,9 @@ var Configuration = /*#__PURE__*/function () {
             modalBtnSave: 'Save current settings',
             modalBtnAcceptAll: 'Accept all cookies and close',
             modalBtnRejectAll: 'Reject all cookies and close',
+            initModalBtnAgree: 'I agree',
+            initModalBtnDisagree: 'I do not agree',
+            initModalBtnOptions: 'Manage options',
             modalAffectedSolutions: 'Affected solutions:',
             learnMore: 'Learn More',
             on: 'On',
@@ -1731,6 +1775,9 @@ var Configuration = /*#__PURE__*/function () {
             modalBtnSave: 'Beállítások mentése',
             modalBtnAcceptAll: 'Minden Süti elfogadása',
             modalBtnRejectAll: 'Minden süti elutasítása',
+            initModalBtnAgree: 'Egyetértek',
+            initModalBtnDisagree: 'Nem értek egyet',
+            initModalBtnOptions: 'Beállítások kezelése',
             modalAffectedSolutions: 'Mire lesz ez hatással:',
             learnMore: 'Tudj meg többet',
             on: 'Be',

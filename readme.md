@@ -56,8 +56,8 @@ The script is being controlled mainly by a configuration object which is passed 
   window.CookieConsent.init({
     // More link URL on bar.
     modalMainTextMoreLink: null,
-    // How long to wait until bar comes up.
-    barTimeout: 1000,
+    // How long to wait until bar or initial modal comes up.
+    UITimeout: 1000,
     // Look and feel.
     theme: {
       barColor: '#2C7CBF',
