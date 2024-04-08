@@ -29,7 +29,7 @@ export default class Interface {
       '#cconsent-modal button { border: 0 }',
       '#cconsent-modal h2, #cconsent-modal h3 {color:#333}',
       '#cconsent-modal.ccm--visible {display:flex}',
-      '#cconsent-modal .ccm__content { max-width:600px; min-height:500px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; }',
+      '#cconsent-modal .ccm__content { max-width:600px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; display:flex; flex-direction:column; justify-content:space-between; }',
       '@media (max-width: 600px) { #cconsent-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}',
       '#cconsent-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }',
       '#cconsent-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }',
@@ -191,6 +191,26 @@ export default class Interface {
     );
   }
 
+  buildInitialModal() {
+    return el('dialog#cconsent-modal',
+      el('div.ccm__content',
+        el('div.ccm__content__heading',
+          el('h2#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')),
+          el('p',
+            Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'),
+            (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null
+          ),
+        ),
+        el('div.ccm__footer',
+          el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnDisagree')),
+
+          el('button.ccm__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnOptions')),
+          el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnAgree')),
+        )
+      ), { 'aria-labelledby': 'ccm__content__title', 'aria-hidden': 'true' }
+    );
+  }
+
   modalRedrawIcons() {
     var tabGroups = this.elements['modal'].querySelectorAll('.ccm__tabgroup');
 
@@ -252,29 +272,46 @@ export default class Interface {
 
       that.render('style', that.buildStyle());
 
-      that.render('bar', that.buildBar(), (bar) => {
+      //show the bar only if modal Layout config param is false
+      if (!window.CookieConsent.config.modalLayoutActive) {
+        that.render('bar', that.buildBar(), (bar) => {
+  
+          // Show the bar after a while
+          if ( ! window.CookieConsent.config.cookieExists) {
+            setTimeout(() => {
+              var buttonSettings = bar.querySelector('.ccb__edit');
+              var buttonConsentGive = bar.querySelector('.consent-give');
+              var buttonConsentDecline = bar.querySelector('.consent-decline');
+  
+              bar.classList.remove('ccb--hidden');
+              bar.setAttribute('aria-hidden', 'false');
+              bar.setAttribute('tabindex', '0');
+              buttonSettings.setAttribute('tabindex', '0');
+              buttonSettings.setAttribute('aria-hidden', 'false');
+              buttonConsentGive.setAttribute('tabindex', '0');
+              buttonConsentGive.setAttribute('aria-hidden', 'false');
+              buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('tabindex', '0');
+              buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('aria-hidden', 'false');
+            }, window.CookieConsent.config.UITimeout);
+          }
+        });
+      }
 
-        // Show the bar after a while
-        if ( ! window.CookieConsent.config.cookieExists) {
-          setTimeout(() => {
-            var buttonSettings = bar.querySelector('.ccb__edit');
-            var buttonConsentGive = bar.querySelector('.consent-give');
-            var buttonConsentDecline = bar.querySelector('.consent-decline');
+      that.render('modal', that.buildModal())
 
-            bar.classList.remove('ccb--hidden');
-            bar.setAttribute('aria-hidden', 'false');
-            bar.setAttribute('tabindex', '0');
-            buttonSettings.setAttribute('tabindex', '0');
-            buttonSettings.setAttribute('aria-hidden', 'false');
-            buttonConsentGive.setAttribute('tabindex', '0');
-            buttonConsentGive.setAttribute('aria-hidden', 'false');
-            buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('tabindex', '0');
-            buttonConsentDecline !== null ?? buttonConsentDecline.setAttribute('aria-hidden', 'false');
-          }, window.CookieConsent.config.barTimeout);
-        }
-      });
-
-      that.render('modal', that.buildModal());
+      //show init modal if modal layout param is true
+      if (window.CookieConsent.config.modalLayoutActive) {
+        that.render('modalInit', that.buildInitialModal(), (modal) => {
+          if (!window.CookieConsent.config.cookieExists){
+            setTimeout(() => {
+              modal.classList.add('ccm--visible');
+              modal.setAttribute('aria-hidden', 'false');
+              modal.setAttribute('tabindex', '0');
+              modal.querySelector('.ccm__footer').style.justifyContent = 'center';
+            }, window.CookieConsent.config.UITimeout)
+          }
+        });
+      }
 
       callback();
     });
@@ -306,12 +343,16 @@ export default class Interface {
           this.setCookie(cookie);
         });
 
-        this.elements['bar'].classList.add('ccb--hidden');
-        this.elements['bar'].setAttribute('aria-hidden', 'true');
-        this.elements['bar'].setAttribute('tabindex', '-1');
+        this.elements['bar']?.classList.add('ccb--hidden');
+        this.elements['bar']?.setAttribute('aria-hidden', 'true');
+        this.elements['bar']?.setAttribute('tabindex', '-1');
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
+        this.elements['modalInit']?.classList.remove('ccm--visible');
+        this.elements['modalInit']?.setAttribute('aria-hidden', 'true');
+        this.elements['modalInit']?.setAttribute('tabindex', '-1');
+
         button.setAttribute('tabindex', '-1');
         button.setAttribute('aria-hidden', 'true');
         buttonSettings.setAttribute('tabindex', '-1');
@@ -346,12 +387,16 @@ export default class Interface {
           this.setCookie(cookie);
         });
 
-        this.elements['bar'].classList.add('ccb--hidden');
-        this.elements['bar'].setAttribute('aria-hidden', 'true');
-        this.elements['bar'].setAttribute('tabindex', '-1');
+        this.elements['bar']?.classList.add('ccb--hidden');
+        this.elements['bar']?.setAttribute('aria-hidden', 'true');
+        this.elements['bar']?.setAttribute('tabindex', '-1');
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
+        this.elements['modalInit']?.classList.remove('ccm--visible');
+        this.elements['modalInit']?.setAttribute('aria-hidden', 'true');
+        this.elements['modalInit']?.setAttribute('tabindex', '-1');
+
         button.setAttribute('tabindex', '-1');
         button.setAttribute('aria-hidden', 'true');
         buttonSettings.setAttribute('tabindex', '-1');
@@ -367,8 +412,8 @@ export default class Interface {
     }
 
 
-    // If you click Cookie settings and open modal
-    Array.prototype.forEach.call(document.getElementsByClassName('ccb__edit'), (edit) => {
+    // If you click Cookie settings and open settings modal
+    Array.prototype.forEach.call(document.querySelectorAll('.ccm__edit, .ccb__edit'), (edit) => {
       edit.addEventListener('click', () => {
         modalOpen = true;
         this.elements['modal'].classList.add('ccm--visible');
@@ -473,10 +518,13 @@ export default class Interface {
         this.setCookie(cookie, () => {
           this.elements['modal'].classList.remove('ccm--visible');
           this.elements['modal'].setAttribute('aria-hidden', 'true');
-          this.elements['bar'].classList.add('ccb--hidden');
-          this.elements['bar'].setAttribute('aria-hidden', 'true');
-          this.elements['bar'].setAttribute('tabindex', '-1');
           this.elements['modal'].setAttribute('tabindex', '-1');
+          this.elements['modalInit']?.classList.remove('ccm--visible');
+          this.elements['modalInit']?.setAttribute('aria-hidden', 'true');
+          this.elements['modalInit']?.setAttribute('tabindex', '-1');
+          this.elements['bar']?.classList.add('ccb--hidden');
+          this.elements['bar']?.setAttribute('aria-hidden', 'true');
+          this.elements['bar']?.setAttribute('tabindex', '-1');
           buttonSettings.setAttribute('tabindex', '-1');
           buttonSettings.setAttribute('aria-hidden', 'true');
           buttonConsentGive.setAttribute('tabindex', '-1');
