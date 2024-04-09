@@ -1359,8 +1359,8 @@ var Interface = /*#__PURE__*/function () {
         }
         that.render('style', that.buildStyle());
 
-        //show the bar only if modal Layout config param is false
-        if (!window.CookieConsent.config.modalLayoutActive) {
+        //show the bar only if layout mode is 'bar'
+        if (window.CookieConsent.config.mode == 'bar') {
           that.render('bar', that.buildBar(), function (bar) {
             // Show the bar after a while
             if (!window.CookieConsent.config.cookieExists) {
@@ -1384,8 +1384,8 @@ var Interface = /*#__PURE__*/function () {
         }
         that.render('modal', that.buildModal());
 
-        //show init modal if modal layout param is true
-        if (window.CookieConsent.config.modalLayoutActive) {
+        //show init modal if layout mode is 'modal'
+        if (window.CookieConsent.config.mode == 'modal') {
           that.render('modalInit', that.buildInitialModal(), function (modal) {
             if (!window.CookieConsent.config.cookieExists) {
               setTimeout(function () {
@@ -1416,7 +1416,7 @@ var Interface = /*#__PURE__*/function () {
         var _loop = function _loop() {
           var button = _step2.value;
           button.addEventListener('click', function () {
-            var _this$elements$bar4, _this$elements$bar5, _this$elements$bar6, _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6, _ref5, _ref6;
+            var _this$elements$bar4, _this$elements$bar5, _this$elements$bar6, _this$elements$modalI13, _this$elements$modalI14, _this$elements$modalI15, _ref5, _ref6;
             var buttonSettings = document.querySelector('.ccb__edit');
             var buttonConsentDecline = document.querySelector('.consent-decline');
 
@@ -1434,9 +1434,9 @@ var Interface = /*#__PURE__*/function () {
             _this.elements['modal'].classList.remove('ccm--visible');
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
             _this.elements['modal'].setAttribute('tabindex', '-1');
-            (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.remove('ccm--visible');
-            (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'true');
-            (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '-1');
+            (_this$elements$modalI13 = _this.elements['modalInit']) === null || _this$elements$modalI13 === void 0 ? void 0 : _this$elements$modalI13.classList.remove('ccm--visible');
+            (_this$elements$modalI14 = _this.elements['modalInit']) === null || _this$elements$modalI14 === void 0 ? void 0 : _this$elements$modalI14.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI15 = _this.elements['modalInit']) === null || _this$elements$modalI15 === void 0 ? void 0 : _this$elements$modalI15.setAttribute('tabindex', '-1');
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1465,7 +1465,7 @@ var Interface = /*#__PURE__*/function () {
         var _loop2 = function _loop2() {
           var button = _step3.value;
           button.addEventListener('click', function () {
-            var _this$elements$bar7, _this$elements$bar8, _this$elements$bar9, _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
+            var _this$elements$bar7, _this$elements$bar8, _this$elements$bar9, _this$elements$modalI16, _this$elements$modalI17, _this$elements$modalI18;
             var buttonSettings = document.querySelector('.ccb__edit');
             var buttonConsentGive = document.querySelector('.consent-give');
 
@@ -1483,9 +1483,9 @@ var Interface = /*#__PURE__*/function () {
             _this.elements['modal'].classList.remove('ccm--visible');
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
             _this.elements['modal'].setAttribute('tabindex', '-1');
-            (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.remove('ccm--visible');
-            (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'true');
-            (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '-1');
+            (_this$elements$modalI16 = _this.elements['modalInit']) === null || _this$elements$modalI16 === void 0 ? void 0 : _this$elements$modalI16.classList.remove('ccm--visible');
+            (_this$elements$modalI17 = _this.elements['modalInit']) === null || _this$elements$modalI17 === void 0 ? void 0 : _this$elements$modalI17.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI18 = _this.elements['modalInit']) === null || _this$elements$modalI18 === void 0 ? void 0 : _this$elements$modalI18.setAttribute('tabindex', '-1');
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1509,11 +1509,15 @@ var Interface = /*#__PURE__*/function () {
       }
       Array.prototype.forEach.call(document.querySelectorAll('.ccm__edit, .ccb__edit'), function (edit) {
         edit.addEventListener('click', function () {
+          var _this$elements$modalI, _this$elements$modalI2, _this$elements$modalI3;
           modalOpen = true;
           _this.elements['modal'].classList.add('ccm--visible');
           _this.elements['modal'].setAttribute('aria-hidden', 'false');
           _this.elements['modal'].setAttribute('tabindex', '0');
           _this.elements['modal'].querySelector('.ccm__cheading__close').focus();
+          (_this$elements$modalI = _this.elements['modalInit']) === null || _this$elements$modalI === void 0 ? void 0 : _this$elements$modalI.classList.remove('ccm--visible');
+          (_this$elements$modalI2 = _this.elements['modalInit']) === null || _this$elements$modalI2 === void 0 ? void 0 : _this$elements$modalI2.setAttribute('aria-hidden', 'true');
+          (_this$elements$modalI3 = _this.elements['modalInit']) === null || _this$elements$modalI3 === void 0 ? void 0 : _this$elements$modalI3.setAttribute('tabindex', '-1');
         });
       });
 
@@ -1571,16 +1575,24 @@ var Interface = /*#__PURE__*/function () {
 
       // If you click close on open modal
       this.elements['modal'].querySelector('.ccm__cheading__close').addEventListener('click', function (event) {
+        var _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6;
         _this.elements['modal'].classList.remove('ccm--visible');
         _this.elements['modal'].setAttribute('aria-hidden', 'true');
         _this.elements['modal'].setAttribute('tabindex', '-1');
+        (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.add('ccm--visible');
+        (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'false');
+        (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '0');
         modalOpen = false;
       });
       document.addEventListener('keydown', function (event) {
         if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
+          var _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
           _this.elements['modal'].classList.remove('ccm--visible');
           _this.elements['modal'].setAttribute('aria-hidden', 'true');
           _this.elements['modal'].setAttribute('tabindex', '-1');
+          (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.add('ccm--visible');
+          (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'false');
+          (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '0');
           modalOpen = false;
         }
       });
@@ -1596,13 +1608,13 @@ var Interface = /*#__PURE__*/function () {
         var buttonConsentDecline = document.querySelector('.consent-decline');
         _this.buildCookie(function (cookie) {
           _this.setCookie(cookie, function () {
-            var _this$elements$modalI, _this$elements$modalI2, _this$elements$modalI3, _this$elements$bar, _this$elements$bar2, _this$elements$bar3, _ref3, _ref4;
+            var _this$elements$modalI10, _this$elements$modalI11, _this$elements$modalI12, _this$elements$bar, _this$elements$bar2, _this$elements$bar3, _ref3, _ref4;
             _this.elements['modal'].classList.remove('ccm--visible');
             _this.elements['modal'].setAttribute('aria-hidden', 'true');
             _this.elements['modal'].setAttribute('tabindex', '-1');
-            (_this$elements$modalI = _this.elements['modalInit']) === null || _this$elements$modalI === void 0 ? void 0 : _this$elements$modalI.classList.remove('ccm--visible');
-            (_this$elements$modalI2 = _this.elements['modalInit']) === null || _this$elements$modalI2 === void 0 ? void 0 : _this$elements$modalI2.setAttribute('aria-hidden', 'true');
-            (_this$elements$modalI3 = _this.elements['modalInit']) === null || _this$elements$modalI3 === void 0 ? void 0 : _this$elements$modalI3.setAttribute('tabindex', '-1');
+            (_this$elements$modalI10 = _this.elements['modalInit']) === null || _this$elements$modalI10 === void 0 ? void 0 : _this$elements$modalI10.classList.remove('ccm--visible');
+            (_this$elements$modalI11 = _this.elements['modalInit']) === null || _this$elements$modalI11 === void 0 ? void 0 : _this$elements$modalI11.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI12 = _this.elements['modalInit']) === null || _this$elements$modalI12 === void 0 ? void 0 : _this$elements$modalI12.setAttribute('tabindex', '-1');
             (_this$elements$bar = _this.elements['bar']) === null || _this$elements$bar === void 0 ? void 0 : _this$elements$bar.classList.add('ccb--hidden');
             (_this$elements$bar2 = _this.elements['bar']) === null || _this$elements$bar2 === void 0 ? void 0 : _this$elements$bar2.setAttribute('aria-hidden', 'true');
             (_this$elements$bar3 = _this.elements['bar']) === null || _this$elements$bar3 === void 0 ? void 0 : _this$elements$bar3.setAttribute('tabindex', '-1');
@@ -1722,7 +1734,7 @@ var Configuration = /*#__PURE__*/function () {
       active: true,
       cookieExists: false,
       cookieVersion: 1,
-      modalLayoutActive: false,
+      mode: 'bar',
       modalMainTextMoreLink: null,
       showRejectAllButton: false,
       UITimeout: 1000,

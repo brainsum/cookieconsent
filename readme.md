@@ -58,6 +58,8 @@ The script is being controlled mainly by a configuration object which is passed 
     modalMainTextMoreLink: null,
     // How long to wait until bar or initial modal comes up.
     UITimeout: 1000,
+    // Show 'bar' or 'modal' initial layout
+    mode: 'bar'
     // Look and feel.
     theme: {
       barColor: '#2C7CBF',
