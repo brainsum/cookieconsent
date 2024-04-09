@@ -272,8 +272,8 @@ export default class Interface {
 
       that.render('style', that.buildStyle());
 
-      //show the bar only if modal Layout config param is false
-      if (!window.CookieConsent.config.modalLayoutActive) {
+      //show the bar only if layout mode is 'bar'
+      if (window.CookieConsent.config.mode == 'bar') {
         that.render('bar', that.buildBar(), (bar) => {
   
           // Show the bar after a while
@@ -299,8 +299,8 @@ export default class Interface {
 
       that.render('modal', that.buildModal())
 
-      //show init modal if modal layout param is true
-      if (window.CookieConsent.config.modalLayoutActive) {
+      //show init modal if layout mode is 'modal'
+      if (window.CookieConsent.config.mode == 'modal') {
         that.render('modalInit', that.buildInitialModal(), (modal) => {
           if (!window.CookieConsent.config.cookieExists){
             setTimeout(() => {
@@ -420,6 +420,9 @@ export default class Interface {
         this.elements['modal'].setAttribute('aria-hidden', 'false');
         this.elements['modal'].setAttribute('tabindex', '0');
         this.elements['modal'].querySelector('.ccm__cheading__close').focus();
+        this.elements['modalInit']?.classList.remove('ccm--visible');
+        this.elements['modalInit']?.setAttribute('aria-hidden', 'true');
+        this.elements['modalInit']?.setAttribute('tabindex', '-1');
       });
     });
 
@@ -489,6 +492,9 @@ export default class Interface {
       this.elements['modal'].classList.remove('ccm--visible');
       this.elements['modal'].setAttribute('aria-hidden', 'true');
       this.elements['modal'].setAttribute('tabindex', '-1');
+      this.elements['modalInit']?.classList.add('ccm--visible');
+      this.elements['modalInit']?.setAttribute('aria-hidden', 'false');
+      this.elements['modalInit']?.setAttribute('tabindex', '0');
       modalOpen = false;
     });
 
@@ -497,6 +503,9 @@ export default class Interface {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
+        this.elements['modalInit']?.classList.add('ccm--visible');
+        this.elements['modalInit']?.setAttribute('aria-hidden', 'false');
+        this.elements['modalInit']?.setAttribute('tabindex', '0');
         modalOpen = false;
       }
     });
