@@ -1188,6 +1188,7 @@ var Interface = /*#__PURE__*/function () {
   function Interface() {
     Interface_classCallCheck(this, Interface);
     this.elements = {};
+    this.updateConsentModeFn = null;
   }
   Interface_createClass(Interface, [{
     key: "buildStyle",
@@ -1347,8 +1348,26 @@ var Interface = /*#__PURE__*/function () {
   }, {
     key: "buildInterface",
     value: function buildInterface(callback) {
+      var _this = this;
       if (typeof callback === 'undefined') callback = function callback() {};
       var that = this;
+      if (window.CookieConsent.config.consentModeHandler == 'gtm-template') {
+        // method called from GTM Custom consent mode template to pass an updateConsent callback
+        window.updateConsentModeSetterFn = function (cb) {
+          _this.updateConsentModeFn = cb;
+        };
+      } else if (window.CookieConsent.config.consentModeHandler == 'gtag') {
+        this.updateConsentModeFn = function updateConsentMode(consentMode) {
+          var isGTMEnabled = window.dataLayer || false;
+          if (isGTMEnabled) {
+            var gtag = function gtag() {
+              dataLayer.push(arguments);
+            };
+            gtag('consent', 'update', consentMode);
+            localStorage.setItem('consentMode', JSON.stringify(consentMode));
+          }
+        };
+      }
       Utilities.ready(function () {
         if (window.CookieConsent.config.noUI) {
           that.writeBufferToDOM();
@@ -1404,7 +1423,7 @@ var Interface = /*#__PURE__*/function () {
   }, {
     key: "addEventListeners",
     value: function addEventListeners(elements) {
-      var _this = this;
+      var _this2 = this;
       // Set the default state for modal
       var modalOpen = false;
       var focusTarget = document.querySelector('body');
@@ -1417,7 +1436,7 @@ var Interface = /*#__PURE__*/function () {
         var _loop = function _loop() {
           var button = _step2.value;
           button.addEventListener('click', function () {
-            var _this$elements$bar4, _this$elements$bar5, _this$elements$bar6, _this$elements$modalI13, _this$elements$modalI14, _this$elements$modalI15, _ref5, _ref6;
+            var _this2$elements$bar4, _this2$elements$bar5, _this2$elements$bar6, _this2$elements$modal13, _this2$elements$modal14, _this2$elements$modal15, _ref5, _ref6;
             var buttonSettings = document.querySelector('.ccb__edit');
             var buttonConsentDecline = document.querySelector('.consent-decline');
 
@@ -1425,19 +1444,19 @@ var Interface = /*#__PURE__*/function () {
             for (var key in window.CookieConsent.config.categories) {
               window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = true;
             }
-            _this.writeBufferToDOM();
-            _this.buildCookie(function (cookie) {
-              _this.setCookie(cookie);
+            _this2.writeBufferToDOM();
+            _this2.buildCookie(function (cookie) {
+              _this2.setCookie(cookie);
             });
-            (_this$elements$bar4 = _this.elements['bar']) === null || _this$elements$bar4 === void 0 ? void 0 : _this$elements$bar4.classList.add('ccb--hidden');
-            (_this$elements$bar5 = _this.elements['bar']) === null || _this$elements$bar5 === void 0 ? void 0 : _this$elements$bar5.setAttribute('aria-hidden', 'true');
-            (_this$elements$bar6 = _this.elements['bar']) === null || _this$elements$bar6 === void 0 ? void 0 : _this$elements$bar6.setAttribute('tabindex', '-1');
-            _this.elements['modal'].classList.remove('ccm--visible');
-            _this.elements['modal'].setAttribute('aria-hidden', 'true');
-            _this.elements['modal'].setAttribute('tabindex', '-1');
-            (_this$elements$modalI13 = _this.elements['modalInit']) === null || _this$elements$modalI13 === void 0 ? void 0 : _this$elements$modalI13.classList.remove('ccm--visible');
-            (_this$elements$modalI14 = _this.elements['modalInit']) === null || _this$elements$modalI14 === void 0 ? void 0 : _this$elements$modalI14.setAttribute('aria-hidden', 'true');
-            (_this$elements$modalI15 = _this.elements['modalInit']) === null || _this$elements$modalI15 === void 0 ? void 0 : _this$elements$modalI15.setAttribute('tabindex', '-1');
+            (_this2$elements$bar4 = _this2.elements['bar']) === null || _this2$elements$bar4 === void 0 ? void 0 : _this2$elements$bar4.classList.add('ccb--hidden');
+            (_this2$elements$bar5 = _this2.elements['bar']) === null || _this2$elements$bar5 === void 0 ? void 0 : _this2$elements$bar5.setAttribute('aria-hidden', 'true');
+            (_this2$elements$bar6 = _this2.elements['bar']) === null || _this2$elements$bar6 === void 0 ? void 0 : _this2$elements$bar6.setAttribute('tabindex', '-1');
+            _this2.elements['modal'].classList.remove('ccm--visible');
+            _this2.elements['modal'].setAttribute('aria-hidden', 'true');
+            _this2.elements['modal'].setAttribute('tabindex', '-1');
+            (_this2$elements$modal13 = _this2.elements['modalInit']) === null || _this2$elements$modal13 === void 0 ? void 0 : _this2$elements$modal13.classList.remove('ccm--visible');
+            (_this2$elements$modal14 = _this2.elements['modalInit']) === null || _this2$elements$modal14 === void 0 ? void 0 : _this2$elements$modal14.setAttribute('aria-hidden', 'true');
+            (_this2$elements$modal15 = _this2.elements['modalInit']) === null || _this2$elements$modal15 === void 0 ? void 0 : _this2$elements$modal15.setAttribute('tabindex', '-1');
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1446,7 +1465,7 @@ var Interface = /*#__PURE__*/function () {
             (_ref6 = buttonConsentDecline !== null) !== null && _ref6 !== void 0 ? _ref6 : buttonConsentDecline.setAttribute('aria-hidden', 'true');
             focusTarget.focus();
             modalOpen = false;
-            _this.modalRedrawIcons();
+            _this2.modalRedrawIcons();
           });
         };
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
@@ -1466,7 +1485,7 @@ var Interface = /*#__PURE__*/function () {
         var _loop2 = function _loop2() {
           var button = _step3.value;
           button.addEventListener('click', function () {
-            var _this$elements$bar7, _this$elements$bar8, _this$elements$bar9, _this$elements$modalI16, _this$elements$modalI17, _this$elements$modalI18;
+            var _this2$elements$bar7, _this2$elements$bar8, _this2$elements$bar9, _this2$elements$modal16, _this2$elements$modal17, _this2$elements$modal18;
             var buttonSettings = document.querySelector('.ccb__edit');
             var buttonConsentGive = document.querySelector('.consent-give');
 
@@ -1474,19 +1493,19 @@ var Interface = /*#__PURE__*/function () {
             for (var key in window.CookieConsent.config.categories) {
               window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].needed;
             }
-            _this.writeBufferToDOM();
-            _this.buildCookie(function (cookie) {
-              _this.setCookie(cookie);
+            _this2.writeBufferToDOM();
+            _this2.buildCookie(function (cookie) {
+              _this2.setCookie(cookie);
             });
-            (_this$elements$bar7 = _this.elements['bar']) === null || _this$elements$bar7 === void 0 ? void 0 : _this$elements$bar7.classList.add('ccb--hidden');
-            (_this$elements$bar8 = _this.elements['bar']) === null || _this$elements$bar8 === void 0 ? void 0 : _this$elements$bar8.setAttribute('aria-hidden', 'true');
-            (_this$elements$bar9 = _this.elements['bar']) === null || _this$elements$bar9 === void 0 ? void 0 : _this$elements$bar9.setAttribute('tabindex', '-1');
-            _this.elements['modal'].classList.remove('ccm--visible');
-            _this.elements['modal'].setAttribute('aria-hidden', 'true');
-            _this.elements['modal'].setAttribute('tabindex', '-1');
-            (_this$elements$modalI16 = _this.elements['modalInit']) === null || _this$elements$modalI16 === void 0 ? void 0 : _this$elements$modalI16.classList.remove('ccm--visible');
-            (_this$elements$modalI17 = _this.elements['modalInit']) === null || _this$elements$modalI17 === void 0 ? void 0 : _this$elements$modalI17.setAttribute('aria-hidden', 'true');
-            (_this$elements$modalI18 = _this.elements['modalInit']) === null || _this$elements$modalI18 === void 0 ? void 0 : _this$elements$modalI18.setAttribute('tabindex', '-1');
+            (_this2$elements$bar7 = _this2.elements['bar']) === null || _this2$elements$bar7 === void 0 ? void 0 : _this2$elements$bar7.classList.add('ccb--hidden');
+            (_this2$elements$bar8 = _this2.elements['bar']) === null || _this2$elements$bar8 === void 0 ? void 0 : _this2$elements$bar8.setAttribute('aria-hidden', 'true');
+            (_this2$elements$bar9 = _this2.elements['bar']) === null || _this2$elements$bar9 === void 0 ? void 0 : _this2$elements$bar9.setAttribute('tabindex', '-1');
+            _this2.elements['modal'].classList.remove('ccm--visible');
+            _this2.elements['modal'].setAttribute('aria-hidden', 'true');
+            _this2.elements['modal'].setAttribute('tabindex', '-1');
+            (_this2$elements$modal16 = _this2.elements['modalInit']) === null || _this2$elements$modal16 === void 0 ? void 0 : _this2$elements$modal16.classList.remove('ccm--visible');
+            (_this2$elements$modal17 = _this2.elements['modalInit']) === null || _this2$elements$modal17 === void 0 ? void 0 : _this2$elements$modal17.setAttribute('aria-hidden', 'true');
+            (_this2$elements$modal18 = _this2.elements['modalInit']) === null || _this2$elements$modal18 === void 0 ? void 0 : _this2$elements$modal18.setAttribute('tabindex', '-1');
             button.setAttribute('tabindex', '-1');
             button.setAttribute('aria-hidden', 'true');
             buttonSettings.setAttribute('tabindex', '-1');
@@ -1495,7 +1514,7 @@ var Interface = /*#__PURE__*/function () {
             buttonConsentGive.setAttribute('aria-hidden', 'true');
             focusTarget.focus();
             modalOpen = false;
-            _this.modalRedrawIcons();
+            _this2.modalRedrawIcons();
           });
         };
         for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
@@ -1510,15 +1529,15 @@ var Interface = /*#__PURE__*/function () {
       }
       Array.prototype.forEach.call(document.querySelectorAll('.ccm__edit, .ccb__edit'), function (edit) {
         edit.addEventListener('click', function () {
-          var _this$elements$modalI, _this$elements$modalI2, _this$elements$modalI3;
+          var _this2$elements$modal, _this2$elements$modal2, _this2$elements$modal3;
           modalOpen = true;
-          _this.elements['modal'].classList.add('ccm--visible');
-          _this.elements['modal'].setAttribute('aria-hidden', 'false');
-          _this.elements['modal'].setAttribute('tabindex', '0');
-          _this.elements['modal'].querySelector('.ccm__cheading__close').focus();
-          (_this$elements$modalI = _this.elements['modalInit']) === null || _this$elements$modalI === void 0 ? void 0 : _this$elements$modalI.classList.remove('ccm--visible');
-          (_this$elements$modalI2 = _this.elements['modalInit']) === null || _this$elements$modalI2 === void 0 ? void 0 : _this$elements$modalI2.setAttribute('aria-hidden', 'true');
-          (_this$elements$modalI3 = _this.elements['modalInit']) === null || _this$elements$modalI3 === void 0 ? void 0 : _this$elements$modalI3.setAttribute('tabindex', '-1');
+          _this2.elements['modal'].classList.add('ccm--visible');
+          _this2.elements['modal'].setAttribute('aria-hidden', 'false');
+          _this2.elements['modal'].setAttribute('tabindex', '0');
+          _this2.elements['modal'].querySelector('.ccm__cheading__close').focus();
+          (_this2$elements$modal = _this2.elements['modalInit']) === null || _this2$elements$modal === void 0 ? void 0 : _this2$elements$modal.classList.remove('ccm--visible');
+          (_this2$elements$modal2 = _this2.elements['modalInit']) === null || _this2$elements$modal2 === void 0 ? void 0 : _this2$elements$modal2.setAttribute('aria-hidden', 'true');
+          (_this2$elements$modal3 = _this2.elements['modalInit']) === null || _this2$elements$modal3 === void 0 ? void 0 : _this2$elements$modal3.setAttribute('tabindex', '-1');
         });
       });
 
@@ -1604,25 +1623,25 @@ var Interface = /*#__PURE__*/function () {
 
       // If you click submit on cookie settings
       document.getElementById('ccm__footer__consent-modal-submit').addEventListener('click', function () {
-        var switchElements = _this.elements['modal'].querySelectorAll('.ccm__switch input');
+        var switchElements = _this2.elements['modal'].querySelectorAll('.ccm__switch input');
         Array.prototype.forEach.call(switchElements, function (switchElement) {
           window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElement.checked;
         });
         var buttonSettings = document.querySelector('.ccb__edit');
         var buttonConsentGive = document.querySelector('.consent-give');
         var buttonConsentDecline = document.querySelector('.consent-decline');
-        _this.buildCookie(function (cookie) {
-          _this.setCookie(cookie, function () {
-            var _this$elements$modalI10, _this$elements$modalI11, _this$elements$modalI12, _this$elements$bar, _this$elements$bar2, _this$elements$bar3, _ref3, _ref4;
-            _this.elements['modal'].classList.remove('ccm--visible');
-            _this.elements['modal'].setAttribute('aria-hidden', 'true');
-            _this.elements['modal'].setAttribute('tabindex', '-1');
-            (_this$elements$modalI10 = _this.elements['modalInit']) === null || _this$elements$modalI10 === void 0 ? void 0 : _this$elements$modalI10.classList.remove('ccm--visible');
-            (_this$elements$modalI11 = _this.elements['modalInit']) === null || _this$elements$modalI11 === void 0 ? void 0 : _this$elements$modalI11.setAttribute('aria-hidden', 'true');
-            (_this$elements$modalI12 = _this.elements['modalInit']) === null || _this$elements$modalI12 === void 0 ? void 0 : _this$elements$modalI12.setAttribute('tabindex', '-1');
-            (_this$elements$bar = _this.elements['bar']) === null || _this$elements$bar === void 0 ? void 0 : _this$elements$bar.classList.add('ccb--hidden');
-            (_this$elements$bar2 = _this.elements['bar']) === null || _this$elements$bar2 === void 0 ? void 0 : _this$elements$bar2.setAttribute('aria-hidden', 'true');
-            (_this$elements$bar3 = _this.elements['bar']) === null || _this$elements$bar3 === void 0 ? void 0 : _this$elements$bar3.setAttribute('tabindex', '-1');
+        _this2.buildCookie(function (cookie) {
+          _this2.setCookie(cookie, function () {
+            var _this2$elements$modal10, _this2$elements$modal11, _this2$elements$modal12, _this2$elements$bar, _this2$elements$bar2, _this2$elements$bar3, _ref3, _ref4;
+            _this2.elements['modal'].classList.remove('ccm--visible');
+            _this2.elements['modal'].setAttribute('aria-hidden', 'true');
+            _this2.elements['modal'].setAttribute('tabindex', '-1');
+            (_this2$elements$modal10 = _this2.elements['modalInit']) === null || _this2$elements$modal10 === void 0 ? void 0 : _this2$elements$modal10.classList.remove('ccm--visible');
+            (_this2$elements$modal11 = _this2.elements['modalInit']) === null || _this2$elements$modal11 === void 0 ? void 0 : _this2$elements$modal11.setAttribute('aria-hidden', 'true');
+            (_this2$elements$modal12 = _this2.elements['modalInit']) === null || _this2$elements$modal12 === void 0 ? void 0 : _this2$elements$modal12.setAttribute('tabindex', '-1');
+            (_this2$elements$bar = _this2.elements['bar']) === null || _this2$elements$bar === void 0 ? void 0 : _this2$elements$bar.classList.add('ccb--hidden');
+            (_this2$elements$bar2 = _this2.elements['bar']) === null || _this2$elements$bar2 === void 0 ? void 0 : _this2$elements$bar2.setAttribute('aria-hidden', 'true');
+            (_this2$elements$bar3 = _this2.elements['bar']) === null || _this2$elements$bar3 === void 0 ? void 0 : _this2$elements$bar3.setAttribute('tabindex', '-1');
             buttonSettings.setAttribute('tabindex', '-1');
             buttonSettings.setAttribute('aria-hidden', 'true');
             buttonConsentGive.setAttribute('tabindex', '-1');
@@ -1633,7 +1652,7 @@ var Interface = /*#__PURE__*/function () {
             modalOpen = false;
           });
         });
-        _this.writeBufferToDOM();
+        _this2.writeBufferToDOM();
       });
     }
   }, {
@@ -1670,18 +1689,6 @@ var Interface = /*#__PURE__*/function () {
       }
     }
   }, {
-    key: "updateConsentMode",
-    value: function updateConsentMode(cookie) {
-      var isGTMEnabled = window.dataLayer || false;
-      if (isGTMEnabled) {
-        var gtag = function gtag() {
-          dataLayer.push(arguments);
-        };
-        gtag('consent', 'update', cookie.consentMode);
-        localStorage.setItem('consentMode', JSON.stringify(cookie.consentMode));
-      }
-    }
-  }, {
     key: "buildCookie",
     value: function buildCookie(callback) {
       var cookie = {
@@ -1700,7 +1707,7 @@ var Interface = /*#__PURE__*/function () {
         cookie.consentMode[_key] = (_window$CookieConsent = window.CookieConsent.config.categories[window.CookieConsent.config.consentModeControls[_key]]) !== null && _window$CookieConsent !== void 0 && _window$CookieConsent.wanted ? 'granted' : 'denied';
       }
       cookie.services = Utilities.listGlobalServices();
-      this.updateConsentMode(cookie);
+      if (this.updateConsentModeFn) this.updateConsentModeFn(cookie.consentMode);
       if (callback) callback(cookie);
       return cookie;
     }
@@ -1809,6 +1816,7 @@ var Configuration = /*#__PURE__*/function () {
       },
       categories: {},
       consentModeControls: {},
+      consentModeHandler: null,
       services: {}
     };
     this.setConfiguration(configObject);
