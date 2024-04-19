@@ -88,6 +88,7 @@ export default class Configuration {
       },
       categories: {},
       consentModeControls: {},
+      consentModeHandler: null,
       services: {}
     }
 
