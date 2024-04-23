@@ -87,12 +87,11 @@
             }
           },
           consentModeControls: {
-          ad_storage: 'marketing',
-            // ad_user_data: null,
-            // ad_personalization: null,
+            ad_storage: 'marketing',
+            ad_user_data: 'marketing',
+            ad_personalization: 'marketing',
             analytics_storage: 'analytics'
           },
-          consentModeHandler: 'gtm-template',
           services: {
             googleAnalytics: {
               category: 'analytics',
@@ -183,72 +182,19 @@
       </script>
       <!-- Google Tag Manager -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-			// function gtag() {
-			// 	dataLayer.push(arguments);
-			// }
-      // const defaultSettings = {
-			// 		ad_storage: 'granted',
-			// 		ad_user_data: 'granted',
-			// 		ad_personalization: 'granted',
-			// 		analytics_storage: 'granted',
-			// 	}
-      // const defaultRegionalSettings = {
-			// 		ad_storage: 'denied',
-			// 		ad_user_data: 'denied',
-			// 		ad_personalization: 'denied',
-			// 		analytics_storage: 'denied',
-			// 		region: [
-			// 			'AT',
-			// 			'BE',
-			// 			'BG',
-			// 			'HR',
-			// 			'CY',
-			// 			'CZ',
-			// 			'DK',
-			// 			'EE',
-			// 			'FI',
-			// 			'FR',
-			// 			'DE',
-			// 			'GR',
-			// 			'HU',
-			// 			'IE',
-			// 			'IT',
-			// 			'LV',
-			// 			'LT',
-			// 			'LU',
-			// 			'MT',
-			// 			'NL',
-			// 			'PL',
-			// 			'PT',
-			// 			'RO',
-			// 			'SK',
-			// 			'SI',
-			// 			'ES',
-			// 			'SE',
-			// 			'IS',
-			// 			'LI',
-			// 			'NO',
-			// 		],
-			// 	}
+       window.dataLayer = window.dataLayer || []
+      function gtag(){dataLayer.push(arguments);}
 
-			// if (localStorage.getItem('consentMode') === null) {
-			// 	gtag('consent', 'default', defaultRegionalSettings);
-			// 	gtag('consent', 'default', defaultSettings);
-			// } else {
-      //   gtag('consent', 'default', {...defaultRegionalSettings, ...JSON.parse(localStorage.getItem('consentMode'))});
-      //   gtag('consent', 'default', {...defaultSettings, ...JSON.parse(localStorage.getItem('consentMode'))});
-			// }
-
-			(function (w, d, s, l, i) {
-				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-				var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s),
-					dl = l != 'dataLayer' ? '&l=' + l : '';
-				j.async = true;
-				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', 'GTM-W9SKCQ8');
+      if(localStorage.getItem('consentMode') === null) {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+          });
+      } else {
+        gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
+      }
     </script>
   </head>
 
