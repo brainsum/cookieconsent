@@ -55,6 +55,7 @@ export default class Utilities {
     document.cookie = `cconsent=; expires=Thu, 01 Jan 1980 00:00:00 UTC; path=/;`;
     //remove localStorage consentMode obj
     localStorage.removeItem('consentMode')
+    window.CookieConsent.config.cookieExists = false
   }
 
   // Create an array of services from Cookieconsent global object

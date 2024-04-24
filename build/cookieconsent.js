@@ -59,6 +59,7 @@ var Utilities = /*#__PURE__*/function () {
       document.cookie = "cconsent=; expires=Thu, 01 Jan 1980 00:00:00 UTC; path=/;";
       //remove localStorage consentMode obj
       localStorage.removeItem('consentMode');
+      window.CookieConsent.config.cookieExists = false;
     }
 
     // Create an array of services from Cookieconsent global object
@@ -1575,24 +1576,28 @@ var Interface = /*#__PURE__*/function () {
 
       // If you click close on open modal
       this.elements['modal'].querySelector('.ccm__cheading__close').addEventListener('click', function (event) {
-        var _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6;
         _this.elements['modal'].classList.remove('ccm--visible');
         _this.elements['modal'].setAttribute('aria-hidden', 'true');
         _this.elements['modal'].setAttribute('tabindex', '-1');
-        (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.add('ccm--visible');
-        (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'false');
-        (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '0');
+        if (!window.CookieConsent.config.cookieExists) {
+          var _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6;
+          (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.add('ccm--visible');
+          (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'false');
+          (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '0');
+        }
         modalOpen = false;
       });
       document.addEventListener('keydown', function (event) {
         if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
-          var _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
           _this.elements['modal'].classList.remove('ccm--visible');
           _this.elements['modal'].setAttribute('aria-hidden', 'true');
           _this.elements['modal'].setAttribute('tabindex', '-1');
-          (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.add('ccm--visible');
-          (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'false');
-          (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '0');
+          if (!window.CookieConsent.config.cookieExists) {
+            var _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
+            (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.add('ccm--visible');
+            (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'false');
+            (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '0');
+          }
           modalOpen = false;
         }
       });
@@ -1704,6 +1709,7 @@ var Interface = /*#__PURE__*/function () {
     value: function setCookie(cookie, callback) {
       var expires_in = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
       document.cookie = "cconsent=".concat(JSON.stringify(cookie), "; expires=").concat(expires_in, "; path=/;");
+      window.CookieConsent.config.cookieExists = true;
       if (callback) callback();
     }
   }]);
