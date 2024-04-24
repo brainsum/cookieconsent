@@ -492,20 +492,26 @@ export default class Interface {
       this.elements['modal'].classList.remove('ccm--visible');
       this.elements['modal'].setAttribute('aria-hidden', 'true');
       this.elements['modal'].setAttribute('tabindex', '-1');
-      this.elements['modalInit']?.classList.add('ccm--visible');
-      this.elements['modalInit']?.setAttribute('aria-hidden', 'false');
-      this.elements['modalInit']?.setAttribute('tabindex', '0');
+
+      if (!window.CookieConsent.config.cookieExists) {
+        this.elements['modalInit']?.classList.add('ccm--visible');
+        this.elements['modalInit']?.setAttribute('aria-hidden', 'false');
+        this.elements['modalInit']?.setAttribute('tabindex', '0');
+      }
       modalOpen = false;
     });
 
     document.addEventListener('keydown', (event) => {
+
       if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
         this.elements['modal'].classList.remove('ccm--visible');
         this.elements['modal'].setAttribute('aria-hidden', 'true');
         this.elements['modal'].setAttribute('tabindex', '-1');
-        this.elements['modalInit']?.classList.add('ccm--visible');
-        this.elements['modalInit']?.setAttribute('aria-hidden', 'false');
-        this.elements['modalInit']?.setAttribute('tabindex', '0');
+        if (!window.CookieConsent.config.cookieExists) {
+          this.elements['modalInit']?.classList.add('ccm--visible');
+          this.elements['modalInit']?.setAttribute('aria-hidden', 'false');
+          this.elements['modalInit']?.setAttribute('tabindex', '0');
+        }
         modalOpen = false;
       }
     });
@@ -605,6 +611,7 @@ export default class Interface {
     const expires_in = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
 
     document.cookie = `cconsent=${JSON.stringify(cookie)}; expires=${expires_in}; path=/;`;
+    window.CookieConsent.config.cookieExists = true
     if (callback) callback();
   }
 }
