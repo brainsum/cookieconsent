@@ -1595,27 +1595,27 @@ var Interface = /*#__PURE__*/function () {
 
       // If you click close on open modal
       this.elements['modal'].querySelector('.ccm__cheading__close').addEventListener('click', function (event) {
-        _this.elements['modal'].classList.remove('ccm--visible');
-        _this.elements['modal'].setAttribute('aria-hidden', 'true');
-        _this.elements['modal'].setAttribute('tabindex', '-1');
+        _this2.elements['modal'].classList.remove('ccm--visible');
+        _this2.elements['modal'].setAttribute('aria-hidden', 'true');
+        _this2.elements['modal'].setAttribute('tabindex', '-1');
         if (!window.CookieConsent.config.cookieExists) {
-          var _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6;
-          (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.add('ccm--visible');
-          (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'false');
-          (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '0');
+          var _this2$elements$modal4, _this2$elements$modal5, _this2$elements$modal6;
+          (_this2$elements$modal4 = _this2.elements['modalInit']) === null || _this2$elements$modal4 === void 0 ? void 0 : _this2$elements$modal4.classList.add('ccm--visible');
+          (_this2$elements$modal5 = _this2.elements['modalInit']) === null || _this2$elements$modal5 === void 0 ? void 0 : _this2$elements$modal5.setAttribute('aria-hidden', 'false');
+          (_this2$elements$modal6 = _this2.elements['modalInit']) === null || _this2$elements$modal6 === void 0 ? void 0 : _this2$elements$modal6.setAttribute('tabindex', '0');
         }
         modalOpen = false;
       });
       document.addEventListener('keydown', function (event) {
         if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
-          _this.elements['modal'].classList.remove('ccm--visible');
-          _this.elements['modal'].setAttribute('aria-hidden', 'true');
-          _this.elements['modal'].setAttribute('tabindex', '-1');
+          _this2.elements['modal'].classList.remove('ccm--visible');
+          _this2.elements['modal'].setAttribute('aria-hidden', 'true');
+          _this2.elements['modal'].setAttribute('tabindex', '-1');
           if (!window.CookieConsent.config.cookieExists) {
-            var _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
-            (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.add('ccm--visible');
-            (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'false');
-            (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '0');
+            var _this2$elements$modal7, _this2$elements$modal8, _this2$elements$modal9;
+            (_this2$elements$modal7 = _this2.elements['modalInit']) === null || _this2$elements$modal7 === void 0 ? void 0 : _this2$elements$modal7.classList.add('ccm--visible');
+            (_this2$elements$modal8 = _this2.elements['modalInit']) === null || _this2$elements$modal8 === void 0 ? void 0 : _this2$elements$modal8.setAttribute('aria-hidden', 'false');
+            (_this2$elements$modal9 = _this2.elements['modalInit']) === null || _this2$elements$modal9 === void 0 ? void 0 : _this2$elements$modal9.setAttribute('tabindex', '0');
           }
           modalOpen = false;
         }
