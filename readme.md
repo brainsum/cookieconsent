@@ -199,55 +199,54 @@ The script is being controlled mainly by a configuration object which is passed 
 
 ```javascript
   <!-- Google Tag Manager -->
-  		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			const defaultSettings = {
-				ad_storage: 'granted',
-				ad_user_data: 'granted',
-				ad_personalization: 'granted',
-				analytics_storage: 'granted',
-			};
-			const defaultRegionalSettings = {
-				ad_storage: 'denied',
-				ad_user_data: 'denied',
-				ad_personalization: 'denied',
-				analytics_storage: 'denied',
-				region: [
-					'AT',
-					'BE',
-					'IS',
-					'LI',
-					'NO',
-				],
-			};
-			if (localStorage.getItem('consentMode') === null) {
-				gtag('consent', 'default', defaultSettings);
-				gtag('consent', 'default', defaultRegionalSettings);
-			} else {
-				gtag('consent', 'default', {
-					...defaultRegionalSettings,
-					...JSON.parse(localStorage.getItem('consentMode')),
-				});
-				gtag('consent', 'default', {
-					...defaultSettings,
-					...JSON.parse(localStorage.getItem('consentMode')),
-				});
-			}
-			(function (w, d, s, l, i) {
-				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-				var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s),
-					dl = l != 'dataLayer' ? '&l=' + l : '';
-				j.async = true;
-				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', '---GTM-ID---');
-		</script>
-
-      <!-- End Google Tag Manager -->
+      <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      const defaultSettings = {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted',
+      };
+      const defaultRegionalSettings = {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        region: [
+          'AT',
+          'BE',
+          'IS',
+          'LI',
+          'NO',
+        ],
+      };
+      if (localStorage.getItem('consentMode') === null) {
+        gtag('consent', 'default', defaultSettings);
+        gtag('consent', 'default', defaultRegionalSettings);
+      } else {
+        gtag('consent', 'default', {
+          ...defaultRegionalSettings,
+          ...JSON.parse(localStorage.getItem('consentMode')),
+        });
+        gtag('consent', 'default', {
+          ...defaultSettings,
+          ...JSON.parse(localStorage.getItem('consentMode')),
+        });
+      }
+      (function (w, d, s, l, i) {
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', '---GTM-ID---');
+    </script>
+  <!-- End Google Tag Manager -->
 ```
 
 Whenever a consent option is modified by the user, an update is sent to Google Tag Manager setting the new consent configuration.
