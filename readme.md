@@ -189,12 +189,17 @@ The script is being controlled mainly by a configuration object which is passed 
       ad_personalization: 'necessary'
       analytics_storage: 'necessary'
     },
+    // whether consent mode updates will be handled by gtag or via custom GTM template. The value by default is null. Can have 'gtag' or 'gtm-template' values.
+    consentModeHandler: 'gtag'
   });
   </script>
 ```
 
 ## Consent Mode v2
-
+//TODO : Update README to explain regional consent settings (and add new block to maintain consent states on page refresh), and to clarify, that if CM is applied through GTM template, then no gtag function should be set
+-- see if a custom triger on Consent initialization needs to be configured on brainsum GTM due to the fact that the same container is handling .sk and .com.
+So, in order to enable Consent through template only for .com, we would need to avoid firing consent initialization tag template on .sk as well.
+-- After this, test implementation and, if agreed, proceed with custom template publication (might need documentation and testing)
 [Google consent mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) v2 is supported. For it's implementation you need to add a consentModeControls object withing the configuration settings to list the consent types and what categories will control them just as described in the example. Please, bear in mind that Google Tag Manager should be initialized with the default consent settings as per this example:
 
 ```javascript
