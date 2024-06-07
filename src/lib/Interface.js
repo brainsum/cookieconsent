@@ -24,18 +24,18 @@ export default class Interface {
       '#cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; margin-right: 10px; border: 1px solid ' + window.CookieConsent.config.theme.barMainButtonColor + '}',
       '#cconsent-bar button.ccb__edit { -moz-appearance:none; -webkit-appearance:none; appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; background:none; }',
       '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }',
-      '#cconsent-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
-      '@media (max-width: 600px) { #cconsent-modal { height: 100% } }',
-      '#cconsent-modal button { border: 0 }',
-      '#cconsent-modal h2, #cconsent-modal h3 {color:#333}',
-      '#cconsent-modal.ccm--visible {display:flex}',
-      '#cconsent-modal .ccm__content { max-width:600px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; display:flex; flex-direction:column; justify-content:space-between; }',
-      '@media (max-width: 600px) { #cconsent-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}',
-      '#cconsent-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }',
-      '#cconsent-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }',
-      '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }',
-      '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }',
-      '#cconsent-modal h2, #cconsent-modal h3 { margin-top:0 }',
+      '#cconsent-modal, #cconsent-init-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}',
+      '@media (max-width: 600px) { #cconsent-modal, #cconsent-init-modal { height: 100% } }',
+      '#cconsent-modal button, #cconsent-init-modal button { border: 0 }',
+      '#cconsent-modal h2, #cconsent-init-modal h2, #cconsent-modal h3, #cconsent-init-modal h3 {color:#333; margin-top:0}',
+      '#cconsent-modal.ccm--visible, #cconsent-init-modal.ccm--visible {display:flex}',
+      '#cconsent-modal .ccm__content, #cconsent-init-modal .ccm__content { max-width:600px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; display:flex; flex-direction:column; justify-content:space-between; }',
+      '@media (max-width: 600px) { #cconsent-modal .ccm__content, #cconsent-init-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}',
+      '#cconsent-modal .ccm__content > .ccm__content__heading, #cconsent-init-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }',
+      '#cconsent-modal .ccm__content > .ccm__content__heading h2, #cconsent-init-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }',
+      '#cconsent-modal .ccm__content > .ccm__content__heading p, #cconsent-init-modal .ccm__content > .ccm__content__heading p { margin-top:1rem; margin-bottom:1rem; }',
+      '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }',
+      '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }',
       '#cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head {color:#333; font-weight:600; cursor:pointer; position:relative; padding:0; margin:0; transition: background-color .5s ease-out; }',
@@ -70,10 +70,10 @@ export default class Interface {
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list:not(:empty) {margin-top:30px;}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list .ccm__list__title {color:#333; font-weight:600;}',
       '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }',
-      '#cconsent-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
-      '#cconsent-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; }',
-      '#cconsent-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
-      '#cconsent-modal .ccm__footer button + button { margin-left: 10px; }'
+      '#cconsent-modal .ccm__footer, #cconsent-init-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }',
+      '#cconsent-modal .ccm__footer button, #cconsent-init-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; height: 100%; }',
+      '#cconsent-modal .ccm__footer button:hover, #cconsent-init-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }',
+      '#cconsent-modal .ccm__footer button + button, #cconsent-init-modal .ccm__footer button + button { margin-left: 10px; }'
       );
   }
 
@@ -192,10 +192,10 @@ export default class Interface {
   }
 
   buildInitialModal() {
-    return el('dialog#cconsent-modal',
+    return el('dialog#cconsent-init-modal',
       el('div.ccm__content',
         el('div.ccm__content__heading',
-          el('h2#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')),
+          el('h2#init__ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle')),
           el('p',
             Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'),
             (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null
@@ -207,7 +207,7 @@ export default class Interface {
           el('button.ccm__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnOptions')),
           el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnAgree')),
         )
-      ), { 'aria-labelledby': 'ccm__content__title', 'aria-hidden': 'true' }
+      ), { 'aria-labelledby': 'init__ccm__content__title', 'aria-hidden': 'true' }
     );
   }
 
