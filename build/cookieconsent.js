@@ -1199,35 +1199,19 @@ class Interface {
         _iterator.f();
       }
     }
-  }
-  buildBar() {
-    return el('div#cconsent-bar.ccb--hidden', el(`div.ccb__wrapper`, el('div.ccb__left', el('div.cc-text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))), el('div.ccb__right', el('div.ccb__button', el('button.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting'), {
-      'aria-hidden': 'true',
-      tabindex: '-1'
-    }), window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll'), {
-      'aria-hidden': 'true',
-      tabindex: '-1'
-    }), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'), {
-      'aria-hidden': 'true',
-      tabindex: '-1'
-    })))), {
-      role: 'region',
-      'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'cookieBarLabel'),
-      'aria-hidden': 'true',
-      tabindex: '-1'
-    });
-  }
-  buildModal() {
-    // Cookie names list middleware
-    var listCookies = function (category) {
-      var list = [];
-      for (let service in window.CookieConsent.config.services) {
-        window.CookieConsent.config.services[service].category === category && list.push(window.CookieConsent.config.services[service]);
-      }
-      if (list.length) {
-        var listItems = [];
-        for (let item in list) {
-          listItems.push(el('li', Language.getTranslation(list[item], window.CookieConsent.config.language.current, 'name')));
+  }, {
+    key: "render",
+    value: function render(name, elem, callback) {
+      if (typeof callback === 'undefined') callback = function callback() {};
+      if (typeof this.elements[name] !== 'undefined') {
+        this.elements[name].parentNode.replaceChild(elem, this.elements[name]);
+        this.elements[name] = elem;
+        callback(elem);
+        return elem;
+      } else {
+        var insertedElem = mount(document.body, elem, document.body.lastChild);
+        if (insertedElem) {
+          this.elements[name] = insertedElem;
         }
         return [el('div.ccm__list', el('span.ccm__list__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalAffectedSolutions')), el('ul', listItems))];
       }
@@ -1348,6 +1332,7 @@ class Interface {
                 buttonConsentGive.setAttribute('aria-hidden', 'false');
                 buttonConsentDecline !== null && buttonConsentDecline.setAttribute('tabindex', '0');
                 buttonConsentDecline !== null && buttonConsentDecline.setAttribute('aria-hidden', 'false');
+                bar.focus();
               }, window.CookieConsent.config.UITimeout);
             }
           });
@@ -1363,6 +1348,7 @@ class Interface {
                 modal.setAttribute('aria-hidden', 'false');
                 modal.setAttribute('tabindex', '0');
                 modal.querySelector('.ccm__footer').style.justifyContent = 'center';
+                modal.focus();
               }, window.CookieConsent.config.UITimeout);
             }
           });
