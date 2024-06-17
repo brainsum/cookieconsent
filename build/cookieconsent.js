@@ -27,11 +27,46 @@ class Utilities {
     } else if (r < 0) {
       r = 0;
     }
-    var b = (num >> 8 & 0x00FF) + amt;
-    if (b > 255) {
-      b = 255;
-    } else if (b < 0) {
-      b = 0;
+  }, {
+    key: "lightenDarkenColor",
+    value: function lightenDarkenColor(col, amt) {
+      var usePound = false;
+
+      // Handling HEX color format
+      if (col[0] === "#") {
+        col = col.slice(1);
+        usePound = true;
+        var num = parseInt(col, 16);
+        var r = (num >> 16) + amt;
+        var g = (num >> 8 & 0x00FF) + amt;
+        var b = (num & 0x0000FF) + amt;
+        r = Math.min(255, Math.max(0, r));
+        g = Math.min(255, Math.max(0, g));
+        b = Math.min(255, Math.max(0, b));
+        return (usePound ? "#" : "") + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+      }
+
+      // Handling RGBA and RGB color format
+      if (col.startsWith("rgb")) {
+        var parts = col.match(/rgba?\((\d{1,3})\s*,?\s*(\d{1,3})\s*,?\s*(\d{1,3})(?:\s*\/\s*(\d+\.?\d*%?))?\)/i);
+        if (parts) {
+          var _r = parseInt(parts[1]) + amt;
+          var _g = parseInt(parts[2]) + amt;
+          var _b = parseInt(parts[3]) + amt;
+          var a = parts[4] ? parseFloat(parts[4]) : 1;
+          _r = Math.min(255, Math.max(0, _r));
+          _g = Math.min(255, Math.max(0, _g));
+          _b = Math.min(255, Math.max(0, _b));
+
+          // Conditionally format output depending on alpha presence
+          if (parts[4]) {
+            return "rgba(".concat(_r, ", ").concat(_g, ", ").concat(_b, ", ").concat(a, ")");
+          } else {
+            return "rgb(".concat(_r, ", ").concat(_g, ", ").concat(_b, ")");
+          }
+        }
+      }
+      return col; // Return the original if format is not recognized  
     }
     var g = (num & 0x0000FF) + amt;
     if (g > 255) {
@@ -1021,19 +1056,147 @@ class Interface {
   constructor() {
     this.elements = {};
   }
-  buildStyle() {
-    return el('style', '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', '#cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip-path: rect(1px 1px 1px 1px) !important; width: 1px !important; height: 1px !important; }', '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:inherit; font-size:14px; line-height:18px; position:fixed; bottom:0; inset-inline:0; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}', '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}', '#cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}', '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}', '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}', '#cconsent-bar button { line-height:normal; font-size:14px; border:0; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-give { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; margin-right: 10px; border: 1px solid ' + window.CookieConsent.config.theme.barMainButtonColor + '}', '#cconsent-bar button.ccb__edit { appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; background:none; }', '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }', '#cconsent-modal, #cconsent-init-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:inherit; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}', '@media (max-width: 600px) { #cconsent-modal, #cconsent-init-modal { height: 100% } }', '#cconsent-modal button, #cconsent-init-modal button { border: 0 }', '#cconsent-modal h2, #cconsent-init-modal h2, #cconsent-modal h3, #cconsent-init-modal h3 {color:#333; margin-top:0}', '#cconsent-modal.ccm--visible, #cconsent-init-modal.ccm--visible {display:flex}', '#cconsent-modal .ccm__content, #cconsent-init-modal .ccm__content { max-width:600px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; display:flex; flex-direction:column; justify-content:space-between; }', '@media (max-width: 600px) { #cconsent-modal .ccm__content, #cconsent-init-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}', '#cconsent-modal .ccm__content > .ccm__content__heading, #cconsent-init-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }', '#cconsent-modal .ccm__content > .ccm__content__heading h2, #cconsent-init-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }', '#cconsent-modal .ccm__content > .ccm__content__heading p, #cconsent-init-modal .ccm__content > .ccm__content__heading p { margin-top:1rem; margin-bottom:1rem; }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }', '#cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head {color:#333; font-weight:600; cursor:pointer; position:relative; padding:0; margin:0; transition: background-color .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head:hover { background-color:#F9F9F9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status { order: 1; position:absolute; left:35px; font-weight: 600; display:inline-block; margin-right: 20px; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--checked { font-size:1em; color:#28a834; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--unchecked { font-size:1.4em; color:#e56385; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__text { order: 2; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge { transition: transform .3s ease-out; transform-origin: center; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%); order: 3;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge > svg { pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head .ccm__tab-head__icon-wedge { transform:translateY(-50%) rotate(-180deg) }', '#cconsent-modal .ccm__tab-trigger { appearance: none; background: none; display: flex; flex-direction: row; width: 100%; padding:17px 35px 17px 56px; color:#333; font-weight:600; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content {padding:0; margin:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content { max-height: 0; overflow: hidden; opacity: 0; transition: all .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content__inner { display: flex; flex-direction: row; padding:25px 35px; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head { background-color:#f9f9f9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content { max-height: 900px; opacity: 1; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose {order:1;}', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content {flex-direction:column} }', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose { margin-bottom:20px; } }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-component {display:flex; margin-right:35px; align-items:center;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__status {font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group {background:none; width:40px; height:20px; margin:0 10px; position:relative;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; transition: .4s; pointer-events: none;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; transition: .4s;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider {background-color: #28A834;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus-visible {box-shadow: 0 0 0 2px' + window.CookieConsent.config.theme.focusColor + ';}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {transform: translateX(20px);}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__desc {order:2;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content p {color:#444; margin-bottom:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list:not(:empty) {margin-top:30px;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list .ccm__list__title {color:#333; font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }', '#cconsent-modal .ccm__footer, #cconsent-init-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }', '#cconsent-modal .ccm__footer button, #cconsent-init-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; height: 100%; }', '#cconsent-modal .ccm__footer button:hover, #cconsent-init-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }', '#cconsent-modal .ccm__footer button + button, #cconsent-init-modal .ccm__footer button + button { margin-left: 10px; }');
-  }
-  injectCustomStyles(customCSS) {
-    let fullOverride = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    const style = document.createElement('style');
-    style.appendChild(document.createTextNode(customCSS));
-    if (fullOverride) {
-      document.head.appendChild(style);
-    } else {
-      let defaultStyleTag = document.body.getElementsByTagName('style');
-      if (defaultStyleTag.length) {
-        defaultStyleTag[0].insertAdjacentElement('afterend', style);
+  Interface_createClass(Interface, [{
+    key: "buildStyle",
+    value: function buildStyle() {
+      return el('style', '#cconsent-bar, #cconsent-bar * { box-sizing:border-box }', '#cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }', '#cconsent-bar { background-color:' + window.CookieConsent.config.theme.barColor + '; color:' + window.CookieConsent.config.theme.barTextColor + '; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}', '#cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}', '#cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}', '#cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}', '#cconsent-bar .ccb__right { align-self:center; white-space: nowrap;}', '#cconsent-bar .ccb__right > div {display:inline-block; color:#FFF;}', '#cconsent-bar button { line-height:normal; font-size:14px; border:0; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-give { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonColor + ';}', '#cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color:' + window.CookieConsent.config.theme.barMainButtonColor + '; background-color:' + window.CookieConsent.config.theme.barMainButtonTextColor + '; margin-right: 10px; border: 1px solid ' + window.CookieConsent.config.theme.barMainButtonColor + '}', '#cconsent-bar button.ccb__edit { -moz-appearance:none; -webkit-appearance:none; appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color:' + window.CookieConsent.config.theme.barTextColor + '; background:none; }', '#cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }', '#cconsent-bar button:focus-visible {box-shadow: 0 0 0 2px ' + window.CookieConsent.config.theme.focusColor + ';}', '#cconsent-modal, #cconsent-init-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}', '@media (max-width: 600px) { #cconsent-modal, #cconsent-init-modal { height: 100% } }', '#cconsent-modal button, #cconsent-init-modal button { border: 0 }', '#cconsent-modal strong, #cconsent-init-modal strong {color:#333; margin-top:0}', '#cconsent-modal.ccm--visible, #cconsent-init-modal.ccm--visible {display:flex}', '#cconsent-modal .ccm__content, #cconsent-init-modal .ccm__content { max-width:600px; max-height:600px; overflow-Y:auto; background-color:#EFEFEF; display:flex; flex-direction:column; justify-content:space-between; }', '@media (max-width: 600px) { #cconsent-modal .ccm__content, #cconsent-init-modal .ccm__content { max-width:100vw; height:100%; max-height:initial; }}', '#cconsent-modal .ccm__content > .ccm__content__heading, #cconsent-init-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }', '#cconsent-modal .ccm__content > .ccm__content__heading strong, #cconsent-init-modal .ccm__content > .ccm__content__heading strong { font-size:21px; font-weight:600; color:#333; margin:0 }', '#cconsent-modal .ccm__content > .ccm__content__heading p, #cconsent-init-modal .ccm__content > .ccm__content__heading p { margin-top:1rem; margin-bottom:1rem; }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }', '#cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }', '#cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head {color:#333; font-weight:600; cursor:pointer; position:relative; padding:0; margin:0; transition: background-color .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head:hover { background-color:#F9F9F9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status { order: 1; position:absolute; left:35px; font-weight: 600; display:inline-block; margin-right: 20px; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--checked { font-size:1em; color:#28a834; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__status.ccm__tab-head__status--unchecked { font-size:1.4em; color:#e56385; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-head__text { order: 2; pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge { transition: transform .3s ease-out; transform-origin: center; position:absolute;right:25px; top:50%; transform:rotate(0deg); transform:translateY(-50%); order: 3;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-head .ccm__tab-head__icon-wedge > svg { pointer-events: none; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head .ccm__tab-head__icon-wedge { transform:translateY(-50%) rotate(-180deg) }', '#cconsent-modal .ccm__tab-trigger { appearance: none; background: none; display: flex; flex-direction: row; width: 100%; padding:17px 35px 17px 56px; color:#333; font-weight:600; }', '#cconsent-modal .ccm__tab-trigger:focus-visible {box-shadow: 0 0 0 2px ' + window.CookieConsent.config.theme.focusColor + ';}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content {padding:0; margin:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content { overflow: hidden; display: none; transition: all .5s ease-out; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup .ccm__tab-content__inner { display: flex; flex-direction: row; padding:25px 35px; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-head { background-color:#f9f9f9 }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content { max-height: 900px; display: block; }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose {order:1;}', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup.ccm__tabgroup--open .ccm__tab-content {flex-direction:column} }', '@media (max-width: 600px) { #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose { margin-bottom:20px; } }', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-component {display:flex; margin-right:35px; align-items:center;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__status {font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group {background:none; width:40px; height:20px; margin:0 10px; position:relative;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s; pointer-events: none;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider {background-color: #28A834;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus-visible {box-shadow: 0 0 0 2px ' + window.CookieConsent.config.theme.focusColor + ';}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__desc {order:2;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content strong {font-size:18px; margin-bottom:10px; line-height:1;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content p {color:#444; margin-bottom:0}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list:not(:empty) {margin-top:30px;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list .ccm__list__title {color:#333; font-weight:600;}', '#cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__list ul { margin:15px 0; padding-left:15px }', '#cconsent-modal .ccm__footer, #cconsent-init-modal .ccm__footer { padding:35px; background-color:#EFEFEF; text-align:center; display: flex; align-items:center; justify-content:flex-end; }', '#cconsent-modal .ccm__footer button, #cconsent-init-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color:' + window.CookieConsent.config.theme.modalMainButtonColor + '; color:' + window.CookieConsent.config.theme.modalMainButtonTextColor + '; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; height: 100%; }', '#cconsent-modal .ccm__footer button:hover, #cconsent-init-modal .ccm__footer button:hover { background-color:' + Utilities.lightenDarkenColor(window.CookieConsent.config.theme.modalMainButtonColor, -20) + '; }', '#cconsent-modal .ccm__footer button:focus-within, #cconsent-init-modal .ccm__footer button:focus-within { box-shadow: 0 0 0 0.25rem ' + window.CookieConsent.config.theme.focusColor + '; }', '#cconsent-modal .ccm__footer button + button, #cconsent-init-modal .ccm__footer button + button { margin-left: 10px; }');
+    }
+  }, {
+    key: "buildBar",
+    value: function buildBar() {
+      return el('div#cconsent-bar.ccb--hidden', el("div.ccb__wrapper", el('div.ccb__left', el('div.cc-text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))), el('div.ccb__right', el('div.ccb__button', el('button.ccb__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barLinkSetting'), {
+        'aria-hidden': 'true',
+        tabindex: '-1'
+      }), window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnRejectAll'), {
+        'aria-hidden': 'true',
+        tabindex: '-1'
+      }), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barBtnAcceptAll'), {
+        'aria-hidden': 'true',
+        tabindex: '-1'
+      })))), {
+        role: 'region',
+        'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'cookieBarLabel'),
+        'aria-hidden': 'true',
+        tabindex: '-1'
+      });
+    }
+  }, {
+    key: "buildModal",
+    value: function buildModal() {
+      // Cookie names list middleware
+      var listCookies = function listCookies(category) {
+        var list = [];
+        for (var service in window.CookieConsent.config.services) {
+          window.CookieConsent.config.services[service].category === category && list.push(window.CookieConsent.config.services[service]);
+        }
+        if (list.length) {
+          var listItems = [];
+          for (var item in list) {
+            listItems.push(el('li', Language.getTranslation(list[item], window.CookieConsent.config.language.current, 'name')));
+          }
+          return [el('div.ccm__list', el('span.ccm__list__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalAffectedSolutions')), el('ul', listItems))];
+        }
+      };
+      function modalTabGroups() {
+        var contentItems = [];
+        var i = 0;
+        for (var key in window.CookieConsent.config.categories) {
+          var tabId = Math.random().toString(16).slice(2);
+          contentItems.push(el('dl.ccm__tabgroup' + '.' + key + (window.CookieConsent.config.categories[key].checked ? '.checked-5jhk' : ''), {
+            'data-category': key
+          }, el('dt.ccm__tab-head', el('button#ccm__tab-trigger--' + tabId + '.ccm__tab-trigger', el('span.ccm__tab-head__text', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')), el('span.ccm__tab-head__status' + (window.CookieConsent.config.categories[key].checked ? '.ccm__tab-head__status--checked' : '.ccm__tab-head__status--unchecked'), window.CookieConsent.config.categories[key].checked ? '✔' : '×', {
+            'aria-label': window.CookieConsent.config.categories[key].checked ? Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'checked') : Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'unchecked')
+          }), el('span.ccm__tab-head__icon-wedge', el(document.createElementNS("http://www.w3.org/2000/svg", "svg"), {
+            version: "1.2",
+            preserveAspectRatio: "none",
+            viewBox: "0 0 24 24",
+            class: "icon-wedge-svg",
+            "data-id": "e9b3c566e8c14cfea38af128759b91a3",
+            style: "opacity: 1; mix-blend-mode: normal; fill: rgb(51, 51, 51); width: 32px; height: 32px;"
+          }, el(document.createElementNS("http://www.w3.org/2000/svg", "path"), {
+            'xmlns:default': "http://www.w3.org/2000/svg",
+            class: "icon-wedge-angle-down",
+            d: "M17.2,9.84c0-0.09-0.04-0.18-0.1-0.24l-0.52-0.52c-0.13-0.13-0.33-0.14-0.47-0.01c0,0-0.01,0.01-0.01,0.01  l-4.1,4.1l-4.09-4.1C7.78,8.94,7.57,8.94,7.44,9.06c0,0-0.01,0.01-0.01,0.01L6.91,9.6c-0.13,0.13-0.14,0.33-0.01,0.47  c0,0,0.01,0.01,0.01,0.01l4.85,4.85c0.13,0.13,0.33,0.14,0.47,0.01c0,0,0.01-0.01,0.01-0.01l4.85-4.85c0.06-0.06,0.1-0.15,0.1-0.24  l0,0H17.2z",
+            style: "fill: rgb(51, 51, 51);"
+          }))), {
+            'aria-expanded': 'false',
+            'aria-controls': 'ccm__tab-content--' + tabId
+          })), el('dd#ccm__tab-content--' + tabId + '.ccm__tab-content', el('div.ccm__tab-content__inner', el('div.ccm__tab-content__desc', el('strong#ccm__tab-content__title--' + tabId, Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'), {
+            'aria-label': "".concat(Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name'), " - tab")
+          }), el('p', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'description')), el('div.ccm__list', listCookies(key))), el('div.ccm__tab-content__choose', !window.CookieConsent.config.categories[key].needed && el('div.ccm__switch-component', el('span.ccm__switch__status.status-off', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'off')), el('button.ccm__switch-group', el('span.ccm__switch__text.visually-hide', Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')), el('span.ccm__switch__slider'), {
+            'role': 'switch',
+            'data-category': key,
+            'aria-checked': window.CookieConsent.config.categories[key].checked,
+            'aria-label': Language.getTranslation(window.CookieConsent.config.categories[key], window.CookieConsent.config.language.current, 'name')
+          }), el('span.ccm__switch__status.status-on', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'on'))))), {
+            'role': 'region',
+            'aria-labelledby': 'ccm__tab-trigger--' + tabId,
+            'aria-hidden': 'true'
+          })));
+          i++;
+        }
+        return contentItems;
+      }
+      return el('dialog#cconsent-modal', el('div.ccm__content', el('div.ccm__content__heading', el('strong#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle'), {
+        'aria-label': 'Cookie Consent options'
+      }), el('p', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'), window.CookieConsent.config.modalMainTextMoreLink ? el('a', {
+        href: window.CookieConsent.config.modalMainTextMoreLink,
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null), el('button.ccm__cheading__close', '×', {
+        'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'closeAriaLabel')
+      })), el('div.ccm__content__body', el('div.ccm__tabs', modalTabGroups())), el('div.ccm__footer', el('button#ccm__footer__consent-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')), window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll')))), {
+        'aria-labelledby': 'ccm__content__title',
+        'aria-hidden': 'true'
+      });
+    }
+  }, {
+    key: "buildInitialModal",
+    value: function buildInitialModal() {
+      return el('dialog#cconsent-init-modal', el('div.ccm__content', el('div.ccm__content__heading', el('strong#init__ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle'), {
+        'aria-label': 'Cookie Consent'
+      }), el('p', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'), window.CookieConsent.config.modalMainTextMoreLink ? el('a', {
+        href: window.CookieConsent.config.modalMainTextMoreLink,
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null)), el('div.ccm__footer', el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnDisagree')), el('button.ccm__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnOptions')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnAgree')))), {
+        'aria-labelledby': 'init__ccm__content__title',
+        'aria-hidden': 'true'
+      });
+    }
+  }, {
+    key: "modalRedrawIcons",
+    value: function modalRedrawIcons() {
+      var tabGroups = this.elements['modal'].querySelectorAll('.ccm__tabgroup');
+      var _iterator = Interface_createForOfIteratorHelper(tabGroups),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var tabGroup = _step.value;
+          var lightSwitch = tabGroup.querySelector('button.ccm__switch-group');
+          var tabStatus = tabGroup.querySelector('.ccm__tab-head__status');
+          if (window.CookieConsent.config.categories[tabGroup.dataset.category].checked) {
+            if (!tabGroup.classList.contains('checked-5jhk')) {
+              tabGroup.classList.add('checked-5jhk');
+              lightSwitch.setAttribute('aria-checked', 'true');
+              tabStatus.classList.remove('ccm__tab-head__status--unchecked');
+              tabStatus.setAttribute('aria-label', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'checked'));
+              tabStatus.textContent = '✔';
+              tabStatus.classList.add('ccm__tab-head__status--checked');
+            }
+            ;
+          } else {
+            if (tabGroup.classList.contains('checked-5jhk')) tabGroup.classList.remove('checked-5jhk');
+            lightSwitch.setAttribute('aria-checked', 'false');
+            tabStatus.setAttribute('aria-label', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'unchecked'));
+            tabStatus.textContent = '×';
+            tabStatus.classList.add('ccm__tab-head__status--unchecked');
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
     }
   }
@@ -1151,32 +1314,59 @@ class Interface {
         tabStatus.classList.add('ccm__tab-head__status--unchecked');
       }
     }
-  }
-  render(name, elem, callback) {
-    if (typeof callback === 'undefined') callback = function () {};
-    if (typeof this.elements[name] !== 'undefined') {
-      this.elements[name].parentNode.replaceChild(elem, this.elements[name]);
-      this.elements[name] = elem;
-      callback(elem);
-      return elem;
-    } else {
-      var insertedElem = mount(document.body, elem, document.body.firstChild);
-      if (insertedElem) {
-        this.elements[name] = insertedElem;
-      }
-      callback(insertedElem);
-      return insertedElem;
-    }
-  }
-  buildInterface(callback) {
-    if (typeof callback === 'undefined') callback = function () {};
-    var that = this;
-    Utilities.ready(function () {
-      if (window.CookieConsent.config.noUI) {
-        that.writeBufferToDOM();
-        that.buildCookie(cookie => {
-          that.setCookie(cookie);
-        });
+  }, {
+    key: "buildInterface",
+    value: function buildInterface(callback) {
+      if (typeof callback === 'undefined') callback = function callback() {};
+      var that = this;
+      Utilities.ready(function () {
+        if (window.CookieConsent.config.noUI) {
+          that.writeBufferToDOM();
+          that.buildCookie(function (cookie) {
+            that.setCookie(cookie);
+          });
+          callback();
+          return;
+        }
+        that.render('style', that.buildStyle());
+
+        //show the bar only if layout mode is 'bar'
+        if (window.CookieConsent.config.mode == 'bar') {
+          that.render('bar', that.buildBar(), function (bar) {
+            // Show the bar after a while
+            if (!window.CookieConsent.config.cookieExists) {
+              setTimeout(function () {
+                var buttonSettings = bar.querySelector('.ccb__edit');
+                var buttonConsentGive = bar.querySelector('.consent-give');
+                var buttonConsentDecline = bar.querySelector('.consent-decline');
+                bar.classList.remove('ccb--hidden');
+                bar.setAttribute('aria-hidden', 'false');
+                bar.setAttribute('tabindex', '0');
+                buttonSettings.setAttribute('tabindex', '0');
+                buttonSettings.setAttribute('aria-hidden', 'false');
+                buttonConsentGive.setAttribute('tabindex', '0');
+                buttonConsentGive.setAttribute('aria-hidden', 'false');
+                buttonConsentDecline !== null && buttonConsentDecline.setAttribute('tabindex', '0');
+                buttonConsentDecline !== null && buttonConsentDecline.setAttribute('aria-hidden', 'false');
+              }, window.CookieConsent.config.UITimeout);
+            }
+          });
+        }
+        that.render('modal', that.buildModal());
+
+        //show init modal if layout mode is 'modal'
+        if (window.CookieConsent.config.mode == 'modal') {
+          that.render('modalInit', that.buildInitialModal(), function (modal) {
+            if (!window.CookieConsent.config.cookieExists) {
+              setTimeout(function () {
+                modal.classList.add('ccm--visible');
+                modal.setAttribute('aria-hidden', 'false');
+                modal.setAttribute('tabindex', '0');
+                modal.querySelector('.ccm__footer').style.justifyContent = 'center';
+              }, window.CookieConsent.config.UITimeout);
+            }
+          });
+        }
         callback();
         return;
       }
@@ -1268,20 +1458,229 @@ class Interface {
       });
     }
 
-    // If you click Reject all cookies
-    var buttonConsentDecline = document.querySelectorAll('.consent-decline');
-    for (let button of buttonConsentDecline) {
-      button.addEventListener('click', () => {
+      // If you click Accept all cookies
+      var buttonConsentGive = document.querySelectorAll('.consent-give');
+      var _iterator2 = Interface_createForOfIteratorHelper(buttonConsentGive),
+        _step2;
+      try {
+        var _loop = function _loop() {
+          var button = _step2.value;
+          button.addEventListener('click', function () {
+            var _this$elements$bar4, _this$elements$bar5, _this$elements$bar6, _this$elements$modalI13, _this$elements$modalI14, _this$elements$modalI15;
+            var buttonSettings = document.querySelector('.ccb__edit');
+            var buttonConsentDecline = document.querySelector('.consent-decline');
+
+            // We set config to full consent
+            for (var key in window.CookieConsent.config.categories) {
+              window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = true;
+            }
+            _this.writeBufferToDOM();
+            _this.buildCookie(function (cookie) {
+              _this.setCookie(cookie);
+            });
+            (_this$elements$bar4 = _this.elements['bar']) === null || _this$elements$bar4 === void 0 ? void 0 : _this$elements$bar4.classList.add('ccb--hidden');
+            (_this$elements$bar5 = _this.elements['bar']) === null || _this$elements$bar5 === void 0 ? void 0 : _this$elements$bar5.setAttribute('aria-hidden', 'true');
+            (_this$elements$bar6 = _this.elements['bar']) === null || _this$elements$bar6 === void 0 ? void 0 : _this$elements$bar6.setAttribute('tabindex', '-1');
+            _this.elements['modal'].classList.remove('ccm--visible');
+            _this.elements['modal'].setAttribute('aria-hidden', 'true');
+            _this.elements['modal'].setAttribute('tabindex', '-1');
+            (_this$elements$modalI13 = _this.elements['modalInit']) === null || _this$elements$modalI13 === void 0 ? void 0 : _this$elements$modalI13.classList.remove('ccm--visible');
+            (_this$elements$modalI14 = _this.elements['modalInit']) === null || _this$elements$modalI14 === void 0 ? void 0 : _this$elements$modalI14.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI15 = _this.elements['modalInit']) === null || _this$elements$modalI15 === void 0 ? void 0 : _this$elements$modalI15.setAttribute('tabindex', '-1');
+            button.setAttribute('tabindex', '-1');
+            button.setAttribute('aria-hidden', 'true');
+            buttonSettings.setAttribute('tabindex', '-1');
+            buttonSettings.setAttribute('aria-hidden', 'true');
+            buttonConsentDecline !== null && buttonConsentDecline.setAttribute('tabindex', '-1');
+            buttonConsentDecline !== null && buttonConsentDecline.setAttribute('aria-hidden', 'true');
+            focusTarget.focus();
+            modalOpen = false;
+            _this.modalRedrawIcons();
+          });
+        };
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          _loop();
+        }
+
+        // If you click Reject all cookies
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      var buttonConsentDecline = document.querySelectorAll('.consent-decline');
+      var _iterator3 = Interface_createForOfIteratorHelper(buttonConsentDecline),
+        _step3;
+      try {
+        var _loop2 = function _loop2() {
+          var button = _step3.value;
+          button.addEventListener('click', function () {
+            var _this$elements$bar7, _this$elements$bar8, _this$elements$bar9, _this$elements$modalI16, _this$elements$modalI17, _this$elements$modalI18;
+            var buttonSettings = document.querySelector('.ccb__edit');
+            var buttonConsentGive = document.querySelector('.consent-give');
+
+            // We set config to full consent only in is needed
+            for (var key in window.CookieConsent.config.categories) {
+              window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].needed;
+            }
+            _this.writeBufferToDOM();
+            _this.buildCookie(function (cookie) {
+              _this.setCookie(cookie);
+            });
+            (_this$elements$bar7 = _this.elements['bar']) === null || _this$elements$bar7 === void 0 ? void 0 : _this$elements$bar7.classList.add('ccb--hidden');
+            (_this$elements$bar8 = _this.elements['bar']) === null || _this$elements$bar8 === void 0 ? void 0 : _this$elements$bar8.setAttribute('aria-hidden', 'true');
+            (_this$elements$bar9 = _this.elements['bar']) === null || _this$elements$bar9 === void 0 ? void 0 : _this$elements$bar9.setAttribute('tabindex', '-1');
+            _this.elements['modal'].classList.remove('ccm--visible');
+            _this.elements['modal'].setAttribute('aria-hidden', 'true');
+            _this.elements['modal'].setAttribute('tabindex', '-1');
+            (_this$elements$modalI16 = _this.elements['modalInit']) === null || _this$elements$modalI16 === void 0 ? void 0 : _this$elements$modalI16.classList.remove('ccm--visible');
+            (_this$elements$modalI17 = _this.elements['modalInit']) === null || _this$elements$modalI17 === void 0 ? void 0 : _this$elements$modalI17.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI18 = _this.elements['modalInit']) === null || _this$elements$modalI18 === void 0 ? void 0 : _this$elements$modalI18.setAttribute('tabindex', '-1');
+            button.setAttribute('tabindex', '-1');
+            button.setAttribute('aria-hidden', 'true');
+            buttonSettings.setAttribute('tabindex', '-1');
+            buttonSettings.setAttribute('aria-hidden', 'true');
+            buttonConsentGive.setAttribute('tabindex', '-1');
+            buttonConsentGive.setAttribute('aria-hidden', 'true');
+            focusTarget.focus();
+            modalOpen = false;
+            _this.modalRedrawIcons();
+          });
+        };
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          _loop2();
+        }
+
+        // If you click Cookie settings and open settings modal
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+      Array.prototype.forEach.call(document.querySelectorAll('.ccm__edit, .ccb__edit'), function (edit) {
+        edit.addEventListener('click', function () {
+          var _this$elements$modalI, _this$elements$modalI2, _this$elements$modalI3;
+          modalOpen = true;
+          _this.elements['modal'].classList.add('ccm--visible');
+          _this.elements['modal'].setAttribute('aria-hidden', 'false');
+          _this.elements['modal'].setAttribute('tabindex', '0');
+          _this.elements['modal'].querySelector('.ccm__cheading__close').focus();
+          (_this$elements$modalI = _this.elements['modalInit']) === null || _this$elements$modalI === void 0 ? void 0 : _this$elements$modalI.classList.remove('ccm--visible');
+          (_this$elements$modalI2 = _this.elements['modalInit']) === null || _this$elements$modalI2 === void 0 ? void 0 : _this$elements$modalI2.setAttribute('aria-hidden', 'true');
+          (_this$elements$modalI3 = _this.elements['modalInit']) === null || _this$elements$modalI3 === void 0 ? void 0 : _this$elements$modalI3.setAttribute('tabindex', '-1');
+        });
+      });
+
+      // If you click trough the tabs on Cookie settings
+      // If you click on/off switch
+      this.elements['modal'].querySelector('.ccm__tabs').addEventListener('click', function (event) {
+        // If you click trough the tabs on Cookie settings
+        if (event.target.classList.contains('ccm__tab-trigger') || event.target.classList.contains('ccm__tab-head__icon-wedge')) {
+          var getDlParent = function getDlParent(eventTarget) {
+            var parent = eventTarget.parentNode;
+            if (parent.nodeName !== 'DL') {
+              return getDlParent(parent);
+            } else {
+              return parent;
+            }
+          };
+          var parentDl = getDlParent(event.target);
+          if (parentDl.classList.contains('ccm__tabgroup--open')) {
+            parentDl.classList.remove('ccm__tabgroup--open');
+            event.target.setAttribute('aria-expanded', 'false');
+            parentDl.querySelector('.ccm__tab-content').setAttribute('aria-hidden', 'true');
+          } else {
+            parentDl.classList.add('ccm__tabgroup--open');
+            event.target.setAttribute('aria-expanded', 'true');
+            parentDl.querySelector('.ccm__tab-content').setAttribute('aria-hidden', 'false');
+          }
+        }
+
+        // If you click on/off switch
+        if (event.target.classList.contains('ccm__switch-group')) {
+          var status = event.target.getAttribute('aria-checked');
+          var label = event.target.textContent.trim();
+          var dl = document.querySelector('.ccm__tabgroup.' + event.target.dataset.category);
+          var dlStatus = document.querySelector('.ccm__tabgroup.' + event.target.dataset.category + ' .ccm__tab-head__status');
+          window.CookieConsent.config.categories[event.target.dataset.category].wanted = window.CookieConsent.config.categories[event.target.dataset.category].checked = status === 'true' ? false : true;
+          event.target.setAttribute('aria-checked', status !== 'true');
+          dl.classList.remove('checked-5jhk');
+          dlStatus.classList.remove('ccm__tab-head__status--checked');
+          dlStatus.classList.remove('ccm__tab-head__status--unchecked');
+          if (status !== 'true') {
+            event.target.setAttribute('aria-label', label + ' ' + Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'enabled'));
+            dl.classList.add('checked-5jhk');
+            dlStatus.setAttribute('aria-label', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'checked'));
+            dlStatus.textContent = '✔';
+            dlStatus.classList.add('ccm__tab-head__status--checked');
+          } else {
+            event.target.setAttribute('aria-label', label + ' ' + Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'disabled'));
+            dl.classList.remove('checked-5jhk');
+            dlStatus.setAttribute('aria-label', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'unchecked'));
+            dlStatus.textContent = '×';
+            dlStatus.classList.add('ccm__tab-head__status--unchecked');
+          }
+        }
+      });
+
+      // If you click close on open modal
+      this.elements['modal'].querySelector('.ccm__cheading__close').addEventListener('click', function (event) {
+        _this.elements['modal'].classList.remove('ccm--visible');
+        _this.elements['modal'].setAttribute('aria-hidden', 'true');
+        _this.elements['modal'].setAttribute('tabindex', '-1');
+        if (!window.CookieConsent.config.cookieExists) {
+          var _this$elements$modalI4, _this$elements$modalI5, _this$elements$modalI6;
+          (_this$elements$modalI4 = _this.elements['modalInit']) === null || _this$elements$modalI4 === void 0 ? void 0 : _this$elements$modalI4.classList.add('ccm--visible');
+          (_this$elements$modalI5 = _this.elements['modalInit']) === null || _this$elements$modalI5 === void 0 ? void 0 : _this$elements$modalI5.setAttribute('aria-hidden', 'false');
+          (_this$elements$modalI6 = _this.elements['modalInit']) === null || _this$elements$modalI6 === void 0 ? void 0 : _this$elements$modalI6.setAttribute('tabindex', '0');
+        }
+        modalOpen = false;
+      });
+      document.addEventListener('keydown', function (event) {
+        if (modalOpen && (!event.keyCode || event.keyCode === 27)) {
+          _this.elements['modal'].classList.remove('ccm--visible');
+          _this.elements['modal'].setAttribute('aria-hidden', 'true');
+          _this.elements['modal'].setAttribute('tabindex', '-1');
+          if (!window.CookieConsent.config.cookieExists) {
+            var _this$elements$modalI7, _this$elements$modalI8, _this$elements$modalI9;
+            (_this$elements$modalI7 = _this.elements['modalInit']) === null || _this$elements$modalI7 === void 0 ? void 0 : _this$elements$modalI7.classList.add('ccm--visible');
+            (_this$elements$modalI8 = _this.elements['modalInit']) === null || _this$elements$modalI8 === void 0 ? void 0 : _this$elements$modalI8.setAttribute('aria-hidden', 'false');
+            (_this$elements$modalI9 = _this.elements['modalInit']) === null || _this$elements$modalI9 === void 0 ? void 0 : _this$elements$modalI9.setAttribute('tabindex', '0');
+          }
+          modalOpen = false;
+        }
+      });
+
+      // If you click submit on cookie settings
+      document.getElementById('ccm__footer__consent-modal-submit').addEventListener('click', function () {
+        var switchElements = _this.elements['modal'].querySelectorAll('.ccm__switch input');
+        Array.prototype.forEach.call(switchElements, function (switchElement) {
+          window.CookieConsent.config.categories[switchElement.dataset.category].wanted = switchElement.checked;
+        });
         var buttonSettings = document.querySelector('.ccb__edit');
         var buttonConsentGive = document.querySelector('.consent-give');
-
-        // We set config to full consent only in is needed
-        for (let key in window.CookieConsent.config.categories) {
-          window.CookieConsent.config.categories[key].wanted = window.CookieConsent.config.categories[key].checked = window.CookieConsent.config.categories[key].needed;
-        }
-        this.writeBufferToDOM();
-        this.buildCookie(cookie => {
-          this.setCookie(cookie);
+        var buttonConsentDecline = document.querySelector('.consent-decline');
+        _this.buildCookie(function (cookie) {
+          _this.setCookie(cookie, function () {
+            var _this$elements$modalI10, _this$elements$modalI11, _this$elements$modalI12, _this$elements$bar, _this$elements$bar2, _this$elements$bar3;
+            _this.elements['modal'].classList.remove('ccm--visible');
+            _this.elements['modal'].setAttribute('aria-hidden', 'true');
+            _this.elements['modal'].setAttribute('tabindex', '-1');
+            (_this$elements$modalI10 = _this.elements['modalInit']) === null || _this$elements$modalI10 === void 0 ? void 0 : _this$elements$modalI10.classList.remove('ccm--visible');
+            (_this$elements$modalI11 = _this.elements['modalInit']) === null || _this$elements$modalI11 === void 0 ? void 0 : _this$elements$modalI11.setAttribute('aria-hidden', 'true');
+            (_this$elements$modalI12 = _this.elements['modalInit']) === null || _this$elements$modalI12 === void 0 ? void 0 : _this$elements$modalI12.setAttribute('tabindex', '-1');
+            (_this$elements$bar = _this.elements['bar']) === null || _this$elements$bar === void 0 ? void 0 : _this$elements$bar.classList.add('ccb--hidden');
+            (_this$elements$bar2 = _this.elements['bar']) === null || _this$elements$bar2 === void 0 ? void 0 : _this$elements$bar2.setAttribute('aria-hidden', 'true');
+            (_this$elements$bar3 = _this.elements['bar']) === null || _this$elements$bar3 === void 0 ? void 0 : _this$elements$bar3.setAttribute('tabindex', '-1');
+            buttonSettings.setAttribute('tabindex', '-1');
+            buttonSettings.setAttribute('aria-hidden', 'true');
+            buttonConsentGive.setAttribute('tabindex', '-1');
+            buttonConsentGive.setAttribute('aria-hidden', 'true');
+            buttonConsentDecline !== null && buttonConsentDecline.setAttribute('tabindex', '-1');
+            buttonConsentDecline !== null && buttonConsentDecline.setAttribute('aria-hidden', 'true');
+            focusTarget.focus();
+            modalOpen = false;
+          });
         });
         this.elements['bar']?.classList.add('ccb--hidden');
         this.elements['bar']?.setAttribute('aria-hidden', 'true');
