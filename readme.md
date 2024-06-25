@@ -10,7 +10,6 @@ See the demo: [Cookieconsent](https://brainsum.github.io/cookieconsent/)
 
 ## Features
 
-- IE11 compatible
 - Four different blocking methods
 - Multilingual
 - Mobile ready
