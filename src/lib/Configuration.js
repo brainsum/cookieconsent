@@ -33,6 +33,7 @@ export default class Configuration {
         modalMainButtonTextColor: '#fff',
         focusColor: 'rgb(40 168 52 / 75%)',
       },
+      customCSS: null,
       language: {
         current: 'en',
         locale: {
