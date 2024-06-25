@@ -1209,7 +1209,7 @@ class Interface {
         callback(elem);
         return elem;
       } else {
-        var insertedElem = mount(document.body, elem, document.body.lastChild);
+        var insertedElem = mount(document.body, elem, document.body.firstChild);
         if (insertedElem) {
           this.elements[name] = insertedElem;
         }
@@ -1332,7 +1332,6 @@ class Interface {
                 buttonConsentGive.setAttribute('aria-hidden', 'false');
                 buttonConsentDecline !== null && buttonConsentDecline.setAttribute('tabindex', '0');
                 buttonConsentDecline !== null && buttonConsentDecline.setAttribute('aria-hidden', 'false');
-                bar.focus();
               }, window.CookieConsent.config.UITimeout);
             }
           });
@@ -1348,7 +1347,6 @@ class Interface {
                 modal.setAttribute('aria-hidden', 'false');
                 modal.setAttribute('tabindex', '0');
                 modal.querySelector('.ccm__footer').style.justifyContent = 'center';
-                modal.focus();
               }, window.CookieConsent.config.UITimeout);
             }
           });
