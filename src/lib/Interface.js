@@ -77,6 +77,14 @@ export default class Interface {
       );
   }
 
+  injectCustomStyles(customCSS) {
+    if (customCSS) {
+      const style = document.createElement('style');
+      style.appendChild(document.createTextNode(customCSS));
+      document.head.appendChild(style);
+    }
+  }
+
   buildBar() {
     return el('div#cconsent-bar.ccb--hidden',
         el(`div.ccb__wrapper`,
@@ -270,7 +278,11 @@ export default class Interface {
         return;
       }
 
-      that.render('style', that.buildStyle());
+      if (window.CookieConsent.config.customCSS) {
+        that.injectCustomStyles(window.CookieConsent.config.customCSS);
+      } else {
+        that.render('style', that.buildStyle());
+      }
 
       //show the bar only if layout mode is 'bar'
       if (window.CookieConsent.config.mode == 'bar') {

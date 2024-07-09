@@ -67,7 +67,15 @@ The script is being controlled mainly by a configuration object which is passed 
       barMainButtonTextColor: '#2C7CBF',
       modalMainButtonColor: '#4285F4',
       modalMainButtonTextColor: '#FFF',
+      focusColor: 'rgb(853 238 52 / 75%)'
     },
+    // You can declare custom CSS for all the UI elements as a template string instead of customizing specific properties described on the 'theme' object. If you declare customCSS, the 'theme' object and default styles will be ignored. 
+    customCSS: `
+      #cconsent-bar, #cconsent-bar * { box-sizing:border-box; }
+      #cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }
+      #cconsent-bar { background-color: red; color: black; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}
+      #cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}
+    `
     language: {
       // Current language.
       current: 'en',
