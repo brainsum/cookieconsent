@@ -73,16 +73,16 @@ The script is being controlled mainly by a configuration object which is passed 
     // You can declare a 'customCSS' property to partially customize the default CSS instead of customizing specific properties described on the 'theme' object. The value of this property should be a template string as in the example. Bear in mind that this style will be injected in the document body.
     customCSS: `
       #cconsent-bar, #cconsent-bar * { box-sizing:border-box; }
-      #cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }
-      #cconsent-bar { background-color: red; color: black; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}
+      #cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip-path: rect(1px 1px 1px 1px) !important; width: 1px !important; height: 1px !important; }
+      #cconsent-bar { background-color: red; color: black; padding:15px; text-align:right; font-family:inherit; font-size:14px; line-height:18px; position:fixed; bottom:0; inset-inline:0; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}
       #cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}
     `,
 
     // Optionally, you have the chance to fully override the CSS as per your requirements. This options gives you full freedom but you'll have to declare CSS for the UI elements. The resulted style will be injected in the document head.
     fullCSSOverride: `
       #cconsent-bar, #cconsent-bar * { box-sizing:border-box }
-      #cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip: rect(1px 1px 1px 1px) !important; clip: rect(1px, 1px, 1px, 1px) !important;width: 1px !important; height: 1px !important; }
-      #cconsent-bar { background-color: #2b7abb; color: #fff; padding:15px; text-align:right; font-family:sans-serif; font-size:14px; line-height:18px; position:fixed; bottom:0; left:0; width:100%; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}
+      #cconsent-bar .visually-hide, #cconsent-modal .visually-hide { position: absolute !important; overflow: hidden !important; clip-path: rect(1px 1px 1px 1px) !important; width: 1px !important; height: 1px !important; }
+      #cconsent-bar { background-color: #2b7abb; color: #fff; padding:15px; text-align:right; font-family:inherit; font-size:14px; line-height:18px; position:fixed; bottom:0; inset-inline:0; z-index:9998; transform: translateY(0); transition: transform .6s ease-in-out; transition-delay: .3s;}
       #cconsent-bar.ccb--hidden {transform: translateY(100%); display:block; visible:hidden;}
       #cconsent-bar .ccb__wrapper { display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1800px; margin:0 auto;}
       #cconsent-bar .ccb__left { align-self:center; text-align:left; margin: 15px 0;}
@@ -91,9 +91,9 @@ The script is being controlled mainly by a configuration object which is passed 
       #cconsent-bar button { line-height:normal; font-size:14px; border:0; padding:10px 10px; color: #2b7abb; background-color: #fff;}
       #cconsent-bar button.consent-give { line-height:normal; font-size:14px; border:none; padding:10px 10px; color: #2b7abb; background-color: #fff;}
       #cconsent-bar button.consent-decline { line-height:normal; font-size:14px; border:none; padding:10px 10px; color: #fff; background-color: #2b7abb; margin-right: 10px; border: 1px solid #fff;}
-      #cconsent-bar button.ccb__edit { -moz-appearance:none; -webkit-appearance:none; appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color: #fff; background:none; }
+      #cconsent-bar button.ccb__edit { appearance:none; margin-right:15px; border:0; padding:0; text-decoration:underline; color: #fff; background:none; }
       #cconsent-bar a:hover, #cconsent-bar button:hover { cursor:pointer; }
-      #cconsent-modal, #cconsent-init-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:sans-serif; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}
+      #cconsent-modal, #cconsent-init-modal { display:none; font-size:14px; line-height:18px; color:#666; width: 100vw; height: 100vh; position:fixed; left:0; top:0; right:0; bottom:0; font-family:inherit; font-size:14px; background-color:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;}
       @media (max-width: 600px) { #cconsent-modal, #cconsent-init-modal { height: 100% } }
       #cconsent-modal button, #cconsent-init-modal button { border: 0 }
       #cconsent-modal h2, #cconsent-init-modal h2, #cconsent-modal h3, #cconsent-init-modal h3 {color:#333; margin-top:0}
@@ -103,7 +103,7 @@ The script is being controlled mainly by a configuration object which is passed 
       #cconsent-modal .ccm__content > .ccm__content__heading, #cconsent-init-modal .ccm__content > .ccm__content__heading { border-bottom:1px solid #D8D8D8; padding:35px 35px 20px; background-color:#EFEFEF; position:relative; }
       #cconsent-modal .ccm__content > .ccm__content__heading h2, #cconsent-init-modal .ccm__content > .ccm__content__heading h2 { font-size:21px; font-weight:600; color:#333; margin:0 }
       #cconsent-modal .ccm__content > .ccm__content__heading p, #cconsent-init-modal .ccm__content > .ccm__content__heading p { margin-top:1rem; margin-bottom:1rem; }
-      #cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { -moz-appearance:none; -webkit-appearance:none; appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }
+      #cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close { appearance:none; padding:0; border:0; font-weight:600; color:#888; cursor:pointer; font-size:26px; position:absolute; right:15px; top:15px; width:26px; height:26px; background:none; text-align:center; }
       #cconsent-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible, #cconsent-init-modal .ccm__content > .ccm__content__heading .ccm__cheading__close:focus-visible { box-shadow: 0 0 0 0.25rem rgb(40 168 52 / 75%); }
       #cconsent-modal .ccm__content > .ccm__content__body { background-color:#FFF; }
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tabgroup { margin:0; border-bottom: 1px solid #D8D8D8; }
@@ -128,11 +128,11 @@ The script is being controlled mainly by a configuration object which is passed 
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-component {display:flex; margin-right:35px; align-items:center;}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__status {font-weight:600;}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group {background:none; width:40px; height:20px; margin:0 10px; position:relative;}
-      #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; -webkit-transition: .4s; transition: .4s; pointer-events: none;}
-      #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; -webkit-transition: .4s; transition: .4s;}
+      #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider {position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius:10px; transition: .4s; pointer-events: none;}
+      #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch__slider:before {position: absolute; content: ""; height: 12px; width: 12px; left: 4px; bottom: 4px; background-color: white; border-radius:50%; .4s; transition: .4s;}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider {background-color: #28A834;}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group:focus-visible {box-shadow: 0 0 0 2px rgb(40 168 52 / 75%);}
-      #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {-webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);}
+      #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__choose .ccm__switch-group[aria-checked="true"] .ccm__switch__slider:before {transform: translateX(20px);}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content .ccm__tab-content__desc {order:2;}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content h3 {font-size:18px; margin-bottom:10px; line-height:1;}
       #cconsent-modal .ccm__content > .ccm__content__body .ccm__tab-content p {color:#444; margin-bottom:0}
@@ -143,7 +143,6 @@ The script is being controlled mainly by a configuration object which is passed 
       #cconsent-modal .ccm__footer button, #cconsent-init-modal .ccm__footer button { line-height:normal; font-size:14px; transition: background-color .5s ease-out; background-color: #1e6ef4; color: #fff; border:none; padding:13px; min-width:110px; border-radius: 2px; cursor:pointer; height: 100%; }
       #cconsent-modal .ccm__footer button:hover, #cconsent-init-modal .ccm__footer button:hover { background-color: #181616; }
       #cconsent-modal .ccm__footer button + button, #cconsent-init-modal .ccm__footer button + button { margin-left: 10px; }`,
-      
     language: {
       // Current language.
       current: 'en',
