@@ -77,11 +77,16 @@ export default class Interface {
       );
   }
 
-  injectCustomStyles(customCSS) {
-    if (customCSS) {
-      const style = document.createElement('style');
-      style.appendChild(document.createTextNode(customCSS));
+  injectCustomStyles(customCSS, fullOverride = false) {
+    const style = document.createElement('style');
+    style.appendChild(document.createTextNode(customCSS));
+    if (fullOverride) {
       document.head.appendChild(style);
+    } else {
+      let defaultStyleTag = document.body.getElementsByTagName('style')
+      if (defaultStyleTag.length) {
+        defaultStyleTag[0].insertAdjacentElement('afterend', style)
+      }
     }
   }
 
@@ -278,10 +283,11 @@ export default class Interface {
         return;
       }
 
-      if (window.CookieConsent.config.customCSS) {
-        that.injectCustomStyles(window.CookieConsent.config.customCSS);
+      if (window.CookieConsent.config.fullCSSOverride) {
+        that.injectCustomStyles(window.CookieConsent.config.fullCSSOverride, true);
       } else {
         that.render('style', that.buildStyle());
+        if (window.CookieConsent.config.customCSS) that.injectCustomStyles(window.CookieConsent.config.customCSS);
       }
 
       //show the bar only if layout mode is 'bar'
