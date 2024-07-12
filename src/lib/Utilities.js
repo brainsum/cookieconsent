@@ -14,41 +14,48 @@ export default class Utilities {
 
   static lightenDarkenColor(col, amt) {
 
-    var usePound = false;
-  
-    if (col[0] == "#") {
+    let usePound = false;
+        
+    // Handling HEX color format
+    if (col[0] === "#") {
       col = col.slice(1);
       usePound = true;
+
+      let num = parseInt(col, 16);
+      let r = (num >> 16) + amt;
+      let g = ((num >> 8) & 0x00FF) + amt;
+      let b = (num & 0x0000FF) + amt;
+
+      r = Math.min(255, Math.max(0, r));
+      g = Math.min(255, Math.max(0, g));
+      b = Math.min(255, Math.max(0, b));
+
+      return (usePound ? "#" : "") + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
     }
-  
-    var num = parseInt(col, 16);
-  
-    var r = (num >> 16) + amt;
-  
-    if (r > 255) {
-      r = 255;
-    } else if (r < 0) {
-       r = 0;
+
+    // Handling RGBA and RGB color format
+    if (col.startsWith("rgb")) {
+      let parts = col.match(/rgba?\((\d{1,3})\s*,?\s*(\d{1,3})\s*,?\s*(\d{1,3})(?:\s*\/\s*(\d+\.?\d*%?))?\)/i);
+
+      if (parts) {
+        let r = parseInt(parts[1]) + amt;
+        let g = parseInt(parts[2]) + amt;
+        let b = parseInt(parts[3]) + amt;
+        let a = parts[4] ? parseFloat(parts[4]) : 1;
+
+        r = Math.min(255, Math.max(0, r));
+        g = Math.min(255, Math.max(0, g));
+        b = Math.min(255, Math.max(0, b));
+
+        // Conditionally format output depending on alpha presence
+        if (parts[4]) {
+            return `rgba(${r}, ${g}, ${b}, ${a})`;
+        } else {
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+      }
     }
-  
-    var b = ((num >> 8) & 0x00FF) + amt;
-  
-    if (b > 255) {
-      b = 255;
-    } else if (b < 0) {
-      b = 0;
-    }
-  
-    var g = (num & 0x0000FF) + amt;
-  
-    if (g > 255) {
-      g = 255;
-    } else if (g < 0) {
-      g = 0;
-    }
-  
-    return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
-  
+    return col;  // Return the original if format is not recognized  
   }
 
   static removeCookie() {
