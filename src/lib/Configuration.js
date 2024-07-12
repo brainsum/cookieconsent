@@ -34,6 +34,7 @@ export default class Configuration {
         focusColor: 'rgb(40 168 52 / 75%)',
       },
       customCSS: null,
+      fullCSSOverride: null,
       language: {
         current: 'en',
         locale: {

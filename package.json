@@ -1,14 +1,15 @@
 {
   "name": "cookieconsent",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --config=webpack.dev.js",
-    "build": "npm run build:nomin && npm run build:min && npm run build:docs",
+    "build": "npm run build:nomin && npm run build:min && npm run build:docsSrc && npm run build:docs",
     "build:nomin": "webpack --env production",
     "build:min": "webpack --env production --env min",
+    "build:docsSrc": "webpack --env production --env min --env docs-src",
     "build:docs": "webpack --env production --env min --env docs"
   },
   "repository": {

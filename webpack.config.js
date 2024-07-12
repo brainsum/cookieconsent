@@ -13,7 +13,11 @@ module.exports = (env) => {
 
     output: {
       filename: env.min ? 'cookieconsent.min.js' : 'cookieconsent.js',
-      path: path.resolve(__dirname, env.docs ? 'docs_src/src/assets/js' : 'build'),
+      path: path.resolve(__dirname, env['docs-src'] 
+        ? 'docs_src/src/assets/js' 
+        : env.docs
+        ? 'docs/assets/js'
+        : 'build'),
     },
     module: {
       rules: [
