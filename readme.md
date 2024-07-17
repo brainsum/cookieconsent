@@ -59,6 +59,8 @@ The script is being controlled mainly by a configuration object which is passed 
     UITimeout: 1000,
     // Show 'bar' or 'modal' initial layout
     mode: 'bar'
+    // Show the 'reject all cookies' button. It's false by default.
+    showRejectAllButton: false,
     // Look and feel.
     theme: {
       barColor: '#2C7CBF',
