@@ -57,7 +57,7 @@ The script is being controlled mainly by a configuration object which is passed 
     modalMainTextMoreLink: null,
     // How long to wait until bar or initial modal comes up.
     UITimeout: 1000,
-    // Show 'bar' or 'modal' initial layout
+    // Show 'bar' or 'modal' initial layout. Defaults to 'bar' if not set.
     mode: 'bar'
     // Show the 'reject all cookies' button. It's false by default.
     showRejectAllButton: false,
