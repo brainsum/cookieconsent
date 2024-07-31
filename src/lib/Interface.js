@@ -94,10 +94,13 @@ export default class Interface {
   }
 
   buildBar() {
+    let description = Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText')
+    let div = el('div.cc-text')
+    div.innerHTML = description
     return el('div#cconsent-bar.ccb--hidden',
         el(`div.ccb__wrapper`,
           el('div.ccb__left',
-            el('div.cc-text', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'barMainText'))
+            div
           ),
           el('div.ccb__right',
             el('div.ccb__button',
