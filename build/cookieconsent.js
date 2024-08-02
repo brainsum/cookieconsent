@@ -2,273 +2,6 @@
 /******/ 	"use strict";
 var __webpack_exports__ = {};
 
-;// CONCATENATED MODULE: ./src/lib/Utilities.js
-class Utilities {
-  static ready(fn) {
-    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-      fn();
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
-    }
-  }
-  static objectType(obj) {
-    return Object.prototype.toString.call(obj).slice(8, -1);
-  }
-  static lightenDarkenColor(col, amt) {
-    let usePound = false;
-
-    // Handling HEX color format
-    if (col[0] === "#") {
-      col = col.slice(1);
-      usePound = true;
-      let num = parseInt(col, 16);
-      let r = (num >> 16) + amt;
-      let g = (num >> 8 & 0x00FF) + amt;
-      let b = (num & 0x0000FF) + amt;
-      r = Math.min(255, Math.max(0, r));
-      g = Math.min(255, Math.max(0, g));
-      b = Math.min(255, Math.max(0, b));
-      return (usePound ? "#" : "") + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
-    }
-
-    // Handling RGBA and RGB color format
-    if (col.startsWith("rgb")) {
-      let parts = col.match(/rgba?\((\d{1,3})\s*,?\s*(\d{1,3})\s*,?\s*(\d{1,3})(?:\s*\/\s*(\d+\.?\d*%?))?\)/i);
-      if (parts) {
-        let r = parseInt(parts[1]) + amt;
-        let g = parseInt(parts[2]) + amt;
-        let b = parseInt(parts[3]) + amt;
-        let a = parts[4] ? parseFloat(parts[4]) : 1;
-        r = Math.min(255, Math.max(0, r));
-        g = Math.min(255, Math.max(0, g));
-        b = Math.min(255, Math.max(0, b));
-
-        // Conditionally format output depending on alpha presence
-        if (parts[4]) {
-          return `rgba(${r}, ${g}, ${b}, ${a})`;
-        } else {
-          return `rgb(${r}, ${g}, ${b})`;
-        }
-      }
-    }
-    return col; // Return the original if format is not recognized  
-  }
-  static removeCookie() {
-    document.cookie = `cconsent=; expires=Thu, 01 Jan 1980 00:00:00 UTC; path=/;`;
-    //remove localStorage consentMode obj
-    localStorage.removeItem('consentMode');
-    window.CookieConsent.config.cookieExists = false;
-  }
-
-  // Create an array of services from Cookieconsent global object
-  // Filter based on category or leave empty is all is wanted
-  static listGlobalServices(category) {
-    let categories = [];
-
-    // Global config objectnot set
-    if (typeof window.CookieConsent === 'undefined') return categories;
-
-    // Category is not specified or opposite
-    if (typeof category === 'undefined') {
-      for (let key in window.CookieConsent.config.services) {
-        categories.push(key);
-      }
-    } else {
-      for (let key in window.CookieConsent.config.services) {
-        if (window.CookieConsent.config.services[key].category === category) categories.push(key);
-      }
-    }
-    return categories;
-  }
-  static dispatchEvent(elem, event) {
-    var event;
-    if (typeof Event === 'function') {
-      event = new Event(event);
-    } else {
-      event = document.createEvent('Event');
-      event.initEvent(event, true, true);
-    }
-    elem.dispatchEvent(event);
-  }
-}
-;// CONCATENATED MODULE: ./src/lib/Filter.js
-
-class Filter {
-  createBlacklist(type) {
-    var services = {};
-    for (var service in window.CookieConsent.config.services) {
-      if (window.CookieConsent.config.services[service].type === type) {
-        if (window.CookieConsent.config.categories[window.CookieConsent.config.services[service].category].needed === false) {
-          if (window.CookieConsent.config.categories[window.CookieConsent.config.services[service].category].wanted === false) {
-            services[service] = window.CookieConsent.config.services[service];
-          }
-        }
-      }
-    }
-    var blacklist = [];
-    for (var service in services) {
-      var type = Utilities.objectType(services[service].search);
-      if (type === 'String') {
-        blacklist.push(services[service].search);
-      } else if (type === 'Array') {
-        for (let i = 0; i < services[service].search.length; i++) {
-          blacklist.push(services[service].search[i]);
-        }
-      }
-    }
-    return blacklist;
-  }
-}
-;// CONCATENATED MODULE: ./src/lib/InsertScriptFilter.js
-
-class InsertScriptFilter extends Filter {
-  constructor() {
-    super();
-  }
-  init() {
-    this.overrideAppendChild();
-    this.overrideInsertBefore();
-  }
-  overrideAppendChild() {
-    Element.prototype.appendChild = function (elem) {
-      if (arguments[0].tagName === 'SCRIPT') {
-        //console.log('Appending:', arguments);
-        for (let key in window.CookieConsent.config.services) {
-          // Did user opt-in?
-          if (window.CookieConsent.config.services[key].type === 'dynamic-script') {
-            if (arguments[0].outerHTML.indexOf(window.CookieConsent.config.services[key].search) >= 0) {
-              if (window.CookieConsent.config.categories[window.CookieConsent.config.services[key].category].wanted === false) {
-                window.CookieConsent.buffer.appendChild.push({
-                  'this': this,
-                  'category': window.CookieConsent.config.services[key].category,
-                  arguments: arguments
-                });
-                return undefined;
-              }
-            }
-          }
-        }
-      }
-      return Node.prototype.appendChild.apply(this, arguments);
-    };
-  }
-  overrideInsertBefore() {
-    Element.prototype.insertBefore = function (elem) {
-      if (arguments[0].tagName === 'SCRIPT') {
-        //console.log('Inserting:', arguments);
-        for (let key in window.CookieConsent.config.services) {
-          // Did user opt-in?
-          if (window.CookieConsent.config.services[key].type === 'dynamic-script') {
-            if (arguments[0].outerHTML.indexOf(window.CookieConsent.config.services[key].search) >= 0) {
-              if (window.CookieConsent.config.categories[window.CookieConsent.config.services[key].category].wanted === false) {
-                window.CookieConsent.buffer.insertBefore.push({
-                  'this': this,
-                  'category': window.CookieConsent.config.services[key].category,
-                  arguments: arguments
-                });
-                return undefined;
-              }
-            }
-          }
-        }
-      }
-      return Node.prototype.insertBefore.apply(this, arguments);
-    };
-  }
-}
-;// CONCATENATED MODULE: ./src/lib/ScriptTagFilter.js
-
-
-class ScriptTagFilter extends Filter {
-  constructor() {
-    super();
-  }
-  init() {
-    this.filterTags();
-  }
-  filterTags() {
-    Utilities.ready(() => {
-      var blacklist = super.createBlacklist('script-tag');
-      var scriptTags = document.querySelectorAll('script[type="text/plain"]');
-      for (var scriptTag of scriptTags) {
-        if (blacklist.indexOf(scriptTag.dataset.consent) < 0) {
-          var newtag = document.createElement('script');
-          var parentNode = scriptTag.parentNode;
-          scriptTag.type = 'text/javascript';
-          for (var attribute of scriptTag.attributes) {
-            newtag.setAttribute(attribute.nodeName, attribute.nodeValue);
-          }
-          newtag.innerHTML = scriptTag.innerHTML;
-          parentNode.insertBefore(newtag, scriptTag);
-          parentNode.removeChild(scriptTag);
-        }
-      }
-    });
-  }
-}
-;// CONCATENATED MODULE: ./src/lib/WrapperFilter.js
-
-class WrapperFilter extends Filter {
-  constructor() {
-    super();
-  }
-  init() {
-    this.filterWrappers();
-  }
-  filterWrappers() {
-    var blacklist = super.createBlacklist('wrapped');
-    function wrapper() {
-      let name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      let callback = arguments.length > 1 ? arguments[1] : undefined;
-      if (blacklist.indexOf(name) < 0) {
-        callback();
-      }
-    }
-    window.CookieConsent.wrapper = wrapper;
-  }
-}
-;// CONCATENATED MODULE: ./src/lib/LocalCookieFilter.js
-
-class LocalCookieFilter extends Filter {
-  constructor() {
-    super();
-  }
-  init() {
-    this.filterlocalCookies();
-  }
-  getCookieDescriptor() {
-    var cookieDescriptor;
-    cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') || Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
-    if (!cookieDescriptor) {
-      cookieDescriptor = {};
-      cookieDescriptor.get = HTMLDocument.prototype.__lookupGetter__("cookie");
-      cookieDescriptor.set = HTMLDocument.prototype.__lookupSetter__("cookie");
-    }
-    return cookieDescriptor;
-  }
-  filterlocalCookies() {
-    // TODO - implement buffer
-    var blacklist = super.createBlacklist('localcookie');
-    var cookieDescriptor = this.getCookieDescriptor();
-    Object.defineProperty(document, "cookie", {
-      configurable: true,
-      get: function () {
-        return cookieDescriptor.get.apply(document);
-      },
-      set: function () {
-        var cookieArguments = arguments;
-        if (blacklist.length) {
-          var cookieName = arguments[0].split('=')[0];
-          Array.prototype.forEach.call(blacklist, function (blacklistItem) {
-            if (cookieName.indexOf(blacklistItem) < 0) cookieDescriptor.set.apply(document, cookieArguments);
-          });
-        } else {
-          cookieDescriptor.set.apply(document, cookieArguments);
-        }
-      }
-    });
-  }
-}
 ;// CONCATENATED MODULE: ./node_modules/redom/dist/redom.es.js
 function parseQuery (query) {
   var chunks = query.split(/([#.])/);
@@ -1012,6 +745,295 @@ function memoizeSVG (query) {
 
 
 
+;// CONCATENATED MODULE: ./src/lib/Utilities.js
+
+class Utilities {
+  static ready(fn) {
+    if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+  static objectType(obj) {
+    return Object.prototype.toString.call(obj).slice(8, -1);
+  }
+  static lightenDarkenColor(col, amt) {
+    let usePound = false;
+
+    // Handling HEX color format
+    if (col[0] === '#') {
+      col = col.slice(1);
+      usePound = true;
+      let num = parseInt(col, 16);
+      let r = (num >> 16) + amt;
+      let g = (num >> 8 & 0x00ff) + amt;
+      let b = (num & 0x0000ff) + amt;
+      r = Math.min(255, Math.max(0, r));
+      g = Math.min(255, Math.max(0, g));
+      b = Math.min(255, Math.max(0, b));
+      return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+    }
+
+    // Handling RGBA and RGB color format
+    if (col.startsWith('rgb')) {
+      let parts = col.match(/rgba?\((\d{1,3})\s*,?\s*(\d{1,3})\s*,?\s*(\d{1,3})(?:\s*\/\s*(\d+\.?\d*%?))?\)/i);
+      if (parts) {
+        let r = parseInt(parts[1]) + amt;
+        let g = parseInt(parts[2]) + amt;
+        let b = parseInt(parts[3]) + amt;
+        let a = parts[4] ? parseFloat(parts[4]) : 1;
+        r = Math.min(255, Math.max(0, r));
+        g = Math.min(255, Math.max(0, g));
+        b = Math.min(255, Math.max(0, b));
+
+        // Conditionally format output depending on alpha presence
+        if (parts[4]) {
+          return `rgba(${r}, ${g}, ${b}, ${a})`;
+        } else {
+          return `rgb(${r}, ${g}, ${b})`;
+        }
+      }
+    }
+    return col; // Return the original if format is not recognized
+  }
+  static removeCookie() {
+    document.cookie = `cconsent=; expires=Thu, 01 Jan 1980 00:00:00 UTC; path=/;`;
+    //remove localStorage consentMode obj
+    localStorage.removeItem('consentMode');
+    window.CookieConsent.config.cookieExists = false;
+  }
+
+  // Create an array of services from Cookieconsent global object
+  // Filter based on category or leave empty is all is wanted
+  static listGlobalServices(category) {
+    let categories = [];
+
+    // Global config objectnot set
+    if (typeof window.CookieConsent === 'undefined') return categories;
+
+    // Category is not specified or opposite
+    if (typeof category === 'undefined') {
+      for (let key in window.CookieConsent.config.services) {
+        categories.push(key);
+      }
+    } else {
+      for (let key in window.CookieConsent.config.services) {
+        if (window.CookieConsent.config.services[key].category === category) categories.push(key);
+      }
+    }
+    return categories;
+  }
+  static dispatchEvent(elem, event) {
+    var event;
+    if (typeof Event === 'function') {
+      event = new Event(event);
+    } else {
+      event = document.createEvent('Event');
+      event.initEvent(event, true, true);
+    }
+    elem.dispatchEvent(event);
+  }
+
+  // Parse HTML and creates paragraph with links
+  static parseAndCreateParagraph(htmlString) {
+    const paragraph = el('p');
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlString;
+    tempDiv.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        paragraph.appendChild(el('span', node.textContent));
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() === 'a') {
+        const href = node.getAttribute('href');
+        const text = node.textContent;
+        paragraph.appendChild(el('a', {
+          href: href,
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        }, text));
+      }
+    });
+    return paragraph;
+  }
+}
+;// CONCATENATED MODULE: ./src/lib/Filter.js
+
+class Filter {
+  createBlacklist(type) {
+    var services = {};
+    for (var service in window.CookieConsent.config.services) {
+      if (window.CookieConsent.config.services[service].type === type) {
+        if (window.CookieConsent.config.categories[window.CookieConsent.config.services[service].category].needed === false) {
+          if (window.CookieConsent.config.categories[window.CookieConsent.config.services[service].category].wanted === false) {
+            services[service] = window.CookieConsent.config.services[service];
+          }
+        }
+      }
+    }
+    var blacklist = [];
+    for (var service in services) {
+      var type = Utilities.objectType(services[service].search);
+      if (type === 'String') {
+        blacklist.push(services[service].search);
+      } else if (type === 'Array') {
+        for (let i = 0; i < services[service].search.length; i++) {
+          blacklist.push(services[service].search[i]);
+        }
+      }
+    }
+    return blacklist;
+  }
+}
+;// CONCATENATED MODULE: ./src/lib/InsertScriptFilter.js
+
+class InsertScriptFilter extends Filter {
+  constructor() {
+    super();
+  }
+  init() {
+    this.overrideAppendChild();
+    this.overrideInsertBefore();
+  }
+  overrideAppendChild() {
+    Element.prototype.appendChild = function (elem) {
+      if (arguments[0].tagName === 'SCRIPT') {
+        //console.log('Appending:', arguments);
+        for (let key in window.CookieConsent.config.services) {
+          // Did user opt-in?
+          if (window.CookieConsent.config.services[key].type === 'dynamic-script') {
+            if (arguments[0].outerHTML.indexOf(window.CookieConsent.config.services[key].search) >= 0) {
+              if (window.CookieConsent.config.categories[window.CookieConsent.config.services[key].category].wanted === false) {
+                window.CookieConsent.buffer.appendChild.push({
+                  'this': this,
+                  'category': window.CookieConsent.config.services[key].category,
+                  arguments: arguments
+                });
+                return undefined;
+              }
+            }
+          }
+        }
+      }
+      return Node.prototype.appendChild.apply(this, arguments);
+    };
+  }
+  overrideInsertBefore() {
+    Element.prototype.insertBefore = function (elem) {
+      if (arguments[0].tagName === 'SCRIPT') {
+        //console.log('Inserting:', arguments);
+        for (let key in window.CookieConsent.config.services) {
+          // Did user opt-in?
+          if (window.CookieConsent.config.services[key].type === 'dynamic-script') {
+            if (arguments[0].outerHTML.indexOf(window.CookieConsent.config.services[key].search) >= 0) {
+              if (window.CookieConsent.config.categories[window.CookieConsent.config.services[key].category].wanted === false) {
+                window.CookieConsent.buffer.insertBefore.push({
+                  'this': this,
+                  'category': window.CookieConsent.config.services[key].category,
+                  arguments: arguments
+                });
+                return undefined;
+              }
+            }
+          }
+        }
+      }
+      return Node.prototype.insertBefore.apply(this, arguments);
+    };
+  }
+}
+;// CONCATENATED MODULE: ./src/lib/ScriptTagFilter.js
+
+
+class ScriptTagFilter extends Filter {
+  constructor() {
+    super();
+  }
+  init() {
+    this.filterTags();
+  }
+  filterTags() {
+    Utilities.ready(() => {
+      var blacklist = super.createBlacklist('script-tag');
+      var scriptTags = document.querySelectorAll('script[type="text/plain"]');
+      for (var scriptTag of scriptTags) {
+        if (blacklist.indexOf(scriptTag.dataset.consent) < 0) {
+          var newtag = document.createElement('script');
+          var parentNode = scriptTag.parentNode;
+          scriptTag.type = 'text/javascript';
+          for (var attribute of scriptTag.attributes) {
+            newtag.setAttribute(attribute.nodeName, attribute.nodeValue);
+          }
+          newtag.innerHTML = scriptTag.innerHTML;
+          parentNode.insertBefore(newtag, scriptTag);
+          parentNode.removeChild(scriptTag);
+        }
+      }
+    });
+  }
+}
+;// CONCATENATED MODULE: ./src/lib/WrapperFilter.js
+
+class WrapperFilter extends Filter {
+  constructor() {
+    super();
+  }
+  init() {
+    this.filterWrappers();
+  }
+  filterWrappers() {
+    var blacklist = super.createBlacklist('wrapped');
+    function wrapper() {
+      let name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      let callback = arguments.length > 1 ? arguments[1] : undefined;
+      if (blacklist.indexOf(name) < 0) {
+        callback();
+      }
+    }
+    window.CookieConsent.wrapper = wrapper;
+  }
+}
+;// CONCATENATED MODULE: ./src/lib/LocalCookieFilter.js
+
+class LocalCookieFilter extends Filter {
+  constructor() {
+    super();
+  }
+  init() {
+    this.filterlocalCookies();
+  }
+  getCookieDescriptor() {
+    var cookieDescriptor;
+    cookieDescriptor = Object.getOwnPropertyDescriptor(document, 'cookie') || Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
+    if (!cookieDescriptor) {
+      cookieDescriptor = {};
+      cookieDescriptor.get = HTMLDocument.prototype.__lookupGetter__("cookie");
+      cookieDescriptor.set = HTMLDocument.prototype.__lookupSetter__("cookie");
+    }
+    return cookieDescriptor;
+  }
+  filterlocalCookies() {
+    // TODO - implement buffer
+    var blacklist = super.createBlacklist('localcookie');
+    var cookieDescriptor = this.getCookieDescriptor();
+    Object.defineProperty(document, "cookie", {
+      configurable: true,
+      get: function () {
+        return cookieDescriptor.get.apply(document);
+      },
+      set: function () {
+        var cookieArguments = arguments;
+        if (blacklist.length) {
+          var cookieName = arguments[0].split('=')[0];
+          Array.prototype.forEach.call(blacklist, function (blacklistItem) {
+            if (cookieName.indexOf(blacklistItem) < 0) cookieDescriptor.set.apply(document, cookieArguments);
+          });
+        } else {
+          cookieDescriptor.set.apply(document, cookieArguments);
+        }
+      }
+    });
+  }
+}
 ;// CONCATENATED MODULE: ./src/lib/Language.js
 class Language {
   setLocale(locale) {
@@ -1123,11 +1145,7 @@ class Interface {
     }
     return el('dialog#cconsent-modal', el('div.ccm__content', el('div.ccm__content__heading', el('strong#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle'), {
       'aria-label': 'Cookie Consent options'
-    }), el('p', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'), window.CookieConsent.config.modalMainTextMoreLink ? el('a', {
-      href: window.CookieConsent.config.modalMainTextMoreLink,
-      target: '_blank',
-      rel: 'noopener noreferrer'
-    }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null), el('button.ccm__cheading__close', '×', {
+    }), Utilities.parseAndCreateParagraph(Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText')), el('button.ccm__cheading__close', '×', {
       'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'closeAriaLabel')
     })), el('div.ccm__content__body', el('div.ccm__tabs', modalTabGroups())), el('div.ccm__footer', el('button#ccm__footer__consent-modal-submit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnSave')), window.CookieConsent.config.showRejectAllButton && el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnRejectAll')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalBtnAcceptAll')))), {
       'aria-labelledby': 'ccm__content__title',
@@ -1137,11 +1155,7 @@ class Interface {
   buildInitialModal() {
     return el('dialog#cconsent-init-modal', el('div.ccm__content', el('div.ccm__content__heading', el('strong#init__ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle'), {
       'aria-label': 'Cookie Consent'
-    }), el('p', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'), window.CookieConsent.config.modalMainTextMoreLink ? el('a', {
-      href: window.CookieConsent.config.modalMainTextMoreLink,
-      target: '_blank',
-      rel: 'noopener noreferrer'
-    }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null)), el('div.ccm__footer', el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnDisagree')), el('button.ccm__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnOptions')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnAgree')))), {
+    }), Utilities.parseAndCreateParagraph(Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'))), el('div.ccm__footer', el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnDisagree')), el('button.ccm__edit', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnOptions')), el('button.consent-give', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnAgree')))), {
       'aria-labelledby': 'init__ccm__content__title',
       'aria-hidden': 'true'
     });
@@ -1516,7 +1530,6 @@ class Configuration {
       cookieExists: false,
       cookieVersion: 1,
       mode: 'bar',
-      modalMainTextMoreLink: null,
       showRejectAllButton: false,
       UITimeout: 1000,
       noUI: false,
