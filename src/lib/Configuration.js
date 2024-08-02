@@ -20,7 +20,6 @@ export default class Configuration {
       cookieExists: false,
       cookieVersion: 1,
       mode: 'bar',
-      modalMainTextMoreLink: null,
       showRejectAllButton: false,
       UITimeout: 1000,
       noUI: false,

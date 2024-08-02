@@ -53,8 +53,6 @@ The script is being controlled mainly by a configuration object which is passed 
 ```javascript
 <script>
   window.CookieConsent.init({
-    // More link URL on bar.
-    modalMainTextMoreLink: null,
     // How long to wait until bar or initial modal comes up.
     UITimeout: 1000,
     // Show 'bar' or 'modal' initial layout
@@ -158,6 +156,7 @@ The script is being controlled mainly by a configuration object which is passed 
           barLinkSetting: 'Cookie Settings',
           barBtnAcceptAll: 'Accept all cookies',
           modalMainTitle: 'Cookie settings',
+          // You can insert <a> tags within this prop to render links
           modalMainText: 'Cookies are small pieces of data sent from a website and stored on the user\'s computer by the user\'s web browser while the user is browsing. Your browser stores each message in a small file, called cookie. When you request another page from the server, your browser sends the cookie back to the server. Cookies were designed to be a reliable mechanism for websites to remember information or to record the user\'s browsing activity.',
           modalBtnSave: 'Save current settings',
           modalBtnAcceptAll: 'Accept all cookies and close',

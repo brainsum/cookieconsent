@@ -187,10 +187,7 @@ export default class Interface {
       el('div.ccm__content',
         el('div.ccm__content__heading',
           el('strong#ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle'), { 'aria-label': 'Cookie Consent options'}),
-          el('p',
-            Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'),
-            (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null
-          ),
+            Utilities.parseAndCreateParagraph(Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText')),
           el('button.ccm__cheading__close', '×', { 'aria-label': Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'closeAriaLabel') })
         ),
         el('div.ccm__content__body',
@@ -212,10 +209,7 @@ export default class Interface {
       el('div.ccm__content',
         el('div.ccm__content__heading',
           el('strong#init__ccm__content__title', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainTitle'), { 'aria-label': 'Cookie Consent'}),
-          el('p',
-            Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText'),
-            (window.CookieConsent.config.modalMainTextMoreLink) ? el('a', { href: window.CookieConsent.config.modalMainTextMoreLink, target: '_blank', rel: 'noopener noreferrer' }, Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'learnMore')) : null
-          ),
+          Utilities.parseAndCreateParagraph(Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'modalMainText')),
         ),
         el('div.ccm__footer',
           el('button.consent-decline', Language.getTranslation(window.CookieConsent.config, window.CookieConsent.config.language.current, 'initModalBtnDisagree')),
