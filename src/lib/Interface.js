@@ -6,6 +6,7 @@ export default class Interface {
 
   constructor() {
     this.elements = {};
+    this.updateConsentModeFn = null;
   }
 
 
@@ -269,6 +270,29 @@ export default class Interface {
     if (typeof callback === 'undefined') callback = function(){};
     var that = this;
 
+    if (window.CookieConsent.config.consentModeHandler == 'gtm-template') {
+      // method called from GTM Custom consent mode template to pass an updateConsent callback
+      window.updateConsentModeSetterFn = (cb) => {
+        this.updateConsentModeFn = cb;
+      }; 
+
+      // method called from GTM Custom consent mode template to pass an updateCategoriesBasedOnConsent callback to update UI
+      window.updateCategoriesBasedOnConsentSetter = function(data) {
+        Utilities.updateCategoriesBasedOnConsent(data)
+      }
+    } else if (window.CookieConsent.config.consentModeHandler == 'gtag') {
+        this.updateConsentModeFn = function updateConsentMode(consentMode) {
+          const isGTMEnabled = window.dataLayer || false;
+
+            if(isGTMEnabled) {
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'update', consentMode);
+              localStorage.setItem('consentMode', JSON.stringify(consentMode))
+            }
+        }
+    }
+
+
     Utilities.ready(function() {
       if (window.CookieConsent.config.noUI) {
         that.writeBufferToDOM();
@@ -531,6 +555,9 @@ export default class Interface {
       }
     });
 
+    // If updateCategoriesBasedOnConsent is called from GTM to change default UI based on consent
+    document.addEventListener('updateCategories', this.modalRedrawIcons.bind(this));
+
     // If you click submit on cookie settings
     document.getElementById('ccm__footer__consent-modal-submit').addEventListener('click', () => {
 
@@ -587,15 +614,6 @@ export default class Interface {
     }
   }
 
-  updateConsentMode(cookie) {
-    const isGTMEnabled = window.dataLayer || false;
-
-      if(isGTMEnabled) {
-        function gtag(){dataLayer.push(arguments);}
-        gtag('consent', 'update', cookie.consentMode);
-        localStorage.setItem('consentMode', JSON.stringify(cookie.consentMode))
-      }
-  }
 
   buildCookie(callback) {
     let cookie = {
@@ -617,7 +635,7 @@ export default class Interface {
 
     cookie.services = Utilities.listGlobalServices();
 
-    this.updateConsentMode(cookie);
+    if (this.updateConsentModeFn) this.updateConsentModeFn(cookie.consentMode);
     if (callback) callback(cookie);
     return cookie;
   }

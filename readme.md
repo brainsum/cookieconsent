@@ -267,13 +267,15 @@ The script is being controlled mainly by a configuration object which is passed 
       ad_personalization: 'necessary'
       analytics_storage: 'necessary'
     },
+    // whether consent mode updates will be handled by gtag or via custom GTM template. The value by default is null. Can have 'gtag' or 'gtm-template' values.
+    consentModeHandler: 'gtm-template'
   });
   </script>
 ```
 
 ## Consent Mode v2
 
-[Google consent mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) v2 is supported. For it's implementation you need to add a consentModeControls object withing the configuration settings to list the consent types and what categories will control them just as described in the example. Please, bear in mind that Google Tag Manager should be initialized with the default consent settings as per this example:
+[Google consent mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) v2 is supported. For it's implementation you need to add a consentModeControls object withing the configuration settings to list the consent types and what categories will control them just as described in the example. You will also need to add a `consentModeHandler: 'gtag'` option to the settings. Please, bear in mind that Google Tag Manager should be initialized with the default consent settings as per this example:
 
 ```javascript
   <!-- Google Tag Manager -->

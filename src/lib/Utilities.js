@@ -137,4 +137,26 @@ export default class Utilities {
 
 		return paragraph;
 	}
+  
+  // get regional consent type defaults from GTM template to set default UI on banner
+  static updateCategoriesBasedOnConsent = (data) => {
+    const {categories, consentModeControls} = window.CookieConsent.config;
+  
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const categoryKey = consentModeControls[key];
+        if (categoryKey && categories[categoryKey]) {
+          categories[categoryKey].checked = categories[categoryKey].wanted = data[key];
+        }
+      }
+    }
+
+    // Dispatch the custom event
+    const event = new CustomEvent('updateCategories', {
+      detail: { message: 'Categories updated', categories }
+    });
+    document.dispatchEvent(event);
+  };
 }
+
+
