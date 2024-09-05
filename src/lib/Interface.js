@@ -256,7 +256,7 @@ export default class Interface {
       callback(elem);
       return elem;
     } else {
-      var insertedElem = mount(document.body, elem, document.body.firstChild);
+      var insertedElem = mount(document.body, elem, document.body.lastChild);
       if (insertedElem) {
         this.elements[name] = insertedElem;
       }
